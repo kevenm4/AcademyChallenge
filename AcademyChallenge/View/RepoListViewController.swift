@@ -1,0 +1,25 @@
+//
+//  RepoListViewController.swift
+//  AcademyChallenge
+//
+//  Created by Keven Esmael on 26/09/2022.
+//
+
+import UIKit
+
+class RepoListViewController: UIViewController, Coordinating {
+	var coordinator: Coordinator?
+	
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+		title = "Repo List"
+				view.backgroundColor = .blue
+
+        // Do any additional setup after loading the view.
+    }
+    
+
+
+
+}
