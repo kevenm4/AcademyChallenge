@@ -20,6 +20,8 @@ class MainPageViewControler: UIViewController, Coordinating {
 	private var searchButton: UIButton
 	private var searchInput: UISearchBar
 	private var image : UIImageView
+	private var containerView : UIView
+	
 	init() {
 		
 		randomButton = .init(type: .system)
@@ -28,21 +30,27 @@ class MainPageViewControler: UIViewController, Coordinating {
 		repoList = .init(type: .system)
 		avatarList = .init(type: .system)
 		searchInput = .init()
+		containerView = .init(frame : .zero)
 		image = .init(frame: .zero)
 		secondStackView = .init(arrangedSubviews: [searchInput,searchButton])
 		stackView = .init(arrangedSubviews: [randomButton,emojiList,secondStackView,avatarList,repoList])
+		
 		super.init(nibName: nil, bundle: nil)
 	}
+	
+	
 	required init(coder: NSCoder) {
 		
 		fatalError("init(coder:) has not been implemented")
 		
 	}
+	
 	override func viewDidLoad() {
+		
 		super.viewDidLoad()
 		
-		let url = URL(string: "https://github.githubassets.com/images/icons/emoji/unicode/1f1e6-1f1e9.png?v8")!
-		   downloadImage(from: url)
+		let url = URL(string: "https://github.githubassets.com/images/icons/emoji/unicode/1f329.png?v8")!
+		downloadImage(from: url)
 		
 		view.backgroundColor = .blue
 		view.tintColor = .gray
@@ -52,13 +60,8 @@ class MainPageViewControler: UIViewController, Coordinating {
 		setUpButton()
 		
 		
-		// Do any additional setup after loading the view.
 	}
 
-	//override func viewWillAppear(_ animated: Bool) {
-		//super.viewWillAppear(animated)
-		//navigationController?.setNavigationBarHidden(true, animated: animated)
-	//}
 	// 1- setUp the view
 	
 	private func setUpView(){
@@ -73,6 +76,7 @@ class MainPageViewControler: UIViewController, Coordinating {
 		repoList.setTitle("APPLE REPOS", for: .normal)
 		
 	}
+	
 	
 	// 2- setUp button
 	
@@ -90,11 +94,16 @@ class MainPageViewControler: UIViewController, Coordinating {
 		repoList.setTitleColor(.white, for: .normal)
 		repoList.addTarget(self, action: #selector(didTapRepoiList), for: .touchUpInside)
 		repoList.configuration = .filled()
-		//image.image = UIImage(named: "emoji")
+	    //containerView.backgroundColor = .white
 		
 	}
+	
+	//3- Add image from internet
+	
+	
 	func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
 		URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
+		
 	}
 	
 	func downloadImage(from url: URL) {
@@ -108,32 +117,37 @@ class MainPageViewControler: UIViewController, Coordinating {
 		}
 	}
 	
-	// 3- Add to superView
+	// 4- Add to superView
 	
 	private func addtoSuperView(){
 		view.addSubview(stackView)
-		view.addSubview(image)
+		containerView.addSubview(image)
+		view.addSubview(containerView)
 		
 	}
 	
-	// 4- set the constraints
+	// 5- set the constraints
 	
 	private func setUpConstraints(){
 		stackView.translatesAutoresizingMaskIntoConstraints = false
+		containerView.translatesAutoresizingMaskIntoConstraints = false
 		image.translatesAutoresizingMaskIntoConstraints = false
-	
 		NSLayoutConstraint.activate([
 			stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 			stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 80),
 			stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
 			stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-			image.leadingAnchor.constraint(equalTo: view.leadingAnchor , constant: 20),
-			image.trailingAnchor.constraint(equalTo: view.trailingAnchor , constant: -20),
-			image.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-			image.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -20),
+			containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor , constant: 20),
+			containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor , constant: -20),
+			containerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+			containerView.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -20),
+			image.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+			image.centerYAnchor.constraint(equalTo: containerView.centerYAnchor)
 			
 		])
 	}
+	
+	// 6- Button func to call event
 	
 	@objc func didTapEmojiList() {
 		

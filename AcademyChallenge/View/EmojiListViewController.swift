@@ -6,113 +6,90 @@
 //
 
 import UIKit
-
-indirect enum EmojiAsEnum {
-	case anEmoji(image: String?, name: String?)
-	case anotherEmoji(int: Int)
-	case yetAnotherEmoji(emoji: [EmojiAsEnum])
-	func displayName(for language: String) -> String {
-		if language == "pt" {
-			switch self {
-			case .anEmoji(let image, let name):
-				return "pt Yet Another Emoji"
-			case .anotherEmoji:
-				return "pt Another Emoji"
-			case .yetAnotherEmoji(let emoji):
-				return "pt Yet Another Emoji"
-			}
-		} else {
-			switch self {
-			case .anEmoji(let image, let name):
-				return "en Yet Another Emoji"
-			case .anotherEmoji:
-				return "en Another Emoji"
-			case .yetAnotherEmoji(let emoji):
-				return "en Yet Another Emoji"
-			}
-		}
-	}
-	
-}
-
-extension EmojiAsEnum {
-	var displayName: String {
-		switch self {
-		case .anEmoji(let image, let name):
-			return "Yet Another Emoji"
-		case .anotherEmoji:
-			return "Another Emoji"
-		case .yetAnotherEmoji(let emoji):
-			return "Yet Another Emoji"
-		}
-	}
-}
-struct EmojiAsStruct: Equatable {
-	var image: String?
-	var name: String?
-	
-	func businessLogic() {
-		
-	}
-}
-
-class EmojiAsClass: Equatable {
-	static func == (lhs: EmojiAsClass, rhs: EmojiAsClass) -> Bool {
-		lhs.name == rhs.name && lhs.image == rhs.image
-	}
-	
-	var image: String?
-	var name: String?
-	
-	init(image: String?, name: String?) {
-		self.image = image
-		self.name = name
-	}
-	func businessLogic() {
-		
+import Alamofire
+class EmojiListViewController: UIViewController, Coordinating, UICollectionViewDelegate, UICollectionViewDataSource {
+	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+		<#code#>
 	}
 	
 	
-}
-
-class EmojiListViewController: UIViewController, Coordinating {
+	
 	var coordinator: Coordinator?
 	
-	var emojiAsEnumList: [EmojiAsEnum] = []
-	var emojiAsStructList: [EmojiAsStruct] = []
-	var emojiAsClassList: [EmojiAsClass] = []
-
+	private var collectionEmojis : UICollectionView?
+	private var emojisList : [String : String] = [:]
+	
+	
     override func viewDidLoad() {
         super.viewDidLoad()
-
+		
+//		let request = AF.request("https://api.github.com/emojis")
+//
+//		request.responseJSON{(data) in
+//
+//
+//			print(data)
+//			print(data.data?.count)
+//		}
+		getAllEmojis()
 		view.backgroundColor = .blue
-        // Do any additional setup after loading the view.
 		
-		emojiAsEnumList = [.anEmoji(image: "", name: "")]
-		emojiAsStructList = [.init(image: "", name: "")]
-		emojiAsClassList = [.init(image: "", name: "")]
+		title = "Emoji List"
+       let layout = UICollectionViewFlowLayout()
 		
-		let a: EmojiAsClass = .init(image: "1", name:"1️⃣")
-		let b: EmojiAsClass = .init(image: "1", name:"1️⃣")
+		layout.scrollDirection = .vertical
 		
-		let a1: EmojiAsStruct = .init(image: "1", name:"1️⃣")
-		let b1: EmojiAsStruct = .init(image: "1", name:"1️⃣")
-		
-		let c: EmojiAsEnum = .anEmoji(image: "3", name: "😃")
-		
-		title = c.displayName(for: "en")
-		
-		switch c {
-		case .anEmoji(let image, let name):
-			print("\(image) \(name)")
-		default:
-			print("asd")
+		collectionEmojis = UICollectionView (frame: .zero, collectionViewLayout: layout)
+		guard let collectionEmojis = collectionEmojis else {
+			return
 		}
-		
-		print(a == b) //ruben: true, keven: true, daniel: true, janela: true
-		print(a === b) //all:false
-		
-		print(a1 == b1) //ruben: true, keven: true, daniel: true, janela: true
+		collectionEmojis.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+		collectionEmojis.dataSource = self
+		collectionEmojis.delegate = self
+		view.addSubview(collectionEmojis)
+		collectionEmojis.frame = view.bounds
+		collectionEmojis.reloadData()
     }
+	
+	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+		return emojisList.count
+	}
+	
+	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> EmojiListCellCollectionViewCell {
+		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! EmojiListCellCollectionViewCell
+		cell.setup(image: <#T##UIImage#>)
+		
+
+		return cell
+	}
+	func getAllEmojis(){
+		let url = URL(string: "https://api.github.com/emojis")!
+
+		var request = URLRequest(url: url)
+
+		print(request)
+		request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+		let task = URLSession.shared.dataTask(with: url) { data, response, error in
+			if let data = data {
+				let json = try? JSONSerialization.jsonObject(with: data) as? Dictionary<String,String>
+		//        print(json!)
+		//        print(data)
+				//print(String(data: data, encoding: .utf8))
+				if let array = json {
+					print(array.count)
+						self.emojisList = array
+//					for (emojiName,emojiUrl) in array {
+//						print("Item \(emojiName): URL: \(emojiUrl)\n")
+//					}
+				}
+				//print(String(data: data, encoding: .utf8))
+			} else if let error = error {
+				print("HTTP Request Failed \(error)")
+			}
+		}
+
+		task.resume()
+	}
 
 }

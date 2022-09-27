@@ -12,7 +12,8 @@
 		4CCED29A28E1B1FD00BC8729 /* MainPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCED29928E1B1FD00BC8729 /* MainPageCoordinator.swift */; };
 		4CCED29C28E1BBBD00BC8729 /* AvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCED29B28E1BBBD00BC8729 /* AvatarViewController.swift */; };
 		4CCED29E28E1BC0900BC8729 /* RepoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCED29D28E1BC0900BC8729 /* RepoListViewController.swift */; };
-		4CCED2A128E2047D00BC8729 /* Emojis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCED2A028E2047D00BC8729 /* Emojis.swift */; };
+		4CD1EE1228E31B3A0095B927 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 4CD1EE1128E31B3A0095B927 /* Alamofire */; };
+		4CD1EE1428E354000095B927 /* EmojiListCellCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD1EE1328E354000095B927 /* EmojiListCellCollectionViewCell.swift */; };
 		4CE38D7028DDB5CA0000B72B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE38D6F28DDB5CA0000B72B /* AppDelegate.swift */; };
 		4CE38D7228DDB5CA0000B72B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE38D7128DDB5CA0000B72B /* SceneDelegate.swift */; };
 		4CE38D7428DDB5CA0000B72B /* MainPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE38D7328DDB5CA0000B72B /* MainPageViewController.swift */; };
@@ -26,7 +27,7 @@
 		4CCED29928E1B1FD00BC8729 /* MainPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageCoordinator.swift; sourceTree = "<group>"; };
 		4CCED29B28E1BBBD00BC8729 /* AvatarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarViewController.swift; sourceTree = "<group>"; };
 		4CCED29D28E1BC0900BC8729 /* RepoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoListViewController.swift; sourceTree = "<group>"; };
-		4CCED2A028E2047D00BC8729 /* Emojis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emojis.swift; sourceTree = "<group>"; };
+		4CD1EE1328E354000095B927 /* EmojiListCellCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiListCellCollectionViewCell.swift; sourceTree = "<group>"; };
 		4CE38D6C28DDB5CA0000B72B /* AcademyChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AcademyChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CE38D6F28DDB5CA0000B72B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4CE38D7128DDB5CA0000B72B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -41,19 +42,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CD1EE1228E31B3A0095B927 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4CCED29F28E2032B00BC8729 /* View Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "View Model";
-			sourceTree = "<group>";
-		};
 		4CE38D6328DDB5CA0000B72B = {
 			isa = PBXGroup;
 			children = (
@@ -73,8 +68,6 @@
 		4CE38D6E28DDB5CA0000B72B /* AcademyChallenge */ = {
 			isa = PBXGroup;
 			children = (
-				4CE38D8328DDBD150000B72B /* Model */,
-				4CCED29F28E2032B00BC8729 /* View Model */,
 				4CE38D8428DDBD580000B72B /* View */,
 				4CE38D7128DDB5CA0000B72B /* SceneDelegate.swift */,
 				4CE38D7828DDB5CE0000B72B /* Assets.xcassets */,
@@ -86,14 +79,6 @@
 			path = AcademyChallenge;
 			sourceTree = "<group>";
 		};
-		4CE38D8328DDBD150000B72B /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				4CCED2A028E2047D00BC8729 /* Emojis.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		4CE38D8428DDBD580000B72B /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -102,6 +87,7 @@
 				4CCED29528E1ADC600BC8729 /* EmojiListViewController.swift */,
 				4CCED29B28E1BBBD00BC8729 /* AvatarViewController.swift */,
 				4CCED29D28E1BC0900BC8729 /* RepoListViewController.swift */,
+				4CD1EE1328E354000095B927 /* EmojiListCellCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -122,6 +108,9 @@
 			dependencies = (
 			);
 			name = AcademyChallenge;
+			packageProductDependencies = (
+				4CD1EE1128E31B3A0095B927 /* Alamofire */,
+			);
 			productName = AcademyChallenge;
 			productReference = 4CE38D6C28DDB5CA0000B72B /* AcademyChallenge.app */;
 			productType = "com.apple.product-type.application";
@@ -150,6 +139,9 @@
 				Base,
 			);
 			mainGroup = 4CE38D6328DDB5CA0000B72B;
+			packageReferences = (
+				4CD1EE1028E31B3A0095B927 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = 4CE38D6D28DDB5CA0000B72B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -176,7 +168,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4CCED2A128E2047D00BC8729 /* Emojis.swift in Sources */,
+				4CD1EE1428E354000095B927 /* EmojiListCellCollectionViewCell.swift in Sources */,
 				4CCED29E28E1BC0900BC8729 /* RepoListViewController.swift in Sources */,
 				4CCED29A28E1B1FD00BC8729 /* MainPageCoordinator.swift in Sources */,
 				4CE38D7428DDB5CA0000B72B /* MainPageViewController.swift in Sources */,
@@ -390,6 +382,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4CD1EE1028E31B3A0095B927 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4CD1EE1128E31B3A0095B927 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4CD1EE1028E31B3A0095B927 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4CE38D6428DDB5CA0000B72B /* Project object */;
 }
