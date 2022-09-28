@@ -13,6 +13,7 @@
 		4CCED29C28E1BBBD00BC8729 /* AvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCED29B28E1BBBD00BC8729 /* AvatarViewController.swift */; };
 		4CCED29E28E1BC0900BC8729 /* RepoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCED29D28E1BC0900BC8729 /* RepoListViewController.swift */; };
 		4CD1EE1228E31B3A0095B927 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 4CD1EE1128E31B3A0095B927 /* Alamofire */; };
+		4CD2290928E482A600F11863 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD2290828E482A600F11863 /* CollectionViewCell.swift */; };
 		4CE38D7028DDB5CA0000B72B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE38D6F28DDB5CA0000B72B /* AppDelegate.swift */; };
 		4CE38D7228DDB5CA0000B72B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE38D7128DDB5CA0000B72B /* SceneDelegate.swift */; };
 		4CE38D7428DDB5CA0000B72B /* MainPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE38D7328DDB5CA0000B72B /* MainPageViewController.swift */; };
@@ -26,6 +27,7 @@
 		4CCED29928E1B1FD00BC8729 /* MainPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageCoordinator.swift; sourceTree = "<group>"; };
 		4CCED29B28E1BBBD00BC8729 /* AvatarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarViewController.swift; sourceTree = "<group>"; };
 		4CCED29D28E1BC0900BC8729 /* RepoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoListViewController.swift; sourceTree = "<group>"; };
+		4CD2290828E482A600F11863 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		4CE38D6C28DDB5CA0000B72B /* AcademyChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AcademyChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CE38D6F28DDB5CA0000B72B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4CE38D7128DDB5CA0000B72B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 				4CCED29728E1B09600BC8729 /* Coordinator.swift */,
 				4CCED29928E1B1FD00BC8729 /* MainPageCoordinator.swift */,
 				4CE38D6F28DDB5CA0000B72B /* AppDelegate.swift */,
+				4CD2290828E482A600F11863 /* CollectionViewCell.swift */,
 			);
 			path = AcademyChallenge;
 			sourceTree = "<group>";
@@ -167,6 +170,7 @@
 			files = (
 				4CCED29E28E1BC0900BC8729 /* RepoListViewController.swift in Sources */,
 				4CCED29A28E1B1FD00BC8729 /* MainPageCoordinator.swift in Sources */,
+				4CD2290928E482A600F11863 /* CollectionViewCell.swift in Sources */,
 				4CE38D7428DDB5CA0000B72B /* MainPageViewController.swift in Sources */,
 				4CE38D7028DDB5CA0000B72B /* AppDelegate.swift in Sources */,
 				4CCED29828E1B09600BC8729 /* Coordinator.swift in Sources */,

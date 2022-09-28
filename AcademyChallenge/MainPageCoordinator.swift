@@ -18,6 +18,7 @@ class MainPageCoordinator: Coordinator {
 			
 			var emojisList: UIViewController & Coordinating = EmojiListViewController()
 			emojisList.coordinator = self
+			
 			navigationController?.pushViewController(emojisList, animated: true)
 			
 		case .buttonTappedAvatarList:

@@ -75,7 +75,7 @@ class MainPageViewControler: UIViewController, Coordinating {
 		searchButton.setTitle("SEARCH", for: .normal)
 		avatarList.setTitle("AVATAR LIST", for: .normal)
 		repoList.setTitle("APPLE REPOS", for: .normal)
-		
+
 	}
 	
 	
@@ -172,7 +172,7 @@ class MainPageViewControler: UIViewController, Coordinating {
 	
 	
 	
-	var emojisList = [Emoji]()
+	 var emojisList = [Emoji]()
 	
 	// 7- get all emojis from api
 	
@@ -190,7 +190,6 @@ class MainPageViewControler: UIViewController, Coordinating {
 					if let array = json {
 						for (emojiName,emojiUrl) in array {
 							self.emojisList.append(Emoji (name: "\(emojiName)", url: "\(emojiUrl)"))
-							print(self.emojisList.count)
 						}
 						self.getRandomEmoji()
 					}
