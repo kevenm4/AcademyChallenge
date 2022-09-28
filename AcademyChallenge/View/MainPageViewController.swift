@@ -45,13 +45,12 @@ class MainPageViewControler: UIViewController, Coordinating {
 		
 	}
 	
+	
 	override func viewDidLoad() {
 		
 		super.viewDidLoad()
 		
-		let url = URL(string: "https://github.githubassets.com/images/icons/emoji/unicode/1f329.png?v8")!
-		downloadImage(from: url)
-		
+		getEmojis()
 		view.backgroundColor = .blue
 		view.tintColor = .gray
 		setUpView()
@@ -61,6 +60,8 @@ class MainPageViewControler: UIViewController, Coordinating {
 		
 		
 	}
+	
+	
 
 	// 1- setUp the view
 	
@@ -81,6 +82,7 @@ class MainPageViewControler: UIViewController, Coordinating {
 	// 2- setUp button
 	
 	private func setUpButton(){
+		
 		randomButton.setTitleColor(.white, for: .normal)
 		randomButton.configuration = .filled()
 		emojiList.setTitleColor(.white, for: .normal)
@@ -94,7 +96,9 @@ class MainPageViewControler: UIViewController, Coordinating {
 		repoList.setTitleColor(.white, for: .normal)
 		repoList.addTarget(self, action: #selector(didTapRepoiList), for: .touchUpInside)
 		repoList.configuration = .filled()
-	    //containerView.backgroundColor = .white
+		
+		randomButton.addTarget(self, action: #selector(getRandomEmoji), for: .touchUpInside)
+	   
 		
 	}
 	
@@ -167,5 +171,63 @@ class MainPageViewControler: UIViewController, Coordinating {
 	}
 	
 	
+	
+	var emojisList = [Emoji]()
+	
+	// 7- get all emojis from api
+	
+	func getEmojis() {
+		
+		let url = URL(string: "https://api.github.com/emojis")!
+		
+			var request = URLRequest(url: url)
+
+			request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+			let task = URLSession.shared.dataTask(with: url) { data, response, error in
+				if let data = data {
+					let json = try? JSONSerialization.jsonObject(with: data) as? Dictionary<String,String>
+					if let array = json {
+						for (emojiName,emojiUrl) in array {
+							self.emojisList.append(Emoji (name: "\(emojiName)", url: "\(emojiUrl)"))
+							print(self.emojisList.count)
+						}
+						self.getRandomEmoji()
+					}
+				} else if let error = error {
+					print("HTTP Request Failed \(error)")
+				}
+			}
+
+			task.resume()
+		}
+	//9- get random emojis
+	
+	@objc  func getRandomEmoji() {
+		
+			let randomNumber = Int.random(in: 0 ... self.emojisList.count)
+		 
+		 guard let emoji = emojisList.item(at: randomNumber) else { return }
+			
+		 let urlEmojiImage = emoji.url
+			
+			let url = URL(string: urlEmojiImage)!
+			downloadImage(from: url)
+			
+		}
+		
+}
+
+struct Emoji {
+	
+	var name: String
+	var url: String
+}
+
+extension Array {
+	func item(at: Int) -> Element? {
+		
+		count > at ? self[at] : nil
+	}
 }
 
