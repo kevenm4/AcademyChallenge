@@ -20,7 +20,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		
 		let navVc = UINavigationController()
 		
-			let coordinator = MainPageCoordinator()
+			let coordinator = MainPageCoordinator(emojiStorage: LiveEmojiStorage())
+		
 			coordinator.navigationController = navVc
 		
 			let window = UIWindow (windowScene: windowScene)

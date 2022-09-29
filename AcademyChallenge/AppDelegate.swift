@@ -14,14 +14,7 @@ var window: UIWindow?
 	
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-	let navVc = UINavigationController()
-		let coordinator = MainPageCoordinator()
-		coordinator.navigationController = navVc
-		let window = UIWindow (frame: UIScreen.main.bounds)
-		window.rootViewController = navVc
-		window.makeKeyAndVisible()
-		self.window = window
-		coordinator.start()
+	
 		return true
 	}
 

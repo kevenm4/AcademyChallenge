@@ -7,7 +7,8 @@
 
 import UIKit
 
-class MainPageViewControler: UIViewController, Coordinating {
+class MainPageViewControler: UIViewController, Coordinating, EmojiPresenter {
+	var emojiStorage: EmojiStorage?
 	var coordinator: Coordinator?
 	
 
@@ -50,7 +51,7 @@ class MainPageViewControler: UIViewController, Coordinating {
 		
 		super.viewDidLoad()
 		
-		getEmojis()
+		//getEmojis()
 		view.backgroundColor = .blue
 		view.tintColor = .gray
 		setUpView()
@@ -59,6 +60,12 @@ class MainPageViewControler: UIViewController, Coordinating {
 		setUpButton()
 		
 		
+	}
+	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		
+		getRandomEmoji()
 	}
 	
 	
@@ -114,6 +121,7 @@ class MainPageViewControler: UIViewController, Coordinating {
 		
 		getData(from: url) { data, response, error in
 			guard let data = data, error == nil else { return }
+			
 			print(response?.suggestedFilename ?? url.lastPathComponent)
 			DispatchQueue.main.async() { [weak self] in
 				self?.image.image = UIImage(data: data)
@@ -172,41 +180,41 @@ class MainPageViewControler: UIViewController, Coordinating {
 	
 	
 	
-	 var emojisList = [Emoji]()
+//	 var emojisList = [Emoji]()
 	
 	// 7- get all emojis from api
 	
-	func getEmojis() {
-		
-		let url = URL(string: "https://api.github.com/emojis")!
-		
-			var request = URLRequest(url: url)
-
-			request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
-			let task = URLSession.shared.dataTask(with: url) { data, response, error in
-				if let data = data {
-					let json = try? JSONSerialization.jsonObject(with: data) as? Dictionary<String,String>
-					if let array = json {
-						for (emojiName,emojiUrl) in array {
-							self.emojisList.append(Emoji (name: "\(emojiName)", url: "\(emojiUrl)"))
-						}
-						self.getRandomEmoji()
-					}
-				} else if let error = error {
-					print("HTTP Request Failed \(error)")
-				}
-			}
-
-			task.resume()
-		}
+//	func getEmojis() {
+//
+//		let url = URL(string: "https://api.github.com/emojis")!
+//
+//			var request = URLRequest(url: url)
+//
+//			request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+//
+//			let task = URLSession.shared.dataTask(with: url) { data, response, error in
+//				if let data = data {
+//					let json = try? JSONSerialization.jsonObject(with: data) as? Dictionary<String,String>
+//					if let array = json {
+//						for (emojiName,emojiUrl) in array {
+//							self.emojisList.append(Emoji (name: "\(emojiName)", url: "\(emojiUrl)"))
+//						}
+//						self.getRandomEmoji()
+//					}
+//				} else if let error = error {
+//					print("HTTP Request Failed \(error)")
+//				}
+//			}
+//
+//			task.resume()
+//		}
 	//9- get random emojis
 	
 	@objc  func getRandomEmoji() {
 		
-			let randomNumber = Int.random(in: 0 ... self.emojisList.count)
+			let randomNumber = Int.random(in: 0 ... (emojiStorage?.emojis.count ?? 0))
 		 
-		 guard let emoji = emojisList.item(at: randomNumber) else { return }
+		guard let emoji = emojiStorage?.emojis.item(at: randomNumber) else { return }
 			
 		 let urlEmojiImage = emoji.url
 			
@@ -217,11 +225,11 @@ class MainPageViewControler: UIViewController, Coordinating {
 		
 }
 
-struct Emoji {
-	
-	var name: String
-	var url: String
-}
+//struct Emoji {
+//	
+//	var name: String
+//	var url: String
+//}
 
 extension Array {
 	func item(at: Int) -> Element? {
@@ -230,3 +238,8 @@ extension Array {
 	}
 }
 
+extension MainPageViewControler: EmojiStorageDelegate {
+	func emojiListUpdated() {
+		getRandomEmoji()
+	}
+}

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C5366ED28E5A4B400EE97A3 /* LiveEmojiStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5366EC28E5A4B400EE97A3 /* LiveEmojiStorage.swift */; };
+		4C5366EF28E5A51D00EE97A3 /* Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5366EE28E5A51D00EE97A3 /* Emoji.swift */; };
 		4CCED29628E1ADC600BC8729 /* EmojiListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCED29528E1ADC600BC8729 /* EmojiListViewController.swift */; };
 		4CCED29828E1B09600BC8729 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCED29728E1B09600BC8729 /* Coordinator.swift */; };
 		4CCED29A28E1B1FD00BC8729 /* MainPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCED29928E1B1FD00BC8729 /* MainPageCoordinator.swift */; };
@@ -22,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4C5366EC28E5A4B400EE97A3 /* LiveEmojiStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveEmojiStorage.swift; sourceTree = "<group>"; };
+		4C5366EE28E5A51D00EE97A3 /* Emoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emoji.swift; sourceTree = "<group>"; };
 		4CCED29528E1ADC600BC8729 /* EmojiListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiListViewController.swift; sourceTree = "<group>"; };
 		4CCED29728E1B09600BC8729 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		4CCED29928E1B1FD00BC8729 /* MainPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageCoordinator.swift; sourceTree = "<group>"; };
@@ -76,6 +80,8 @@
 				4CCED29928E1B1FD00BC8729 /* MainPageCoordinator.swift */,
 				4CE38D6F28DDB5CA0000B72B /* AppDelegate.swift */,
 				4CD2290828E482A600F11863 /* CollectionViewCell.swift */,
+				4C5366EC28E5A4B400EE97A3 /* LiveEmojiStorage.swift */,
+				4C5366EE28E5A51D00EE97A3 /* Emoji.swift */,
 			);
 			path = AcademyChallenge;
 			sourceTree = "<group>";
@@ -168,10 +174,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C5366EF28E5A51D00EE97A3 /* Emoji.swift in Sources */,
 				4CCED29E28E1BC0900BC8729 /* RepoListViewController.swift in Sources */,
 				4CCED29A28E1B1FD00BC8729 /* MainPageCoordinator.swift in Sources */,
 				4CD2290928E482A600F11863 /* CollectionViewCell.swift in Sources */,
 				4CE38D7428DDB5CA0000B72B /* MainPageViewController.swift in Sources */,
+				4C5366ED28E5A4B400EE97A3 /* LiveEmojiStorage.swift in Sources */,
 				4CE38D7028DDB5CA0000B72B /* AppDelegate.swift in Sources */,
 				4CCED29828E1B09600BC8729 /* Coordinator.swift in Sources */,
 				4CCED29C28E1BBBD00BC8729 /* AvatarViewController.swift in Sources */,

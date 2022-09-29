@@ -20,3 +20,4 @@ class CollectionViewCell: UICollectionViewCell {
 		self.backgroundColor = .clear
 	}
 }
+
