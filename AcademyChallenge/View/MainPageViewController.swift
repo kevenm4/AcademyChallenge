@@ -20,7 +20,7 @@ class MainPageViewControler: UIViewController, Coordinating, EmojiPresenter {
 	private var avatarList: UIButton
 	private var searchButton: UIButton
 	private var searchInput: UISearchBar
-	private var image : UIImageView
+	private var emojiImage : UIImageView
 	private var containerView : UIView
 	
 	init() {
@@ -32,7 +32,7 @@ class MainPageViewControler: UIViewController, Coordinating, EmojiPresenter {
 		avatarList = .init(type: .system)
 		searchInput = .init()
 		containerView = .init(frame : .zero)
-		image = .init(frame: .zero)
+		emojiImage = .init(frame: .zero)
 		secondStackView = .init(arrangedSubviews: [searchInput,searchButton])
 		stackView = .init(arrangedSubviews: [randomButton,emojiList,secondStackView,avatarList,repoList])
 		
@@ -124,7 +124,7 @@ class MainPageViewControler: UIViewController, Coordinating, EmojiPresenter {
 			
 			print(response?.suggestedFilename ?? url.lastPathComponent)
 			DispatchQueue.main.async() { [weak self] in
-				self?.image.image = UIImage(data: data)
+				self?.emojiImage.image = UIImage(data: data)
 			}
 		}
 	}
@@ -133,7 +133,7 @@ class MainPageViewControler: UIViewController, Coordinating, EmojiPresenter {
 	
 	private func addtoSuperView(){
 		view.addSubview(stackView)
-		containerView.addSubview(image)
+		containerView.addSubview(emojiImage)
 		view.addSubview(containerView)
 		
 	}
@@ -143,7 +143,7 @@ class MainPageViewControler: UIViewController, Coordinating, EmojiPresenter {
 	private func setUpConstraints(){
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		containerView.translatesAutoresizingMaskIntoConstraints = false
-		image.translatesAutoresizingMaskIntoConstraints = false
+		emojiImage.translatesAutoresizingMaskIntoConstraints = false
 		NSLayoutConstraint.activate([
 			stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 			stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 80),
@@ -153,8 +153,8 @@ class MainPageViewControler: UIViewController, Coordinating, EmojiPresenter {
 			containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor , constant: -20),
 			containerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
 			containerView.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -20),
-			image.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-			image.centerYAnchor.constraint(equalTo: containerView.centerYAnchor)
+			emojiImage.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+			emojiImage.centerYAnchor.constraint(equalTo: containerView.centerYAnchor)
 			
 		])
 	}

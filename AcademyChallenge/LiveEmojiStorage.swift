@@ -17,23 +17,35 @@ class LiveEmojiStorage: EmojiStorage {
 	}
 	
 	func loadEmojis() {
+		
 		var request = URLRequest(url: url)
 
 		request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
 		let task = URLSession.shared.dataTask(with: url) { data, response, error in
 			if let data = data {
-				let json = try? JSONSerialization.jsonObject(with: data) as? Dictionary<String,String>
+				
+				let json = try? JSONSerialization.jsonObject(with: data) as?
+				Dictionary<String,String>
+				
 				if let array = json {
+					self.emojis = []
 					for (emojiName,emojiUrl) in array {
-						self.emojis.append(Emoji (name: "\(emojiName)", url: "\(emojiUrl)"))
+						
+						self.emojis.append(Emoji (name: emojiName, url: emojiUrl))
 					}
+					
+					self.emojis.sort()
 				}
+				
 				DispatchQueue.main.async {
+					
 					
 					self.delegate?.emojiListUpdated()
 				}
+				
 			} else if let error = error {
+				
 				print("HTTP Request Failed \(error)")
 			}
 		}
