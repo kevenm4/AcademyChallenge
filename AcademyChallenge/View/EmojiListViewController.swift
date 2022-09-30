@@ -129,7 +129,7 @@ extension EmojiListViewController: UICollectionViewDataSource {
 			return UICollectionViewCell()
 		}
 		
-		let url = URL(string: (emojiStorage?.emojis[indexPath.row].url)!)!
+		guard let url = emojiStorage?.emojis[indexPath.row].imageUrl else {return UICollectionViewCell()}
 		
 		cell.setUpCell(url: url)
 			   

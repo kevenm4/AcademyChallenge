@@ -198,8 +198,7 @@ class MainPageViewControler: UIViewController, Coordinating, EmojiPresenter {
 //					if let array = json {
 //						for (emojiName,emojiUrl) in array {
 //							self.emojisList.append(Emoji (name: "\(emojiName)", url: "\(emojiUrl)"))
-//						}
-//						self.getRandomEmoji()
+//						}					self.getRandomEmoji()
 //					}
 //				} else if let error = error {
 //					print("HTTP Request Failed \(error)")
@@ -216,9 +215,9 @@ class MainPageViewControler: UIViewController, Coordinating, EmojiPresenter {
 		 
 		guard let emoji = emojiStorage?.emojis.item(at: randomNumber) else { return }
 			
-		 let urlEmojiImage = emoji.url
+		// let urlEmojiImage = emoji.url
 			
-			let url = URL(string: urlEmojiImage)!
+		let url = emoji.imageUrl
 			downloadImage(from: url)
 			
 		}

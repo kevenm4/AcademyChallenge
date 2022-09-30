@@ -8,10 +8,14 @@
 import Foundation
 import UIKit
 
-struct Emoji {
+struct Emoji: Codable, CustomStringConvertible {
 	
-	var name: String
-	var url: String
+	let name: String
+	let imageUrl: URL
+
+	var description: String {
+		"\(name): \(imageUrl)"
+	}
 }
 
 
