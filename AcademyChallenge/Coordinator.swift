@@ -15,7 +15,7 @@ enum Event {
 	case buttonTappedRepoList
 	
 }
-protocol Coordinator{
+protocol Coordinator {
 	var navigationController: UINavigationController? {get set}
 	
 	func eventOccurred(with type: Event)
@@ -26,6 +26,8 @@ protocol Coordinating {
 	var coordinator : Coordinator? {get set}
 }
 
+
+
 protocol EmojiPresenter: EmojiStorageDelegate {
 	
 	var emojiStorage: EmojiStorage? { get set }
@@ -35,8 +37,29 @@ protocol EmojiStorage {
 	
 	var delegate: EmojiStorageDelegate? { get set }
 	var emojis: [Emoji] { get set }
+	//var avatar: [Avatar] {get set}
 }
 
 protocol EmojiStorageDelegate: AnyObject {
+	
 	func emojiListUpdated()
+}
+
+
+
+protocol AvatarStorage {
+	
+	var delegates: AvatarStorageDelegate? { get set }
+	var avatar: [Avatar] { get set }
+	
+}
+
+protocol AvatarStorageDelegate: AnyObject {
+	
+	func avatarListUpdate()
+}
+
+protocol AvatarPresenter: AvatarStorageDelegate {
+	
+	var avatarStorage: AvatarStorage? { get set }
 }

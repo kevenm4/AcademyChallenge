@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		Application.initialize()
 		let navVc = UINavigationController()
 		
-			let coordinator = MainPageCoordinator(emojiStorage: LiveEmojiStorage())
+			let coordinator = MainPageCoordinator(emojiStorage: LiveEmojiStorage(),avatarStorage: LiveAvatarStorage())
 		
 			coordinator.navigationController = navVc
 		

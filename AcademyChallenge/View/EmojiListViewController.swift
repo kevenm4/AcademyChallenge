@@ -14,7 +14,7 @@ class EmojiListViewController: UIViewController, Coordinating, EmojiPresenter {
 	var emojiStorage: EmojiStorage?
 	
 	
-	//var emojiList: [Emoji]?
+	
 	
 	lazy var collectionView: UICollectionView = {
 			let v = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -87,20 +87,20 @@ class EmojiListViewController: UIViewController, Coordinating, EmojiPresenter {
 	
 	
 	
-	func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
-		   URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
-	   }
-	
-	
-	func downloadImage(url: URL, imageView: UIImageView){
-		   getData(from: url) { data, response, error in
-			   guard let data = data, error == nil else { return }
-			   // always update the UI from the main thread
-			   DispatchQueue.main.async() {
-				   imageView.image = UIImage(data: data)
-			   }
-		   }
-	   }
+//	func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+//		   URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
+//	   }
+//	
+//	
+//	func downloadImage(url: URL, imageView: UIImageView){
+//		   getData(from: url) { data, response, error in
+//			   guard let data = data, error == nil else { return }
+//			   // always update the UI from the main thread
+//			   DispatchQueue.main.async() {
+//				   imageView.image = UIImage(data: data)
+//			   }
+//		   }
+//	   }
 	
 }
 

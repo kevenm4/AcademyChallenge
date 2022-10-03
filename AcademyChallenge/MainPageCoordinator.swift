@@ -8,16 +8,23 @@
 import Foundation
 import UIKit
 
-class MainPageCoordinator: Coordinator, EmojiPresenter {
+class MainPageCoordinator: Coordinator, EmojiPresenter, AvatarPresenter {
+	
+	
+	
 	
 	var navigationController: UINavigationController?
 	
 	var emojiStorage: EmojiStorage?
 	
+	var avatarStorage: AvatarStorage?
 	
-	init( emojiStorage: EmojiStorage){
+	
+	init( emojiStorage: EmojiStorage, avatarStorage: AvatarStorage){
 		self.emojiStorage = emojiStorage
 		self.emojiStorage?.delegate = self
+		self.avatarStorage = avatarStorage
+		self.avatarStorage?.delegates = self
 	}
 	
 	
@@ -35,9 +42,15 @@ class MainPageCoordinator: Coordinator, EmojiPresenter {
 			navigationController?.pushViewController(emojisList, animated: true)
 			
 		case .buttonTappedAvatarList:
-			var avatarList: UIViewController & Coordinating = AvatarViewController()
+			
+			var avatarList: UIViewController & Coordinating & AvatarPresenter = AvatarViewController()
+		
 			
 			avatarList.coordinator = self
+			
+			avatarList.avatarStorage = avatarStorage
+			
+			
 			navigationController?.pushViewController(avatarList, animated: true)
 		
 		case .buttonTappedRepoList:
@@ -72,6 +85,18 @@ extension MainPageCoordinator: EmojiStorageDelegate {
 		navigationController?.viewControllers.forEach {
 			($0 as? EmojiPresenter)?.emojiListUpdated()
 		}
+	}
+}
+
+extension MainPageCoordinator: AvatarStorageDelegate {
+	
+	func avatarListUpdate() {
+		
+		navigationController?.viewControllers.forEach {
+			
+			($0 as? AvatarPresenter)?.avatarListUpdate()
+		}
+		
 	}
 }
 

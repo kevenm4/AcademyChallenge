@@ -7,17 +7,30 @@
 
 import UIKit
 
-class AvatarViewController: UIViewController, Coordinating {
+class AvatarViewController: UIViewController, Coordinating, AvatarPresenter {
+	var avatarStorage: AvatarStorage?
+	
 	var coordinator: Coordinator?
 	
+	lazy var collectionView: UICollectionView = {
+			let s = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+			return s
+		}()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-		title = "Avatar List"
-				view.backgroundColor = .blue
-        // Do any additional setup after loading the view.
+	
     }
     
 
     
 }
+
+extension AvatarViewController: AvatarStorageDelegate {
+	func avatarListUpdate() {
+		print("avatar: \(String(describing: avatarStorage?.avatar.count))")
+				collectionView.reloadData()
+	}
+	
+}
+

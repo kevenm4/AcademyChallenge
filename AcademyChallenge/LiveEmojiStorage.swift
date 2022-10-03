@@ -8,6 +8,7 @@
 import Foundation
 
 class LiveEmojiStorage: EmojiStorage {
+	
 	var emojis: [Emoji] = []
 	weak var delegate: EmojiStorageDelegate?
 	
@@ -20,6 +21,7 @@ class LiveEmojiStorage: EmojiStorage {
 		
 		executeNetworkCall(EmojiAPI.getEmojis) { (result: Result<EmojisAPICAllResult, Error>) in
 			switch result {
+				
 			case .success(let success):
 					self.emojis = success.emojis
 				self.emojis.sort()
