@@ -41,6 +41,7 @@ class MainPageCoordinator: Coordinator, EmojiPresenter, AvatarPresenter {
 			
 			navigationController?.pushViewController(emojisList, animated: true)
 			
+			
 		case .buttonTappedAvatarList:
 			
 			var avatarList: UIViewController & Coordinating & AvatarPresenter = AvatarViewController()
@@ -66,11 +67,13 @@ class MainPageCoordinator: Coordinator, EmojiPresenter, AvatarPresenter {
 	
 	func start() {
 		
-		var mainView:UIViewController & Coordinating & EmojiPresenter = MainPageViewControler()
+		var mainView: UIViewController & Coordinating & EmojiPresenter & AvatarPresenter = MainPageViewControler()
 		
 		mainView.coordinator = self
 		
 		mainView.emojiStorage = emojiStorage
+		
+		mainView.avatarStorage = avatarStorage
 		
 		navigationController?.setViewControllers([mainView], animated: false)
 

@@ -85,23 +85,6 @@ class EmojiListViewController: UIViewController, Coordinating, EmojiPresenter {
 		print("Emojis: \(String(describing: emojiStorage?.emojis.count))")
 	}
 	
-	
-	
-//	func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
-//		   URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
-//	   }
-//	
-//	
-//	func downloadImage(url: URL, imageView: UIImageView){
-//		   getData(from: url) { data, response, error in
-//			   guard let data = data, error == nil else { return }
-//			   // always update the UI from the main thread
-//			   DispatchQueue.main.async() {
-//				   imageView.image = UIImage(data: data)
-//			   }
-//		   }
-//	   }
-	
 }
 
 extension EmojiListViewController: EmojiStorageDelegate {

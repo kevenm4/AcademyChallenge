@@ -26,7 +26,7 @@ class LiveEmojiStorage: EmojiStorage {
 					self.emojis = success.emojis
 				self.emojis.sort()
 				DispatchQueue.main.async {
-								   self.delegate?.emojiListUpdated()
+						self.delegate?.emojiListUpdated()
 							   }
 				print("Success: \(success)")
 			case .failure(let failure):

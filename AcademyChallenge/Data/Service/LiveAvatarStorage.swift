@@ -20,12 +20,12 @@ class LiveAvatarStorage: AvatarStorage {
 	
 	func getAvatarList () {
 		
-		executeNetworkCall(AvatarAPI.getAvatar) { (result: Result<AvatarAPICALLRESULT, Error>) in
+		executeNetwork(AvatarAPI.getAvatar) { (result: Result<[Avatar], Error>) in
 			switch result {
 			case .success(let success):
-					self.avatar = success.avatar
+					self.avatar = success
 				DispatchQueue.main.async {
-								   self.delegates?.avatarListUpdate()
+						self.delegates?.avatarListUpdate()
 							   }
 				print("Success: \(success)")
 			case .failure(let failure):

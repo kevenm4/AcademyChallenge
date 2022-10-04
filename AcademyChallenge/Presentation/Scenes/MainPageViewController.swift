@@ -7,11 +7,11 @@
 
 import UIKit
 
-class MainPageViewControler: UIViewController, Coordinating, EmojiPresenter {
+class MainPageViewControler: UIViewController, Coordinating, EmojiPresenter, AvatarPresenter {
+
 	var emojiStorage: EmojiStorage?
 	var coordinator: Coordinator?
-	
-
+	var avatarStorage: AvatarStorage?
 	private var stackView: UIStackView
 	private var secondStackView : UIStackView
 	private var randomButton: UIButton
@@ -65,7 +65,7 @@ class MainPageViewControler: UIViewController, Coordinating, EmojiPresenter {
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
-		getRandomEmoji()
+		didTapRandomEmojiButton()
 	}
 	
 	
@@ -104,7 +104,7 @@ class MainPageViewControler: UIViewController, Coordinating, EmojiPresenter {
 		repoList.addTarget(self, action: #selector(didTapRepoiList), for: .touchUpInside)
 		repoList.configuration = .filled()
 		
-		randomButton.addTarget(self, action: #selector(getRandomEmoji), for: .touchUpInside)
+		randomButton.addTarget(self, action: #selector(didTapRandomEmojiButton), for: .touchUpInside)
 	   
 		
 	}
@@ -209,7 +209,7 @@ class MainPageViewControler: UIViewController, Coordinating, EmojiPresenter {
 //		}
 	//9- get random emojis
 	
-	@objc  func getRandomEmoji() {
+	@objc  func didTapRandomEmojiButton() {
 		
 			let randomNumber = Int.random(in: 0 ... (emojiStorage?.emojis.count ?? 0))
 		 
@@ -239,6 +239,13 @@ extension Array {
 
 extension MainPageViewControler: EmojiStorageDelegate {
 	func emojiListUpdated() {
-		getRandomEmoji()
+		didTapRandomEmojiButton()
+	}
+}
+
+extension MainPageViewControler: AvatarStorageDelegate{
+	
+	func avatarListUpdate() {
+		print("avatar: \(String(describing: avatarStorage?.avatar.count))")
 	}
 }

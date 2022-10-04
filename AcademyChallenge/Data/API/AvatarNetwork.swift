@@ -35,13 +35,8 @@ extension AvatarAPI: APIProtocol{
 	
 }
 
-struct AvatarAPICALLRESULT: Decodable {
-	
-	let avatar: [Avatar]
-	
-	}
 
-func executeNetworkCalls<ResultType: Decodable>(_ call: APIProtocol, _ resultHandler: @escaping (Result<ResultType, Error>) -> Void) {
+func executeNetwork<ResultType: Decodable>(_ call: APIProtocol, _ resultHandler: @escaping (Result<ResultType, Error>) -> Void) {
 	let decoder = JSONDecoder()
 	var request = URLRequest(url: call.url)
 	request.httpMethod = call.method.rawValue
