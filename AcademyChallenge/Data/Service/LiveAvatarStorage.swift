@@ -10,7 +10,7 @@ import Foundation
 
 class LiveAvatarStorage: AvatarStorage {
 	
-	
+	private var avatarNetwork: AvatarNetwork = .init()
 	var avatar: [Avatar] = []
 	weak var delegates: AvatarStorageDelegate?
 	
@@ -20,7 +20,7 @@ class LiveAvatarStorage: AvatarStorage {
 	
 	func getAvatarList () {
 		
-		executeNetwork(AvatarAPI.getAvatar) { (result: Result<[Avatar], Error>) in
+		avatarNetwork.executeNetwork(AvatarAPI.getAvatar) { (result: Result<[Avatar], Error>) in
 			switch result {
 			case .success(let success):
 					self.avatar = success

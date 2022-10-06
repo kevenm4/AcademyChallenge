@@ -19,6 +19,8 @@ class MainPageCoordinator: Coordinator, EmojiPresenter, AvatarPresenter {
 	
 	var avatarStorage: AvatarStorage?
 	
+	var liveEmojiStorage: LiveEmojiStorage = .init()
+	
 	
 	init( emojiStorage: EmojiStorage, avatarStorage: AvatarStorage){
 		self.emojiStorage = emojiStorage
@@ -73,7 +75,16 @@ class MainPageCoordinator: Coordinator, EmojiPresenter, AvatarPresenter {
 		
 		mainView.emojiStorage = emojiStorage
 		
+			liveEmojiStorage.fetchEmojis({ (result: EmojiResponse) in
+			
+					mainView.emojiStorage?.emojis = result.emojis
+			
+				mainView.emojiStorage?.emojis.sort()
+			
+					})
+			
 		mainView.avatarStorage = avatarStorage
+		
 		
 		navigationController?.setViewControllers([mainView], animated: false)
 

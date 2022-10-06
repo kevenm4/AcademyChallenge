@@ -12,7 +12,7 @@ class EmojiListViewController: UIViewController, Coordinating, EmojiPresenter {
 	
 	var coordinator: Coordinator?
 	var emojiStorage: EmojiStorage?
-	
+	var emojiService: LiveEmojiStorage = .init()
 	
 	
 	
@@ -83,8 +83,23 @@ class EmojiListViewController: UIViewController, Coordinating, EmojiPresenter {
 		super.viewDidAppear(animated)
 		
 		print("Emojis: \(String(describing: emojiStorage?.emojis.count))")
+		
+//		emojiService.fetchEmojis({ (result: EmojiResponse) in
+//
+//				self.emojiStorage?.emojis = result.emojis
+//
+//				self.emojiStorage?.emojis.sort()
+//
+//			DispatchQueue.main.async {
+//				[weak self] in
+//				self?.collectionView.reloadData()
+//			}
+//		})
+		
 	}
 	
+	
+
 }
 
 extension EmojiListViewController: EmojiStorageDelegate {

@@ -23,6 +23,8 @@ class MainPageViewControler: UIViewController, Coordinating, EmojiPresenter, Ava
 	private var emojiImage : UIImageView
 	private var containerView : UIView
 	
+	var emojiService: LiveEmojiStorage = .init()
+	
 	init() {
 		
 		randomButton = .init(type: .system)
@@ -211,15 +213,19 @@ class MainPageViewControler: UIViewController, Coordinating, EmojiPresenter, Ava
 	
 	@objc  func didTapRandomEmojiButton() {
 		
-			let randomNumber = Int.random(in: 0 ... (emojiStorage?.emojis.count ?? 0))
-		 
-		guard let emoji = emojiStorage?.emojis.item(at: randomNumber) else { return }
+//			let randomNumber = Int.random(in: 0 ... (emojiStorage?.emojis.count ?? 0))
+//
+//		guard let emoji = emojiStorage?.emojis.item(at: randomNumber) else { return }
+//
+//		// let urlEmojiImage = emoji.url
+//
+//		let url = emoji.imageUrl
+//			downloadImage(from: url)
 			
-		// let urlEmojiImage = emoji.url
+		emojiService.getRandomEmojiUrl({ (url: URL) in
 			
-		let url = emoji.imageUrl
-			downloadImage(from: url)
-			
+			self.emojiImage.downloaded(from: url)
+		})
 		}
 		
 }
