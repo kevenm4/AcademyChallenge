@@ -29,7 +29,7 @@ class CollectionViewCell: UICollectionViewCell {
 	
 	
 	func setUpCell(url: URL){
-		downloadImage(from: url)
+		self.emojiImageView.downloadImageFromURL(from: url)
 	}
 	
 	func setupConstraints(){
@@ -43,40 +43,6 @@ class CollectionViewCell: UICollectionViewCell {
 		
 		])
 	}
-	
-	func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
-		
-		   dataTask?.cancel()
-		
-		   dataTask = Application.urlSession?.dataTask(with: url, completionHandler: completion)
-		
-		   dataTask?.resume()
-	   }
-	   
-	   func downloadImage(from url: URL) {
-		   getData(from: url) { [weak self] data, response, error in
-			   if let error = error {
-				   DispatchQueue.main.async() {
-					   
-					   self?.emojiImageView.image = nil
-					   
-					   self?.dataTask = nil
-				   }
-				   return
-			   }
-			   DispatchQueue.main.async() { () in
-				   
-				   self?.emojiImageView.image = nil
-				   
-				   self?.dataTask = nil
-				   
-				   guard let data = data, error == nil else { return }
-				   
-	
-				   self?.emojiImageView.image = UIImage(data: data)
-			   }
-		   }
-	   }
 	
 	
 	override func prepareForReuse() {

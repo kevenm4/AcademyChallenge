@@ -7,11 +7,11 @@
 
 import UIKit
 
-class MainPageViewControler: UIViewController, Coordinating, EmojiPresenter {
-	var emojiStorage: EmojiStorage?
-	var coordinator: Coordinator?
-	
+class MainPageViewControler: UIViewController {
 
+	private var emojiListCoordinator: EmojiListCoordinator?
+	private var avatarListCoordinator: AvatarListCoordinator?
+	private var repoListCoordinator: RepoListCoordinator?
 	private var stackView: UIStackView
 	private var secondStackView : UIStackView
 	private var randomButton: UIButton
@@ -22,6 +22,7 @@ class MainPageViewControler: UIViewController, Coordinating, EmojiPresenter {
 	private var searchInput: UISearchBar
 	private var emojiImage : UIImageView
 	private var containerView : UIView
+	var emojiService: EmojiService?
 	
 	init() {
 		
@@ -58,16 +59,15 @@ class MainPageViewControler: UIViewController, Coordinating, EmojiPresenter {
 		addtoSuperView()
 		setUpConstraints()
 		setUpButton()
-		
+		didTapRandomEmojiButton()
 		
 	}
 	
-	override func viewDidAppear(_ animated: Bool) {
-		super.viewDidAppear(animated)
-		
-		getRandomEmoji()
-	}
-	
+	override func viewWillAppear(_ animated: Bool) {
+			super.viewWillAppear(animated)
+			
+			
+		}
 	
 
 	// 1- setUp the view
@@ -104,32 +104,14 @@ class MainPageViewControler: UIViewController, Coordinating, EmojiPresenter {
 		repoList.addTarget(self, action: #selector(didTapRepoiList), for: .touchUpInside)
 		repoList.configuration = .filled()
 		
-		randomButton.addTarget(self, action: #selector(getRandomEmoji), for: .touchUpInside)
+		randomButton.addTarget(self, action: #selector(didTapRandomEmojiButton), for: .touchUpInside)
 	   
 		
 	}
 	
-	//3- Add image from internet
 	
 	
-	func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
-		URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
-		
-	}
-	
-	func downloadImage(from url: URL) {
-		
-		getData(from: url) { data, response, error in
-			guard let data = data, error == nil else { return }
-			
-			print(response?.suggestedFilename ?? url.lastPathComponent)
-			DispatchQueue.main.async() { [weak self] in
-				self?.emojiImage.image = UIImage(data: data)
-			}
-		}
-	}
-	
-	// 4- Add to superView
+	// 3- Add to superView
 	
 	private func addtoSuperView(){
 		view.addSubview(stackView)
@@ -138,7 +120,7 @@ class MainPageViewControler: UIViewController, Coordinating, EmojiPresenter {
 		
 	}
 	
-	// 5- set the constraints
+	// 4- set the constraints
 	
 	private func setUpConstraints(){
 		stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -159,86 +141,64 @@ class MainPageViewControler: UIViewController, Coordinating, EmojiPresenter {
 		])
 	}
 	
-	// 6- Button func to call event
+	// 5- Button func to call event
 	
 	@objc func didTapEmojiList() {
 		
-		coordinator?.eventOccurred(with: .buttonTappedEmojiList)
+		let emojiListCoordinator = EmojiListCoordinator(presenter: navigationController!)
+			  
+			  emojiListCoordinator.start()
+
+			  self.emojiListCoordinator = emojiListCoordinator
 		
 	}
 	@objc func didTapAvatarList() {
 		
-		coordinator?.eventOccurred(with: .buttonTappedAvatarList)
+		let avatarListCoordinator = AvatarListCoordinator(presenter: navigationController!)
+			  
+		avatarListCoordinator.start()
+
+			  self.avatarListCoordinator = avatarListCoordinator
 		
 	}
 	
 	@objc func didTapRepoiList() {
 		
-		coordinator?.eventOccurred(with: .buttonTappedRepoList)
+		let repoListCoordinator = RepoListCoordinator(presenter: navigationController!)
+			  
+		repoListCoordinator.start()
+
+			  self.repoListCoordinator = repoListCoordinator
+		
 		
 	}
 	
 	
+	//6- get random emojis
 	
-//	 var emojisList = [Emoji]()
-	
-	// 7- get all emojis from api
-	
-//	func getEmojis() {
-//
-//		let url = URL(string: "https://api.github.com/emojis")!
-//
-//			var request = URLRequest(url: url)
-//
-//			request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//
-//			let task = URLSession.shared.dataTask(with: url) { data, response, error in
-//				if let data = data {
-//					let json = try? JSONSerialization.jsonObject(with: data) as? Dictionary<String,String>
-//					if let array = json {
-//						for (emojiName,emojiUrl) in array {
-//							self.emojisList.append(Emoji (name: "\(emojiName)", url: "\(emojiUrl)"))
-//						}					self.getRandomEmoji()
-//					}
-//				} else if let error = error {
-//					print("HTTP Request Failed \(error)")
-//				}
-//			}
-//
-//			task.resume()
-//		}
-	//9- get random emojis
-	
-	@objc  func getRandomEmoji() {
+	@objc  func didTapRandomEmojiButton() {
 		
-			let randomNumber = Int.random(in: 0 ... (emojiStorage?.emojis.count ?? 0))
-		 
-		guard let emoji = emojiStorage?.emojis.item(at: randomNumber) else { return }
-			
-		// let urlEmojiImage = emoji.url
-			
-		let url = emoji.imageUrl
-			downloadImage(from: url)
-			
+		emojiService?.fetchEmojis({ [weak self] (result: Result<[Emoji],Error>) in
+				   switch result{
+				   case .success(let success):
+					   
+					  guard let randomUrl = success.randomElement()?.imageUrl else { return }
+					   
+					   self?.emojiImage.downloadImageFromURL(from: randomUrl)
+					   
+				   case .failure(let failure):
+					   print("Failure: \(failure)")
+					   self?.emojiImage.image = UIImage(named: "noEmoji")
+				   }
+				   
+			   })
+		   }
 		}
 		
-}
-
-//struct Emoji {
-//	
-//	var name: String
-//	var url: String
-//}
 
 extension Array {
 	func item(at: Int) -> Element? {
 		
 		count > at ? self[at] : nil
-	}
-}
-
-extension MainPageViewControler: EmojiStorageDelegate {
-	func emojiListUpdated() {
-		getRandomEmoji()
 	}
 }
