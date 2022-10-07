@@ -8,13 +8,11 @@
 import UIKit
 
 
-class EmojiListViewController: UIViewController, Coordinating, EmojiPresenter {
+class EmojiListViewController: UIViewController {
 	
-	var coordinator: Coordinator?
-	var emojiStorage: EmojiStorage?
-	var emojiService: LiveEmojiStorage = .init()
+	var emoji: [Emoji]?
 	
-	
+	var emojiService: EmojiService?
 	
 	lazy var collectionView: UICollectionView = {
 			let v = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -78,23 +76,26 @@ class EmojiListViewController: UIViewController, Coordinating, EmojiPresenter {
 	}
 	
 	
-	override func viewDidAppear(_ animated: Bool) {
+	override func viewWillAppear(_ animated: Bool) {
 		
 		super.viewDidAppear(animated)
 		
-		print("Emojis: \(String(describing: emojiStorage?.emojis.count))")
+		emojiService?.fetchEmojis({ [weak self] (result: Result<[Emoji],Error>) in
+			switch result{
+			case .success(let success):
+				self?.emoji = success
+				self?.emoji?.sort()
+				DispatchQueue.main.async { [weak self] in
+					self?.collectionView.reloadData()
+				}
+				
+			case .failure(let failure):
+				print("Failure: \(failure)")
+			}
+			
+
+		})
 		
-//		emojiService.fetchEmojis({ (result: EmojiResponse) in
-//
-//				self.emojiStorage?.emojis = result.emojis
-//
-//				self.emojiStorage?.emojis.sort()
-//
-//			DispatchQueue.main.async {
-//				[weak self] in
-//				self?.collectionView.reloadData()
-//			}
-//		})
 		
 	}
 	
@@ -102,13 +103,7 @@ class EmojiListViewController: UIViewController, Coordinating, EmojiPresenter {
 
 }
 
-extension EmojiListViewController: EmojiStorageDelegate {
-	func emojiListUpdated() {
-		print("Emojis: \(String(describing: emojiStorage?.emojis.count))")
-				collectionView.reloadData()
-	}
-	
-}
+
 
 
 
@@ -116,7 +111,7 @@ extension EmojiListViewController: UICollectionViewDataSource {
 	
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		
-		let countEmojis = emojiStorage?.emojis.count ?? 0
+		let countEmojis = emoji?.count ?? 0
 		return countEmojis
 	}
 	
@@ -127,8 +122,8 @@ extension EmojiListViewController: UICollectionViewDataSource {
 			return UICollectionViewCell()
 		}
 		
-		guard let url = emojiStorage?.emojis[indexPath.row].imageUrl else {return UICollectionViewCell()}
-		
+	guard let url = emoji?[indexPath.row].imageUrl else {return UICollectionViewCell()}
+
 		cell.setUpCell(url: url)
 			   
 

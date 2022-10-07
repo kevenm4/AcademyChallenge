@@ -7,10 +7,8 @@
 
 import UIKit
 
-class RepoListViewController: UIViewController, Coordinating {
-	var coordinator: Coordinator?
+class RepoListViewController: UIViewController{
 	
-
     override func viewDidLoad() {
         super.viewDidLoad()
 		title = "Repo List"

@@ -7,10 +7,9 @@
 
 import UIKit
 
-class AvatarViewController: UIViewController, Coordinating, AvatarPresenter {
+class AvatarViewController: UIViewController {
 	
-	var avatarStorage: AvatarStorage?
-	var coordinator: Coordinator?
+	
 	
 	lazy var collectionView: UICollectionView = {
 			let s = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -65,15 +64,12 @@ class AvatarViewController: UIViewController, Coordinating, AvatarPresenter {
 		
 		collectionView.register(AvatarViewCell.self, forCellWithReuseIdentifier: "cell")
 		
-		collectionView.delegate = self
-		collectionView.dataSource = self
+//		collectionView.delegate = self
+//		collectionView.dataSource = self
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
-		
-		
-		print("Avatar: \(String(describing: avatarStorage?.avatar.count))")
 		
 	}
     
@@ -81,54 +77,47 @@ class AvatarViewController: UIViewController, Coordinating, AvatarPresenter {
 
 
 
-extension AvatarViewController: AvatarStorageDelegate {
-	func avatarListUpdate() {
-		print("avatar: \(String(describing: avatarStorage?.avatar.count))")
-				collectionView.reloadData()
-	}
-}
+//extension AvatarViewController: UICollectionViewDataSource {
+//
+//	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//
+//	//	let countAvatar = avatarStorage?.avatar.count ?? 0
+//		//return countAvatar
+//	}
+//
+//	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//		guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? AvatarViewCell else {
+//
+//			return UICollectionViewCell()
+//		}
+//
+//	//	guard let url = avatarStorage?.avatar[indexPath.row].avatar_url else {return UICollectionViewCell()}
+//
+//		//cell.setUpCell(url: url)
+//
+//
+//		return cell
+//	}
+//}
+//
+//extension AvatarViewController: UICollectionViewDelegateFlowLayout {
+//
+//	func collectionView(_ collectionView: UICollectionView,
+//				  layout collectionViewLayout: UICollectionViewLayout,
+//				  insetForSectionAt section: Int) -> UIEdgeInsets {
+//
+//		return UIEdgeInsets(top: 1.0, left: 8.0, bottom: 1.0, right: 8.0)
+//	}
+//
+//
+//	func collectionView (_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
+//	{
+//		let layout = collectionViewLayout as! UICollectionViewFlowLayout
+//
+//		let widthPerItem = collectionView.frame.width / 3 - layout.minimumInteritemSpacing
+//
+//		return CGSize(width: widthPerItem - 8, height: widthPerItem)
+//
 
-extension AvatarViewController: UICollectionViewDataSource {
-	
-	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		
-		let countAvatar = avatarStorage?.avatar.count ?? 0
-		return countAvatar
-	}
-	
-	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-		guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? AvatarViewCell else {
-			
-			return UICollectionViewCell()
-		}
-		
-		guard let url = avatarStorage?.avatar[indexPath.row].avatar_url else {return UICollectionViewCell()}
-		
-		cell.setUpCell(url: url)
-			   
 
-		return cell
-	}
-}
-	
-extension AvatarViewController: UICollectionViewDelegateFlowLayout {
-	
-	func collectionView(_ collectionView: UICollectionView,
-				  layout collectionViewLayout: UICollectionViewLayout,
-				  insetForSectionAt section: Int) -> UIEdgeInsets {
-		
-		return UIEdgeInsets(top: 1.0, left: 8.0, bottom: 1.0, right: 8.0)
-	}
-	
-	
-	func collectionView (_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
-	{
-		let layout = collectionViewLayout as! UICollectionViewFlowLayout
-		
-		let widthPerItem = collectionView.frame.width / 3 - layout.minimumInteritemSpacing
-		
-		return CGSize(width: widthPerItem - 8, height: widthPerItem)
-		
-	}
 
-}
