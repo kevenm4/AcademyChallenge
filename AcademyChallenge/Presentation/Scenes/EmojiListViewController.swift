@@ -12,6 +12,8 @@ class EmojiListViewController: UIViewController {
 	
 	var emoji: [Emoji]?
 	
+	var strong = MockedDataSource()
+	
 	var emojiService: EmojiService?
 	
 	lazy var collectionView: UICollectionView = {
@@ -72,7 +74,7 @@ class EmojiListViewController: UIViewController {
 		collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: "cell")
 		
 		collectionView.delegate = self
-		collectionView.dataSource = self
+		collectionView.dataSource = strong
 	}
 	
 	
@@ -117,6 +119,7 @@ extension EmojiListViewController: UICollectionViewDataSource {
 	
 	
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+		
 		guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CollectionViewCell else {
 			
 			return UICollectionViewCell()
@@ -131,6 +134,35 @@ extension EmojiListViewController: UICollectionViewDataSource {
 	}
 }
 
+class MockedDataSource:  NSObject, UICollectionViewDataSource {
+	
+	var emojiMock : MockEmojis = .init()
+	
+	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+		
+		return emojiMock.emojis.count
+	}
+	
+	
+	
+	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+		
+		guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CollectionViewCell else {
+			
+			return UICollectionViewCell()
+		}
+		
+		cell.setUpCell(url: emojiMock.emojis[indexPath.row].imageUrl)
+
+			
+
+			return cell
+		}
+		
+	}
+	
+
+	
 
 
 extension EmojiListViewController: UICollectionViewDelegateFlowLayout {
