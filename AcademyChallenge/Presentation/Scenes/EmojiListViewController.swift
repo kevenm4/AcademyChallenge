@@ -74,7 +74,7 @@ class EmojiListViewController: UIViewController {
 		collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: "cell")
 		
 		collectionView.delegate = self
-		collectionView.dataSource = strong
+		collectionView.dataSource = self
 	}
 	
 	

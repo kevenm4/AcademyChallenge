@@ -34,7 +34,6 @@
 		4CE38D7028DDB5CA0000B72B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE38D6F28DDB5CA0000B72B /* AppDelegate.swift */; };
 		4CE38D7228DDB5CA0000B72B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE38D7128DDB5CA0000B72B /* SceneDelegate.swift */; };
 		4CE38D7428DDB5CA0000B72B /* MainPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE38D7328DDB5CA0000B72B /* MainPageViewController.swift */; };
-		4CE38D7928DDB5CE0000B72B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CE38D7828DDB5CE0000B72B /* Assets.xcassets */; };
 		4CE38D7C28DDB5CE0000B72B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CE38D7A28DDB5CE0000B72B /* LaunchScreen.storyboard */; };
 		4CE8D7D828EEE240002A77C1 /* EmojiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8D7D728EEE240002A77C1 /* EmojiService.swift */; };
 		4CE8D7DA28EEE3DB002A77C1 /* MockedEmojiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8D7D928EEE3DB002A77C1 /* MockedEmojiService.swift */; };
@@ -55,6 +54,7 @@
 		4CD6203528F016CD00225483 /* RepoListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoListCoordinator.swift; sourceTree = "<group>"; };
 		4CD6203728F016F300225483 /* AvatarListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarListCoordinator.swift; sourceTree = "<group>"; };
 		4CD6203928F0246800225483 /* ApplicationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationCoordinator.swift; sourceTree = "<group>"; };
+		4CD6203F28F0834F00225483 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4CE31FD628EAD20F00C26B41 /* Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
 		4CE31FD828EAD89200C26B41 /* AvatarNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarNetwork.swift; sourceTree = "<group>"; };
 		4CE31FDA28EB3D7700C26B41 /* LiveAvatarStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveAvatarStorage.swift; sourceTree = "<group>"; };
@@ -68,7 +68,6 @@
 		4CE38D6F28DDB5CA0000B72B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4CE38D7128DDB5CA0000B72B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		4CE38D7328DDB5CA0000B72B /* MainPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageViewController.swift; sourceTree = "<group>"; };
-		4CE38D7828DDB5CE0000B72B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4CE38D7B28DDB5CE0000B72B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4CE38D7D28DDB5CF0000B72B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4CE8D7D728EEE240002A77C1 /* EmojiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiService.swift; sourceTree = "<group>"; };
@@ -214,27 +213,27 @@
 		4CE38D6E28DDB5CA0000B72B /* AcademyChallenge */ = {
 			isa = PBXGroup;
 			children = (
-				4CE31FF428EC959700C26B41 /* Coordinator */,
-				4CE31FED28EC924600C26B41 /* Utilities */,
 				4CE31FE628EC91A800C26B41 /* Data */,
 				4CE31FE528EC919700C26B41 /* Domain */,
 				4CE31FE428EC918200C26B41 /* Presentation */,
-				4CABE5C928E703EE00EC7DDA /* Application.swift */,
-				4CE38D7D28DDB5CF0000B72B /* Info.plist */,
+				4CE31FF428EC959700C26B41 /* Coordinator */,
+				4CE31FED28EC924600C26B41 /* Utilities */,
+				4CEB446128F40DD7001F4C24 /* UIColorAssetsCatalog */,
 				4CE38D6F28DDB5CA0000B72B /* AppDelegate.swift */,
 				4CE38D7128DDB5CA0000B72B /* SceneDelegate.swift */,
-				4CE38D7828DDB5CE0000B72B /* Assets.xcassets */,
-				4CE38D8428DDBD580000B72B /* View */,
+				4CABE5C928E703EE00EC7DDA /* Application.swift */,
+				4CD6203F28F0834F00225483 /* Assets.xcassets */,
+				4CE38D7A28DDB5CE0000B72B /* LaunchScreen.storyboard */,
+				4CE38D7D28DDB5CF0000B72B /* Info.plist */,
 			);
 			path = AcademyChallenge;
 			sourceTree = "<group>";
 		};
-		4CE38D8428DDBD580000B72B /* View */ = {
+		4CEB446128F40DD7001F4C24 /* UIColorAssetsCatalog */ = {
 			isa = PBXGroup;
 			children = (
-				4CE38D7A28DDB5CE0000B72B /* LaunchScreen.storyboard */,
 			);
-			path = View;
+			path = UIColorAssetsCatalog;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -302,7 +301,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CE38D7C28DDB5CE0000B72B /* LaunchScreen.storyboard in Resources */,
-				4CE38D7928DDB5CE0000B72B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
