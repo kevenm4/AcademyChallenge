@@ -25,8 +25,11 @@ class EmojiListCoordinator: Coordinator {
 	func start() {
 		
 		let emojiListViewController = EmojiListViewController()
+		
 		emojiListViewController.emojiService = emojiSource
+		
 		presenter.pushViewController(emojiListViewController, animated: true)
+		
 		self.emojiListViewController = emojiListViewController
 	}
 	
