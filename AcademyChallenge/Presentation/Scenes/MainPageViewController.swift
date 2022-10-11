@@ -8,7 +8,7 @@
 import UIKit
 
 class MainPageViewControler: UIViewController {
-
+	
 	private var emojiListCoordinator: EmojiListCoordinator?
 	private var avatarListCoordinator: AvatarListCoordinator?
 	private var repoListCoordinator: RepoListCoordinator?
@@ -23,6 +23,7 @@ class MainPageViewControler: UIViewController {
 	private var emojiImage : UIImageView
 	private var containerView : UIView
 	var emojiService: EmojiService?
+	var persistence: EmojiCoreData = EmojiCoreData()
 	
 	init() {
 		
@@ -53,7 +54,7 @@ class MainPageViewControler: UIViewController {
 		super.viewDidLoad()
 		
 		//getEmojis()
-	    view.backgroundColor = UIColor.appColor(.primary)
+		view.backgroundColor = UIColor.appColor(.primary)
 		view.tintColor = UIColor.appColor(.secondary)
 		setUpView()
 		addtoSuperView()
@@ -64,12 +65,12 @@ class MainPageViewControler: UIViewController {
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
-			super.viewWillAppear(animated)
-			
-			
-		}
+		super.viewWillAppear(animated)
+		
+		
+	}
 	
-
+	
 	// 1- setUp the view
 	
 	private func setUpView(){
@@ -82,7 +83,7 @@ class MainPageViewControler: UIViewController {
 		searchButton.setTitle("SEARCH", for: .normal)
 		avatarList.setTitle("AVATAR LIST", for: .normal)
 		repoList.setTitle("APPLE REPOS", for: .normal)
-
+		
 	}
 	
 	
@@ -105,7 +106,7 @@ class MainPageViewControler: UIViewController {
 		repoList.configuration = .filled()
 		
 		randomButton.addTarget(self, action: #selector(didTapRandomEmojiButton), for: .touchUpInside)
-	   
+		
 		
 	}
 	
@@ -146,29 +147,29 @@ class MainPageViewControler: UIViewController {
 	@objc func didTapEmojiList() {
 		
 		let emojiListCoordinator = EmojiListCoordinator(presenter: navigationController!)
-			  
-			  emojiListCoordinator.start()
-
-			  self.emojiListCoordinator = emojiListCoordinator
+		
+		emojiListCoordinator.start()
+		
+		self.emojiListCoordinator = emojiListCoordinator
 		
 	}
 	@objc func didTapAvatarList() {
 		
 		let avatarListCoordinator = AvatarListCoordinator(presenter: navigationController!)
-			  
+		
 		avatarListCoordinator.start()
-
-			  self.avatarListCoordinator = avatarListCoordinator
+		
+		self.avatarListCoordinator = avatarListCoordinator
 		
 	}
 	
 	@objc func didTapRepoiList() {
 		
 		let repoListCoordinator = RepoListCoordinator(presenter: navigationController!)
-			  
+		
 		repoListCoordinator.start()
-
-			  self.repoListCoordinator = repoListCoordinator
+		
+		self.repoListCoordinator = repoListCoordinator
 		
 		
 	}
@@ -179,22 +180,29 @@ class MainPageViewControler: UIViewController {
 	@objc  func didTapRandomEmojiButton() {
 		
 		emojiService?.fetchEmojis({ [weak self] (result: Result<[Emoji],Error>) in
-				   switch result{
-				   case .success(let success):
-					   
-					  guard let randomUrl = success.randomElement()?.imageUrl else { return }
-					   
-					   self?.emojiImage.downloadImageFromURL(from: randomUrl)
-					   
-				   case .failure(let failure):
-					   print("Failure: \(failure)")
-					   self?.emojiImage.image = UIImage(named: "noEmoji")
-				   }
-				   
-			   })
-		   }
-		}
+			switch result{
+			case .success(let success):
+				
+				guard let randomUrl = success.randomElement()?.imageUrl else { return }
+				
+				self?.emojiImage.downloadImageFromURL(from: randomUrl)
+				
+			case .failure(let failure):
+				print("Failure: \(failure)")
+				self?.emojiImage.image = UIImage(named: "noEmoji")
+			}
+			
+		})
 		
+		
+	}
+	
+	@objc func getPrint(){
+		
+		print("got it ", persistence.EmojiPersistence)
+	}
+}
+
 
 extension Array {
 	func item(at: Int) -> Element? {

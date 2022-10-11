@@ -6,26 +6,58 @@
 //
 
 import Foundation
-
+import CoreData
+import UIKit
 class LiveEmojiStorage: EmojiService {
 
 	private var emojiNetwork: EmojiNetwork = .init()
 	
+	private let persistence: EmojiCoreData = .init()
+	
+//	func fetchEmojis(_ resultHandler: @escaping (Result<[Emoji], Error>) -> Void) {
+//
+//		emojiNetwork.executeNetworkCall(EmojiAPI.getEmojis) { (result: Result<EmojiResponse, Error>) in
+//			switch result {
+//			case .success(let success):
+//				resultHandler(.success(success.emojis))
+////                print("Success: \(success)")
+//			case .failure(let failure):
+//				print("Error: \(failure)")
+//			}
+//		}
+//
+//	}
 	
 	
-	func fetchEmojis(_ resultHandler: @escaping (Result<[Emoji], Error>) -> Void) {
-		emojiNetwork.executeNetworkCall(EmojiAPI.getEmojis) { (result: Result<EmojiResponse, Error>) in
-			switch result {
-			case .success(let success):
-				resultHandler(.success(success.emojis))
-//                print("Success: \(success)")
-			case .failure(let failure):
-				print("Error: \(failure)")
-			}
-		}
-	}
-	
+	func fetchEmojis (_ resultHandler: @escaping (Result<[Emoji], Error>) -> Void){
+		   var fetchedEmojis : [NSManagedObject] = []
+		   fetchedEmojis = persistence.fetch()
+		   
+		   
+		   if !fetchedEmojis.isEmpty {
+			   let emojis = fetchedEmojis.map({ item in
+				   return Emoji(name: item.value(forKey: "name") as! String, imageUrl: URL(string: item.value(forKey: "imageUrl") as! String)!)
+			   })
+			   resultHandler(.success(emojis))
+			   
+		   }else {
+			   // METHOD IN EMOJI API
+				   emojiNetwork.executeNetworkCall(EmojiAPI.getEmojis) { (result: Result<EmojiResponse, Error>) in
+					   switch result{
+					   case .success(let success):
+	   //                    print("Success: \(success.emojis)")
+						   resultHandler(.success(success.emojis))
+					   case .failure(let failure):
+						   print("Failure: \(failure)")
+						   resultHandler(.failure(failure))
+					   }
+				   }
+		   }
+		   
+	   }
 
 
 }
+
+
 
