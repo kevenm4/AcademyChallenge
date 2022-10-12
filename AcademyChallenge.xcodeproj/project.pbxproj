@@ -26,6 +26,7 @@
 		4CD834B728F45F1E00A61AE2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CD6203F28F0834F00225483 /* Assets.xcassets */; };
 		4CD834DD28F4726800A61AE2 /* EmojiListModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4CD834DB28F4726800A61AE2 /* EmojiListModel.xcdatamodeld */; };
 		4CD834E128F576D800A61AE2 /* EmojiCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD834E028F576D800A61AE2 /* EmojiCoreData.swift */; };
+		4CD834E728F6F88600A61AE2 /* ImageSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD834E628F6F88600A61AE2 /* ImageSpinner.swift */; };
 		4CE31FD728EAD20F00C26B41 /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE31FD628EAD20F00C26B41 /* Avatar.swift */; };
 		4CE31FD928EAD89200C26B41 /* AvatarNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE31FD828EAD89200C26B41 /* AvatarNetwork.swift */; };
 		4CE31FDB28EB3D7700C26B41 /* LiveAvatarStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE31FDA28EB3D7700C26B41 /* LiveAvatarStorage.swift */; };
@@ -62,6 +63,7 @@
 		4CD8348E28F42C5200A61AE2 /* ColorSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSet.swift; sourceTree = "<group>"; };
 		4CD834DC28F4726800A61AE2 /* EmojiListModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EmojiListModel.xcdatamodel; sourceTree = "<group>"; };
 		4CD834E028F576D800A61AE2 /* EmojiCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCoreData.swift; sourceTree = "<group>"; };
+		4CD834E628F6F88600A61AE2 /* ImageSpinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSpinner.swift; sourceTree = "<group>"; };
 		4CE31FD628EAD20F00C26B41 /* Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
 		4CE31FD828EAD89200C26B41 /* AvatarNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarNetwork.swift; sourceTree = "<group>"; };
 		4CE31FDA28EB3D7700C26B41 /* LiveAvatarStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveAvatarStorage.swift; sourceTree = "<group>"; };
@@ -229,11 +231,11 @@
 				4CE38D6F28DDB5CA0000B72B /* AppDelegate.swift */,
 				4CE38D7128DDB5CA0000B72B /* SceneDelegate.swift */,
 				4CABE5C928E703EE00EC7DDA /* Application.swift */,
-				4CD6203F28F0834F00225483 /* Assets.xcassets */,
 				4CE38D7A28DDB5CE0000B72B /* LaunchScreen.storyboard */,
 				4CE38D7D28DDB5CF0000B72B /* Info.plist */,
 				4CD834DB28F4726800A61AE2 /* EmojiListModel.xcdatamodeld */,
 				4CD834E028F576D800A61AE2 /* EmojiCoreData.swift */,
+				4CD834E628F6F88600A61AE2 /* ImageSpinner.swift */,
 			);
 			path = AcademyChallenge;
 			sourceTree = "<group>";
@@ -242,6 +244,7 @@
 			isa = PBXGroup;
 			children = (
 				4CD8348E28F42C5200A61AE2 /* ColorSet.swift */,
+				4CD6203F28F0834F00225483 /* Assets.xcassets */,
 			);
 			path = UIColorAssetsCatalog;
 			sourceTree = "<group>";
@@ -337,6 +340,7 @@
 				4CD2290928E482A600F11863 /* CollectionViewCell.swift in Sources */,
 				4CD6203828F016F300225483 /* AvatarListCoordinator.swift in Sources */,
 				4CE31FEF28EC93AE00C26B41 /* EmojiResponse.swift in Sources */,
+				4CD834E728F6F88600A61AE2 /* ImageSpinner.swift in Sources */,
 				4CE8D7DA28EEE3DB002A77C1 /* MockedEmojiService.swift in Sources */,
 				4CE8D7D828EEE240002A77C1 /* EmojiService.swift in Sources */,
 				4CE31FD928EAD89200C26B41 /* AvatarNetwork.swift in Sources */,

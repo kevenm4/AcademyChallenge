@@ -38,6 +38,7 @@ class LiveEmojiStorage: EmojiService {
 			   let emojis = fetchedEmojis.map({ item in
 				   return Emoji(name: item.value(forKey: "name") as! String, imageUrl: URL(string: item.value(forKey: "imageUrl") as! String)!)
 			   })
+			   print(emojis.count)
 			   resultHandler(.success(emojis))
 			   
 		   }else {

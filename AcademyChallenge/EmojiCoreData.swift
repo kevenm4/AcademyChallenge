@@ -12,9 +12,11 @@ class EmojiCoreData {
 	
 	 var EmojiPersistence: [NSManagedObject] = []
 	
+	
 	func persist(name: String, imageUrl: String){
 		
-//	DispatchQueue.main.async() {
+		DispatchQueue.main.async() {
+	
 			
 		guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
 	
@@ -42,6 +44,8 @@ class EmojiCoreData {
 		}
 		
 	}
+	}
+		
 	
 		func fetch() -> [NSManagedObject] {
 			   var array: [NSManagedObject] = []
@@ -49,21 +53,23 @@ class EmojiCoreData {
 				 UIApplication.shared.delegate as? AppDelegate else {
 				   return array
 			   }
-			   
+
 			   let managedContext =
 				 appDelegate.persistentContainer.viewContext
-			   
+
 			   // FETCH ALL THE DATA FROM THE ENTITY PERSON
 			   let fetchRequest =
 				 NSFetchRequest<NSManagedObject>(entityName: "EmojiEntity")
-			   
+
 			   // WE GET THE DATA THOUGH THE FETCHREQUEST CRITERIA, IN THIS CASE WE ASK THE MANAGED CONTEXT TO SEND ALL THE DATA FROM THE PERSON ENTITY
 			   do {
 				   array = try managedContext.fetch(fetchRequest)
 			   } catch let error as NSError {
 				 print("Could not fetch. \(error), \(error.userInfo)")
 			   }
-			   
+
 			   return array
 		   }
+//
+	
 	}

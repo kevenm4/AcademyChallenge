@@ -83,6 +83,8 @@ class MainPageViewControler: UIViewController {
 		searchButton.setTitle("SEARCH", for: .normal)
 		avatarList.setTitle("AVATAR LIST", for: .normal)
 		repoList.setTitle("APPLE REPOS", for: .normal)
+		emojiImage.showLoading()
+		
 		
 	}
 	
@@ -184,6 +186,7 @@ class MainPageViewControler: UIViewController {
 			case .success(let success):
 				
 				guard let randomUrl = success.randomElement()?.imageUrl else { return }
+				self?.emojiImage.stopLoading()
 				
 				self?.emojiImage.downloadImageFromURL(from: randomUrl)
 				
@@ -197,10 +200,10 @@ class MainPageViewControler: UIViewController {
 		
 	}
 	
-	@objc func getPrint(){
-		
-		print("got it ", persistence.EmojiPersistence)
-	}
+//	@objc func getPrint(){
+//
+//		print("got it ", persistence.EmojiPersistence)
+//	}
 }
 
 
