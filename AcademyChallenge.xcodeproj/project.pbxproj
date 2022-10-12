@@ -24,9 +24,12 @@
 		4CD6203A28F0246800225483 /* ApplicationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD6203928F0246800225483 /* ApplicationCoordinator.swift */; };
 		4CD8348F28F42C5200A61AE2 /* ColorSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD8348E28F42C5200A61AE2 /* ColorSet.swift */; };
 		4CD834B728F45F1E00A61AE2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CD6203F28F0834F00225483 /* Assets.xcassets */; };
-		4CD834DD28F4726800A61AE2 /* EmojiListModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4CD834DB28F4726800A61AE2 /* EmojiListModel.xcdatamodeld */; };
+		4CD834DD28F4726800A61AE2 /* GeneralEntity.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4CD834DB28F4726800A61AE2 /* GeneralEntity.xcdatamodeld */; };
 		4CD834E128F576D800A61AE2 /* EmojiCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD834E028F576D800A61AE2 /* EmojiCoreData.swift */; };
 		4CD834E728F6F88600A61AE2 /* ImageSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD834E628F6F88600A61AE2 /* ImageSpinner.swift */; };
+		4CD834ED28F70CBB00A61AE2 /* AvatarResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD834EC28F70CBB00A61AE2 /* AvatarResponse.swift */; };
+		4CD834EF28F7132800A61AE2 /* AvatarCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD834EE28F7132800A61AE2 /* AvatarCoreData.swift */; };
+		4CD834F128F717D000A61AE2 /* AvatarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD834F028F717D000A61AE2 /* AvatarService.swift */; };
 		4CE31FD728EAD20F00C26B41 /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE31FD628EAD20F00C26B41 /* Avatar.swift */; };
 		4CE31FD928EAD89200C26B41 /* AvatarNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE31FD828EAD89200C26B41 /* AvatarNetwork.swift */; };
 		4CE31FDB28EB3D7700C26B41 /* LiveAvatarStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE31FDA28EB3D7700C26B41 /* LiveAvatarStorage.swift */; };
@@ -64,6 +67,9 @@
 		4CD834DC28F4726800A61AE2 /* EmojiListModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EmojiListModel.xcdatamodel; sourceTree = "<group>"; };
 		4CD834E028F576D800A61AE2 /* EmojiCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCoreData.swift; sourceTree = "<group>"; };
 		4CD834E628F6F88600A61AE2 /* ImageSpinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSpinner.swift; sourceTree = "<group>"; };
+		4CD834EC28F70CBB00A61AE2 /* AvatarResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarResponse.swift; sourceTree = "<group>"; };
+		4CD834EE28F7132800A61AE2 /* AvatarCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarCoreData.swift; sourceTree = "<group>"; };
+		4CD834F028F717D000A61AE2 /* AvatarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarService.swift; sourceTree = "<group>"; };
 		4CE31FD628EAD20F00C26B41 /* Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
 		4CE31FD828EAD89200C26B41 /* AvatarNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarNetwork.swift; sourceTree = "<group>"; };
 		4CE31FDA28EB3D7700C26B41 /* LiveAvatarStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveAvatarStorage.swift; sourceTree = "<group>"; };
@@ -95,6 +101,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4CD834E828F7018800A61AE2 /* DataBase */ = {
+			isa = PBXGroup;
+			children = (
+				4CD834E028F576D800A61AE2 /* EmojiCoreData.swift */,
+				4CD834DB28F4726800A61AE2 /* GeneralEntity.xcdatamodeld */,
+				4CD834EE28F7132800A61AE2 /* AvatarCoreData.swift */,
+			);
+			path = DataBase;
+			sourceTree = "<group>";
+		};
 		4CE31FE428EC918200C26B41 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
@@ -151,6 +167,7 @@
 				4CE31FDA28EB3D7700C26B41 /* LiveAvatarStorage.swift */,
 				4CE8D7D928EEE3DB002A77C1 /* MockedEmojiService.swift */,
 				4CE8D7D728EEE240002A77C1 /* EmojiService.swift */,
+				4CD834F028F717D000A61AE2 /* AvatarService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -167,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				4CE31FEE28EC93AE00C26B41 /* EmojiResponse.swift */,
+				4CD834EC28F70CBB00A61AE2 /* AvatarResponse.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -186,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				4CE31FE028EC7D2A00C26B41 /* UIImageView+Download.swift */,
+				4CD834E628F6F88600A61AE2 /* ImageSpinner.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -228,14 +247,12 @@
 				4CE31FF428EC959700C26B41 /* Coordinator */,
 				4CE31FED28EC924600C26B41 /* Utilities */,
 				4CEB446128F40DD7001F4C24 /* UIColorAssetsCatalog */,
-				4CE38D6F28DDB5CA0000B72B /* AppDelegate.swift */,
+				4CD834E828F7018800A61AE2 /* DataBase */,
 				4CE38D7128DDB5CA0000B72B /* SceneDelegate.swift */,
+				4CE38D6F28DDB5CA0000B72B /* AppDelegate.swift */,
 				4CABE5C928E703EE00EC7DDA /* Application.swift */,
 				4CE38D7A28DDB5CE0000B72B /* LaunchScreen.storyboard */,
 				4CE38D7D28DDB5CF0000B72B /* Info.plist */,
-				4CD834DB28F4726800A61AE2 /* EmojiListModel.xcdatamodeld */,
-				4CD834E028F576D800A61AE2 /* EmojiCoreData.swift */,
-				4CD834E628F6F88600A61AE2 /* ImageSpinner.swift */,
 			);
 			path = AcademyChallenge;
 			sourceTree = "<group>";
@@ -342,18 +359,21 @@
 				4CE31FEF28EC93AE00C26B41 /* EmojiResponse.swift in Sources */,
 				4CD834E728F6F88600A61AE2 /* ImageSpinner.swift in Sources */,
 				4CE8D7DA28EEE3DB002A77C1 /* MockedEmojiService.swift in Sources */,
+				4CD834F128F717D000A61AE2 /* AvatarService.swift in Sources */,
 				4CE8D7D828EEE240002A77C1 /* EmojiService.swift in Sources */,
+				4CD834ED28F70CBB00A61AE2 /* AvatarResponse.swift in Sources */,
 				4CE31FD928EAD89200C26B41 /* AvatarNetwork.swift in Sources */,
 				4CE38D7428DDB5CA0000B72B /* MainPageViewController.swift in Sources */,
 				4C5366ED28E5A4B400EE97A3 /* LiveEmojiStorage.swift in Sources */,
 				4CE31FDF28EB45C900C26B41 /* AvatarViewCell.swift in Sources */,
-				4CD834DD28F4726800A61AE2 /* EmojiListModel.xcdatamodeld in Sources */,
+				4CD834DD28F4726800A61AE2 /* GeneralEntity.xcdatamodeld in Sources */,
 				4CE31FF328EC952A00C26B41 /* AvatarAPI.swift in Sources */,
 				4CE38D7028DDB5CA0000B72B /* AppDelegate.swift in Sources */,
 				4CE31FE128EC7D2A00C26B41 /* UIImageView+Download.swift in Sources */,
 				4CCED29828E1B09600BC8729 /* Coordinator.swift in Sources */,
 				4CD6203628F016CD00225483 /* RepoListCoordinator.swift in Sources */,
 				4CCED29C28E1BBBD00BC8729 /* AvatarViewController.swift in Sources */,
+				4CD834EF28F7132800A61AE2 /* AvatarCoreData.swift in Sources */,
 				4CE38D7228DDB5CA0000B72B /* SceneDelegate.swift in Sources */,
 				4CCED29628E1ADC600BC8729 /* EmojiListViewController.swift in Sources */,
 				4CD6203A28F0246800225483 /* ApplicationCoordinator.swift in Sources */,
@@ -583,13 +603,13 @@
 /* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
-		4CD834DB28F4726800A61AE2 /* EmojiListModel.xcdatamodeld */ = {
+		4CD834DB28F4726800A61AE2 /* GeneralEntity.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				4CD834DC28F4726800A61AE2 /* EmojiListModel.xcdatamodel */,
 			);
 			currentVersion = 4CD834DC28F4726800A61AE2 /* EmojiListModel.xcdatamodel */;
-			path = EmojiListModel.xcdatamodeld;
+			path = GeneralEntity.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
