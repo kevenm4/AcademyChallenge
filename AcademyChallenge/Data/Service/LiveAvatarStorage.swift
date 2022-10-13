@@ -23,11 +23,11 @@ class LiveAvatarStorage: AvatarService {
 	
 	func fetchAvatar(_ resultHandler: @escaping (Result<[Avatar], Error>) -> Void) {
 		
-		var fetchedAvatar : [NSManagedObject] = []
-		fetchedAvatar = persistence.fetch()
-		
-		
-//		if !fetchedAvatar.isEmpty {
+//		var fetchedAvatar : [NSManagedObject] = []
+//		fetchedAvatar = persistence.fetch()
+//		var elemets: NSManagedObject
+//
+//		if !fetchedAvatar.contains(<#T##element: NSManagedObject##NSManagedObject#>){
 //			let avatar = fetchedAvatar.map({ item in
 //				return Avatar(login: item.value(forKey: "login") as! String,id: item.value(forKey: "id")as! Int, avatar_url: URL(string: item.value(forKey: "avatar_url") as! String)!)
 //			})
@@ -47,12 +47,12 @@ class LiveAvatarStorage: AvatarService {
 //					}
 //				}
 //		}
-//	}
-//
+		
+	}
+
 	
 	
 	
 	
 }
-	
-}
+

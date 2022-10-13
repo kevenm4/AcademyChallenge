@@ -23,7 +23,7 @@ class MainPageViewControler: UIViewController {
 	private var emojiImage : UIImageView
 	private var containerView : UIView
 	var emojiService: EmojiService?
-	var persistence: EmojiCoreData = EmojiCoreData()
+	var persistence: AvatarCoreData?
 	
 	init() {
 		
@@ -61,6 +61,7 @@ class MainPageViewControler: UIViewController {
 		setUpConstraints()
 		setUpButton()
 		didTapRandomEmojiButton()
+		persistence?.fetch()
 		
 	}
 	
@@ -100,6 +101,7 @@ class MainPageViewControler: UIViewController {
 		emojiList.addTarget(self, action: #selector(didTapEmojiList), for: .touchUpInside)
 		searchButton.setTitleColor(.white, for: .normal)
 		searchButton.configuration = .filled()
+		searchButton.addTarget(self, action: #selector(saveSearchContent), for: .touchUpInside)
 		avatarList.setTitleColor(.white, for: .normal)
 		avatarList.addTarget(self, action: #selector(didTapAvatarList), for: .touchUpInside)
 		avatarList.configuration = .filled()
@@ -157,7 +159,7 @@ class MainPageViewControler: UIViewController {
 	}
 	@objc func didTapAvatarList() {
 		
-		let avatarListCoordinator = AvatarListCoordinator(presenter: navigationController!)
+		let avatarListCoordinator = AvatarListCoordinator(presenter: navigationController!, avatarPersitence: persistence!)
 		
 		avatarListCoordinator.start()
 		
@@ -200,10 +202,24 @@ class MainPageViewControler: UIViewController {
 		
 	}
 	
-//	@objc func getPrint(){
-//
-//		print("got it ", persistence.EmojiPersistence)
-//	}
+	
+	@objc func saveSearchContent() {
+		 guard let avatarName = searchInput.text else { return }
+		 
+		 let id: Int16 = 1
+		 let avatarUrl: String = "https://avatars.githubusercontent.com/u/3?v=4"
+		 
+		guard let avatarResult = persistence?.checkIfItemExist(login: avatarName) else { return }
+		 
+		 if(!avatarResult){
+			 
+			 persistence?.persist(login: avatarName, id: id, avatar_url: avatarUrl)
+			 print("Avatar saved")
+			print("/\(String(describing: persistence?.AvatarPersistence.count))")
+		 }
+		 searchInput.text = ""
+	 }
+	
 }
 
 

@@ -33,7 +33,6 @@
 		4CE31FD728EAD20F00C26B41 /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE31FD628EAD20F00C26B41 /* Avatar.swift */; };
 		4CE31FD928EAD89200C26B41 /* AvatarNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE31FD828EAD89200C26B41 /* AvatarNetwork.swift */; };
 		4CE31FDB28EB3D7700C26B41 /* LiveAvatarStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE31FDA28EB3D7700C26B41 /* LiveAvatarStorage.swift */; };
-		4CE31FDF28EB45C900C26B41 /* AvatarViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE31FDE28EB45C900C26B41 /* AvatarViewCell.swift */; };
 		4CE31FE128EC7D2A00C26B41 /* UIImageView+Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE31FE028EC7D2A00C26B41 /* UIImageView+Download.swift */; };
 		4CE31FE328EC825200C26B41 /* MockEmojis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE31FE228EC825200C26B41 /* MockEmojis.swift */; };
 		4CE31FEF28EC93AE00C26B41 /* EmojiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE31FEE28EC93AE00C26B41 /* EmojiResponse.swift */; };
@@ -73,7 +72,6 @@
 		4CE31FD628EAD20F00C26B41 /* Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
 		4CE31FD828EAD89200C26B41 /* AvatarNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarNetwork.swift; sourceTree = "<group>"; };
 		4CE31FDA28EB3D7700C26B41 /* LiveAvatarStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveAvatarStorage.swift; sourceTree = "<group>"; };
-		4CE31FDE28EB45C900C26B41 /* AvatarViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarViewCell.swift; sourceTree = "<group>"; };
 		4CE31FE028EC7D2A00C26B41 /* UIImageView+Download.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Download.swift"; sourceTree = "<group>"; };
 		4CE31FE228EC825200C26B41 /* MockEmojis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockEmojis.swift; sourceTree = "<group>"; };
 		4CE31FEE28EC93AE00C26B41 /* EmojiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiResponse.swift; sourceTree = "<group>"; };
@@ -154,7 +152,6 @@
 		4CE31FE828EC91D900C26B41 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				4CE31FDE28EB45C900C26B41 /* AvatarViewCell.swift */,
 				4CD2290828E482A600F11863 /* CollectionViewCell.swift */,
 			);
 			path = Cell;
@@ -365,7 +362,6 @@
 				4CE31FD928EAD89200C26B41 /* AvatarNetwork.swift in Sources */,
 				4CE38D7428DDB5CA0000B72B /* MainPageViewController.swift in Sources */,
 				4C5366ED28E5A4B400EE97A3 /* LiveEmojiStorage.swift in Sources */,
-				4CE31FDF28EB45C900C26B41 /* AvatarViewCell.swift in Sources */,
 				4CD834DD28F4726800A61AE2 /* GeneralEntity.xcdatamodeld in Sources */,
 				4CE31FF328EC952A00C26B41 /* AvatarAPI.swift in Sources */,
 				4CE38D7028DDB5CA0000B72B /* AppDelegate.swift in Sources */,

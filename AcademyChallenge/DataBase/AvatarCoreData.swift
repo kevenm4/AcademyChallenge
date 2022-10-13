@@ -46,11 +46,15 @@ class AvatarCoreData {
 	}
 		
 	
-		func fetch() -> [NSManagedObject] {
-			   var array: [NSManagedObject] = []
+		func fetch() {
+			
+			//   var array: [NSManagedObject] = []
+			
 			   guard let appDelegate =
+						
 				 UIApplication.shared.delegate as? AppDelegate else {
-				   return array
+				   
+				   return
 			   }
 
 			   let managedContext =
@@ -62,13 +66,36 @@ class AvatarCoreData {
 
 			   // WE GET THE DATA THOUGH THE FETCHREQUEST CRITERIA, IN THIS CASE WE ASK THE MANAGED CONTEXT TO SEND ALL THE DATA FROM THE PERSON ENTITY
 			   do {
-				   array = try managedContext.fetch(fetchRequest)
-			   } catch let error as NSError {
+				   AvatarPersistence = try managedContext.fetch(fetchRequest)
+				   
+			   } catch let error as NSError{
+				   
 				 print("Could not fetch. \(error), \(error.userInfo)")
 			   }
 
-			   return array
 		   }
-//
+	
+	func checkIfItemExist(login: String) -> Bool {
+			guard let appDelegate =
+			  UIApplication.shared.delegate as? AppDelegate else {
+			  return false
+			}
+			
+			let managedContext =
+			  appDelegate.persistentContainer.viewContext
+			
+			let fetchRequest = NSFetchRequest<NSFetchRequestResult>.init(entityName: "AvatarEntity")
+			fetchRequest.predicate = NSPredicate(format: "login = %@", login)
+			
+			do {
+				let test = try managedContext.fetch(fetchRequest)
+				if test.isEmpty {
+					return false
+				}
+			} catch {
+				print(error)
+			}
+			return true
+		}
 	
 	}
