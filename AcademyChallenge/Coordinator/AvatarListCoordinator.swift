@@ -14,12 +14,12 @@ class AvatarListCoordinator: Coordinator {
 	private let presenter : UINavigationController
 	
 	private var avatarViewController: AvatarViewController?
-	private var avatarPersitence: AvatarCoreData
 	
-	init(presenter: UINavigationController , avatarPersitence:AvatarCoreData){
+	
+	init(presenter: UINavigationController ){
 		
 		self.presenter = presenter
-		self.avatarPersitence = avatarPersitence
+	
 		
 	}
 	
@@ -27,10 +27,10 @@ class AvatarListCoordinator: Coordinator {
 	func start() {
 		
 		let avatarViewController = AvatarViewController()
-		
-		avatarViewController.persistence = avatarPersitence
-		
+
 		presenter.pushViewController(avatarViewController, animated: true)
+		
+		avatarViewController.avatarService = avatarService
 		
 		self.avatarViewController = avatarViewController
 		

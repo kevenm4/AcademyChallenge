@@ -30,6 +30,7 @@
 		4CD834ED28F70CBB00A61AE2 /* AvatarResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD834EC28F70CBB00A61AE2 /* AvatarResponse.swift */; };
 		4CD834EF28F7132800A61AE2 /* AvatarCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD834EE28F7132800A61AE2 /* AvatarCoreData.swift */; };
 		4CD834F128F717D000A61AE2 /* AvatarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD834F028F717D000A61AE2 /* AvatarService.swift */; };
+		4CD834F328F99D6B00A61AE2 /* NSMOBJ+ToAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD834F228F99D6B00A61AE2 /* NSMOBJ+ToAvatar.swift */; };
 		4CE31FD728EAD20F00C26B41 /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE31FD628EAD20F00C26B41 /* Avatar.swift */; };
 		4CE31FD928EAD89200C26B41 /* AvatarNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE31FD828EAD89200C26B41 /* AvatarNetwork.swift */; };
 		4CE31FDB28EB3D7700C26B41 /* LiveAvatarStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE31FDA28EB3D7700C26B41 /* LiveAvatarStorage.swift */; };
@@ -69,6 +70,7 @@
 		4CD834EC28F70CBB00A61AE2 /* AvatarResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarResponse.swift; sourceTree = "<group>"; };
 		4CD834EE28F7132800A61AE2 /* AvatarCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarCoreData.swift; sourceTree = "<group>"; };
 		4CD834F028F717D000A61AE2 /* AvatarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarService.swift; sourceTree = "<group>"; };
+		4CD834F228F99D6B00A61AE2 /* NSMOBJ+ToAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMOBJ+ToAvatar.swift"; sourceTree = "<group>"; };
 		4CE31FD628EAD20F00C26B41 /* Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
 		4CE31FD828EAD89200C26B41 /* AvatarNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarNetwork.swift; sourceTree = "<group>"; };
 		4CE31FDA28EB3D7700C26B41 /* LiveAvatarStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveAvatarStorage.swift; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 			children = (
 				4CE31FE028EC7D2A00C26B41 /* UIImageView+Download.swift */,
 				4CD834E628F6F88600A61AE2 /* ImageSpinner.swift */,
+				4CD834F228F99D6B00A61AE2 /* NSMOBJ+ToAvatar.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -347,6 +350,7 @@
 				4CD834E128F576D800A61AE2 /* EmojiCoreData.swift in Sources */,
 				4CE31FD728EAD20F00C26B41 /* Avatar.swift in Sources */,
 				4CE31FE328EC825200C26B41 /* MockEmojis.swift in Sources */,
+				4CD834F328F99D6B00A61AE2 /* NSMOBJ+ToAvatar.swift in Sources */,
 				4CCED29E28E1BC0900BC8729 /* RepoListViewController.swift in Sources */,
 				4CE31FDB28EB3D7700C26B41 /* LiveAvatarStorage.swift in Sources */,
 				4CD6203428F016B300225483 /* EmojiListCoordinator.swift in Sources */,

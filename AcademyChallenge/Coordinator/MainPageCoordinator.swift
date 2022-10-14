@@ -14,7 +14,7 @@ class MainPageCoordinator: Coordinator {
 	private let presenter: UINavigationController
 	  private var mainPageViewController: MainPageViewControler?
 	  private var emojis: [Emoji]?
-	private var avatarPersitence: AvatarCoreData = AvatarCoreData()
+
 	
 	
 	init( presenter:UINavigationController){
@@ -30,7 +30,8 @@ class MainPageCoordinator: Coordinator {
 		let mainViewController = MainPageViewControler()
 		
 		mainViewController.emojiService = emojiSource
-		mainViewController.persistence = avatarPersitence
+		mainViewController.avatarService = avatarService
+		
 		presenter.pushViewController(mainViewController, animated: true)
 		
 		self.mainPageViewController = mainViewController

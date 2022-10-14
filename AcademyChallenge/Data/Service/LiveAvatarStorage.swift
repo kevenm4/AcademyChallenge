@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import CoreData
 
-class LiveAvatarStorage: AvatarService {
+class LiveAvatarStorage {
 	
 	private	var avatarNetwork: AvatarNetwork = .init()
 	
@@ -21,36 +21,59 @@ class LiveAvatarStorage: AvatarService {
 	
 	
 	
-	func fetchAvatar(_ resultHandler: @escaping (Result<[Avatar], Error>) -> Void) {
 		
-//		var fetchedAvatar : [NSManagedObject] = []
-//		fetchedAvatar = persistence.fetch()
-//		var elemets: NSManagedObject
-//
-//		if !fetchedAvatar.contains(<#T##element: NSManagedObject##NSManagedObject#>){
-//			let avatar = fetchedAvatar.map({ item in
-//				return Avatar(login: item.value(forKey: "login") as! String,id: item.value(forKey: "id")as! Int, avatar_url: URL(string: item.value(forKey: "avatar_url") as! String)!)
-//			})
-//			print(avatar.count)
-//			resultHandler(.success(avatar))
-//
-//		}else {
-//			// METHOD IN EMOJI API
-//				avatarNetwork.executeNetwork(AvatarAPI.getAvatar) { (result: Result<AvatarResponse, Error>) in
-//					switch result{
-//					case .success(let success):
-//	//                    print("Success: \(success.emojis)")
-//						resultHandler(.success(success.avatar))
-//					case .failure(let failure):
-//						print("Failure: \(failure)")
-//						resultHandler(.failure(failure))
-//					}
-//				}
-//		}
+	func fetchAvatarList(_ resultHandler: @escaping ([Avatar]) -> Void){
 		
+		persistence.fetch() { (result: [NSManagedObject]) in
+			if result.count != 0 {
+				// TRANSFORM NSMANAGEDOBJECT ARRAY TO AVATAR ARRAY
+				let avatars = result.map({ item in
+					return item.ToAvatar()
+				})
+				
+				resultHandler(avatars)
+				
+			}
+		}
 	}
 
-	
+	func getAvatar(searchText: String, _ resultHandler: @escaping (Result<Avatar, Error>) -> Void){
+		
+		persistence.checkIfItemExist(searchText: searchText) { ( result: Result<[NSManagedObject], Error>) in
+			switch result {
+			case .success(let success):
+				if success.count != 0 {
+					
+					guard let avatarFound = success.first else { return }
+					
+					resultHandler(.success(avatarFound.ToAvatar()))
+				} else {
+					// GET THE AVATAR FROM API
+					let decoder = JSONDecoder()
+					var request = URLRequest(url: URL(string: "https://api.github.com/users/\(searchText)")!)
+					request.httpMethod = Method.get.rawValue
+
+					let task = URLSession.shared.dataTask(with: request) { data, response, error in
+						if let data = data {
+							if let result = try? decoder.decode(Avatar.self, from: data) {
+								self.persistence.persist(currentAvatar: result)
+								resultHandler(.success(result))
+							} else {
+								resultHandler(.failure(APIError.unknownError))
+							}
+						} else if let error = error {
+							resultHandler(.failure(error))
+						}
+					}
+
+					task.resume()
+				}
+			case .failure(let failure):
+				print("Failure to verify if avatar exists in Core data: \(failure)")
+			}
+		}
+		
+	}
 	
 	
 	

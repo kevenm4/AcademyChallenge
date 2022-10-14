@@ -23,7 +23,7 @@ class MainPageViewControler: UIViewController {
 	private var emojiImage : UIImageView
 	private var containerView : UIView
 	var emojiService: EmojiService?
-	var persistence: AvatarCoreData?
+	var avatarService: LiveAvatarStorage?
 	
 	init() {
 		
@@ -61,7 +61,6 @@ class MainPageViewControler: UIViewController {
 		setUpConstraints()
 		setUpButton()
 		didTapRandomEmojiButton()
-		persistence?.fetch()
 		
 	}
 	
@@ -136,14 +135,18 @@ class MainPageViewControler: UIViewController {
 			stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 80),
 			stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
 			stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-			containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor , constant: 20),
-			containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor , constant: -20),
-			containerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-			containerView.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -20),
-			emojiImage.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-			emojiImage.centerYAnchor.constraint(equalTo: containerView.centerYAnchor)
 			
+			containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor , constant: 0.1 * view.frame.width),
+			containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor , constant: -0.1 * view.frame.width),
+			containerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0.1 * view.frame.height),
+			containerView.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -0.1 * view.frame.height),
+			
+			emojiImage.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 0.25 * containerView.frame.width),
+			emojiImage.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -0.25 * containerView.frame.width),
+			emojiImage.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 0.25 * containerView.frame.height),
+			emojiImage.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -0.25 * containerView.frame.height)
 		])
+		emojiImage.contentMode = .scaleAspectFit
 	}
 	
 	// 5- Button func to call event
@@ -159,7 +162,7 @@ class MainPageViewControler: UIViewController {
 	}
 	@objc func didTapAvatarList() {
 		
-		let avatarListCoordinator = AvatarListCoordinator(presenter: navigationController!, avatarPersitence: persistence!)
+		let avatarListCoordinator = AvatarListCoordinator(presenter: navigationController!)
 		
 		avatarListCoordinator.start()
 		
@@ -204,20 +207,19 @@ class MainPageViewControler: UIViewController {
 	
 	
 	@objc func saveSearchContent() {
-		 guard let avatarName = searchInput.text else { return }
-		 
-		 let id: Int16 = 1
-		 let avatarUrl: String = "https://avatars.githubusercontent.com/u/3?v=4"
-		 
-		guard let avatarResult = persistence?.checkIfItemExist(login: avatarName) else { return }
-		 
-		 if(!avatarResult){
-			 
-			 persistence?.persist(login: avatarName, id: id, avatar_url: avatarUrl)
-			 print("Avatar saved")
-			print("/\(String(describing: persistence?.AvatarPersistence.count))")
-		 }
-		 searchInput.text = ""
+		guard let searchBarText = searchInput.text else { return }
+		avatarService?.getAvatar(searchText: searchBarText, { (result: Result<Avatar, Error>) in
+			switch result {
+			case .success(let success):
+				
+				let avatarUrl = success.avatar_url
+				
+				self.emojiImage.downloadImageFromURL(from: avatarUrl)
+				
+			case .failure(let failure):
+				print("Failure to Get Avatar: \(failure)")
+			}
+		})
 	 }
 	
 }

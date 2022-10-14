@@ -9,7 +9,9 @@ import UIKit
 
 class AvatarViewController: UIViewController {
 	
-	var persistence: AvatarCoreData?
+	var avatarService: LiveAvatarStorage?
+	var avatarList: [Avatar] = []
+	
 	
 	lazy var collectionView: UICollectionView = {
 			let s = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -68,9 +70,11 @@ class AvatarViewController: UIViewController {
 		collectionView.dataSource = self
 	}
 	
-	override func viewDidAppear(_ animated: Bool) {
+	override func viewWillAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
-		
+		avatarService?.fetchAvatarList({ (result: [Avatar]) in
+			self.avatarList = result
+		})
 		collectionView.reloadData()
 		
 	}
@@ -83,7 +87,7 @@ extension AvatarViewController: UICollectionViewDataSource {
 
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
-		let countAvatar = (persistence?.AvatarPersistence.count)!
+		let countAvatar = avatarList.count
 		
 		return countAvatar
 	}
@@ -94,9 +98,8 @@ extension AvatarViewController: UICollectionViewDataSource {
 			return UICollectionViewCell()
 		}
 
-		guard let url = persistence?.AvatarPersistence[indexPath.row].value(forKey: "avatar_url")as? String else {return UICollectionViewCell()}
-
-		cell.setUpCell(url: URL(string: url)!)
+		let url = avatarList[indexPath.row].avatar_url
+		cell.setUpCell(url: url)
 
 
 		return cell
