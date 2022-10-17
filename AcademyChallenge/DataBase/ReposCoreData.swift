@@ -19,7 +19,9 @@ class ReposCoreData {
 	   appDelegate = UIApplication.shared.delegate as! AppDelegate
    }
    
-	func persist(id: Int, full_name: String , private: Bool){
+	
+	func persist(repositories : Repos){
+		
 	   
 	   DispatchQueue.main.async() {
    
@@ -29,22 +31,24 @@ class ReposCoreData {
 
 	   
    let managedContext = appDelegate.persistentContainer.viewContext
+		   
 	   
 	   let entity = NSEntityDescription.entity(forEntityName: "ReposEntity", in: managedContext)!
+		   
 	   
 	   let repos = NSManagedObject(entity: entity, insertInto: managedContext)
 	   
-		   repos.setValue( full_name, forKeyPath: "full_name")
+		   repos.setValue( repositories.full_name, forKeyPath: "full_name")
 	   
-		   repos.setValue(`private`, forKey: "private")
+		   repos.setValue(repositories.unique, forKey: "unique")
 		   
-		   repos.setValue( id, forKey: "id")
+		   repos.setValue( repositories.id, forKey: "id")
 	   
 	   do {
 		   
 		 try managedContext.save()
 		   
-		   //self.AvatarPersistence.append(avatar)
+		   self.ReposPersistence.append(repos)
 		   
 	   } catch let error as NSError {
 		   
@@ -55,35 +59,35 @@ class ReposCoreData {
    }
 	   
    
-	   func fetch(_ resulthandler: @escaping ([NSManagedObject]) -> Void) {
-		   
-		   var array: [NSManagedObject]
-		   
-//			   guard let appDelegate =
+	func fetch() -> [NSManagedObject] {
+		
+		   var array: [NSManagedObject] = []
+		
+		   guard let appDelegate =
+					
+			 UIApplication.shared.delegate as? AppDelegate else {
+			   
+			   return array
+		   }
+
+		   let managedContext =
+			 appDelegate.persistentContainer.viewContext
+
+		   // FETCH ALL THE DATA FROM THE ENTITY PERSON
+		   let fetchRequest =
+			 NSFetchRequest<NSManagedObject>(entityName: "ReposEntity")
+
+		   // WE GET THE DATA THOUGH THE FETCHREQUEST CRITERIA, IN THIS CASE WE ASK THE MANAGED CONTEXT TO SEND ALL THE DATA FROM THE PERSON ENTITY
+		   do {
+			   array = try managedContext.fetch(fetchRequest)
+			   
+		   } catch let error as NSError {
+			   
+			 print("Could not fetch. \(error), \(error.userInfo)")
+		   }
+
+		   return array
+	   }
 //
-//				 UIApplication.shared.delegate as? AppDelegate else {
-//
-//				   return
-//			   }
 
-			  let managedContext =
-				appDelegate.persistentContainer.viewContext
-
-			  // FETCH ALL THE DATA FROM THE ENTITY PERSON
-			  let fetchRequest =
-				NSFetchRequest<NSManagedObject>(entityName: "ReposEntity")
-
-			  // WE GET THE DATA THOUGH THE FETCHREQUEST CRITERIA, IN THIS CASE WE ASK THE MANAGED CONTEXT TO SEND ALL THE DATA FROM THE PERSON ENTITY
-			  do {
-				  array = try managedContext.fetch(fetchRequest)
-				  
-				  resulthandler(array)
-				  
-			  } catch let error as NSError{
-				  
-				print("Could not fetch. \(error), \(error.userInfo)")
-			  }
-
-		  }
-	
 }

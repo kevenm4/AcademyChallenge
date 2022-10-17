@@ -32,6 +32,10 @@
 		4CD834F328F99D6B00A61AE2 /* NSMOBJ+ToAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD834F228F99D6B00A61AE2 /* NSMOBJ+ToAvatar.swift */; };
 		4CD834F528FD992800A61AE2 /* ReposCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD834F428FD992800A61AE2 /* ReposCoreData.swift */; };
 		4CD834F728FD9F7B00A61AE2 /* Repos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD834F628FD9F7B00A61AE2 /* Repos.swift */; };
+		4CD834F928FDA33900A61AE2 /* LiveReposStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD834F828FDA33900A61AE2 /* LiveReposStorage.swift */; };
+		4CD834FB28FDA4E100A61AE2 /* ReposNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD834FA28FDA4E100A61AE2 /* ReposNetwork.swift */; };
+		4CD834FD28FDA92800A61AE2 /* ReposResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD834FC28FDA92800A61AE2 /* ReposResponse.swift */; };
+		4CD834FF28FDAAA400A61AE2 /* ReposAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD834FE28FDAAA400A61AE2 /* ReposAPI.swift */; };
 		4CE31FD728EAD20F00C26B41 /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE31FD628EAD20F00C26B41 /* Avatar.swift */; };
 		4CE31FD928EAD89200C26B41 /* AvatarNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE31FD828EAD89200C26B41 /* AvatarNetwork.swift */; };
 		4CE31FDB28EB3D7700C26B41 /* LiveAvatarStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE31FDA28EB3D7700C26B41 /* LiveAvatarStorage.swift */; };
@@ -73,6 +77,10 @@
 		4CD834F228F99D6B00A61AE2 /* NSMOBJ+ToAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMOBJ+ToAvatar.swift"; sourceTree = "<group>"; };
 		4CD834F428FD992800A61AE2 /* ReposCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReposCoreData.swift; sourceTree = "<group>"; };
 		4CD834F628FD9F7B00A61AE2 /* Repos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repos.swift; sourceTree = "<group>"; };
+		4CD834F828FDA33900A61AE2 /* LiveReposStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveReposStorage.swift; sourceTree = "<group>"; };
+		4CD834FA28FDA4E100A61AE2 /* ReposNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReposNetwork.swift; sourceTree = "<group>"; };
+		4CD834FC28FDA92800A61AE2 /* ReposResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReposResponse.swift; sourceTree = "<group>"; };
+		4CD834FE28FDAAA400A61AE2 /* ReposAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReposAPI.swift; sourceTree = "<group>"; };
 		4CE31FD628EAD20F00C26B41 /* Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
 		4CE31FD828EAD89200C26B41 /* AvatarNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarNetwork.swift; sourceTree = "<group>"; };
 		4CE31FDA28EB3D7700C26B41 /* LiveAvatarStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveAvatarStorage.swift; sourceTree = "<group>"; };
@@ -171,6 +179,7 @@
 				4CE8D7D928EEE3DB002A77C1 /* MockedEmojiService.swift */,
 				4CE8D7D728EEE240002A77C1 /* EmojiService.swift */,
 				4CD834F028F717D000A61AE2 /* AvatarService.swift */,
+				4CD834F828FDA33900A61AE2 /* LiveReposStorage.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -187,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				4CE31FEE28EC93AE00C26B41 /* EmojiResponse.swift */,
+				4CD834FC28FDA92800A61AE2 /* ReposResponse.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -198,6 +208,8 @@
 				4CABE5CB28E725AC00EC7DDA /* EmojiNetwork.swift */,
 				4CE31FF228EC952A00C26B41 /* AvatarAPI.swift */,
 				4CE31FD828EAD89200C26B41 /* AvatarNetwork.swift */,
+				4CD834FA28FDA4E100A61AE2 /* ReposNetwork.swift */,
+				4CD834FE28FDAAA400A61AE2 /* ReposAPI.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -349,15 +361,18 @@
 				4CABE5CC28E725AC00EC7DDA /* EmojiNetwork.swift in Sources */,
 				4CABE5CA28E703EE00EC7DDA /* Application.swift in Sources */,
 				4CE31FF128EC941C00C26B41 /* EmojiAPI.swift in Sources */,
+				4CD834FF28FDAAA400A61AE2 /* ReposAPI.swift in Sources */,
 				4C5366EF28E5A51D00EE97A3 /* Emoji.swift in Sources */,
 				4CD834E128F576D800A61AE2 /* EmojiCoreData.swift in Sources */,
 				4CE31FD728EAD20F00C26B41 /* Avatar.swift in Sources */,
 				4CE31FE328EC825200C26B41 /* MockEmojis.swift in Sources */,
 				4CD834F328F99D6B00A61AE2 /* NSMOBJ+ToAvatar.swift in Sources */,
 				4CCED29E28E1BC0900BC8729 /* RepoListViewController.swift in Sources */,
+				4CD834F928FDA33900A61AE2 /* LiveReposStorage.swift in Sources */,
 				4CE31FDB28EB3D7700C26B41 /* LiveAvatarStorage.swift in Sources */,
 				4CD6203428F016B300225483 /* EmojiListCoordinator.swift in Sources */,
 				4CCED29A28E1B1FD00BC8729 /* MainPageCoordinator.swift in Sources */,
+				4CD834FB28FDA4E100A61AE2 /* ReposNetwork.swift in Sources */,
 				4CD2290928E482A600F11863 /* CollectionViewCell.swift in Sources */,
 				4CD6203828F016F300225483 /* AvatarListCoordinator.swift in Sources */,
 				4CE31FEF28EC93AE00C26B41 /* EmojiResponse.swift in Sources */,
@@ -376,6 +391,7 @@
 				4CE31FE128EC7D2A00C26B41 /* UIImageView+Download.swift in Sources */,
 				4CCED29828E1B09600BC8729 /* Coordinator.swift in Sources */,
 				4CD6203628F016CD00225483 /* RepoListCoordinator.swift in Sources */,
+				4CD834FD28FDA92800A61AE2 /* ReposResponse.swift in Sources */,
 				4CCED29C28E1BBBD00BC8729 /* AvatarViewController.swift in Sources */,
 				4CD834EF28F7132800A61AE2 /* AvatarCoreData.swift in Sources */,
 				4CE38D7228DDB5CA0000B72B /* SceneDelegate.swift in Sources */,

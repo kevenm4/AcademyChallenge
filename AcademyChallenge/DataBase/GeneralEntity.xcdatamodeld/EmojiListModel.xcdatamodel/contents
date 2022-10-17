@@ -12,7 +12,7 @@
     <entity name="ReposEntity" representedClassName="ReposEntity" syncable="YES" codeGenerationType="class">
         <attribute name="full_name" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="private" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="unique" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
     </entity>
     <elements>
         <element name="AvatarEntity" positionX="-45" positionY="18" width="128" height="74"/>
