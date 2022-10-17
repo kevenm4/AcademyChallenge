@@ -101,4 +101,28 @@ class AvatarCoreData {
 		}
 	
 	}
+	
+	func delete(avatarObject: Avatar) {
+			
+			let managedContext = self.appDelegate.persistentContainer.viewContext
+			
+			
+			let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AvatarEntity")
+
+			fetchRequest.predicate = NSPredicate(format: "login = %@", avatarObject.login)
+		
+			
+			do {
+				let avatarToDelete = try managedContext.fetch(fetchRequest)
+				if avatarToDelete.count == 1 {
+					guard let avatar = avatarToDelete.first else { return }
+					managedContext.delete(avatar)
+					try managedContext.save()
+				}
+				
+			} catch let error as NSError {
+				print("[DELETE AVATAR] Error to delete avatar: \(error)")
+			}
+			
+		}
 }

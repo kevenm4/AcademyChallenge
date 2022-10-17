@@ -104,6 +104,19 @@ extension AvatarViewController: UICollectionViewDataSource {
 
 		return cell
 	}
+	
+	
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		   
+		   let avatar = avatarList[indexPath.row]
+		   
+		   avatarService?.deleteAvatar(avatarToDelete: avatar, { (result: [Avatar]) in
+			   self.avatarList = result
+			   
+		   })
+		   collectionView.reloadData()
+
+	   }
 }
 
 extension AvatarViewController: UICollectionViewDelegateFlowLayout {

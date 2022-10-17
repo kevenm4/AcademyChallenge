@@ -25,15 +25,20 @@ class LiveAvatarStorage {
 	func fetchAvatarList(_ resultHandler: @escaping ([Avatar]) -> Void){
 		
 		persistence.fetch() { (result: [NSManagedObject]) in
+			
+			var avatars:[Avatar] = []
+			
 			if result.count != 0 {
 				// TRANSFORM NSMANAGEDOBJECT ARRAY TO AVATAR ARRAY
-				let avatars = result.map({ item in
+				 avatars = result.map({ item in
 					return item.ToAvatar()
 				})
 				
-				resultHandler(avatars)
+				
 				
 			}
+			
+			resultHandler(avatars)
 		}
 	}
 
@@ -75,7 +80,13 @@ class LiveAvatarStorage {
 		
 	}
 	
-	
+	func deleteAvatar(avatarToDelete: Avatar, _ resultHandler: @escaping ([Avatar]) -> Void) {
+		   
+		   persistence.delete(avatarObject: avatarToDelete)
+		   fetchAvatarList { (result: [Avatar]) in
+			   resultHandler(result)
+		   }
+	   }
 	
 }
 
