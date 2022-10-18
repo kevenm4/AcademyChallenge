@@ -8,48 +8,43 @@
 import UIKit
 
 
-class EmojiListViewController: UIViewController, Coordinating, EmojiPresenter {
+class EmojiListViewController: UIViewController {
 	
-	var coordinator: Coordinator?
-	var emojiStorage: EmojiStorage?
+	var emoji: [Emoji]?
 	
-	var colors: [UIColor] = [.blue, .green, .red, .yellow, .black, .orange]
+	var strong = MockedDataSource()
+	
+	var emojiService: EmojiService?
 	
 	lazy var collectionView: UICollectionView = {
 			let v = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 			return v
 		}()
 	
-	func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
-			URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
-		}
-
-		func downloadImage(url: URL, imageView: UIImageView){
-			getData(from: url) { data, response, error in
-				guard let data = data, error == nil else { return }
-				// always update the UI from the main thread
-				DispatchQueue.main.async() {
-					imageView.image = UIImage(data: data)
-				}
-			}
-		}
+	
 		
 	
     override func viewDidLoad() {
         super.viewDidLoad()
+		
         setUpViews()
 		addViewToSuperview()
 		setUpConstrains()
+		
 	}
 	private func setUpViews() {
+		
 		setUpCollecionView()
 	}
 	
+
 	private func addViewToSuperview(){
+		
 		view.addSubview(collectionView)
 	}
 	
 	private func setUpConstrains() {
+		
 		collectionView.translatesAutoresizingMaskIntoConstraints = false
 		
 		NSLayoutConstraint.activate([
@@ -64,6 +59,8 @@ class EmojiListViewController: UIViewController, Coordinating, EmojiPresenter {
 	
 	private func setUpCollecionView() {
 		
+	
+		
 		let layout = UICollectionViewFlowLayout()
 		layout.scrollDirection = .vertical
 		
@@ -72,64 +69,111 @@ class EmojiListViewController: UIViewController, Coordinating, EmojiPresenter {
 		
 		collectionView = .init(frame: .zero, collectionViewLayout: layout)
 		
+		collectionView.backgroundColor = UIColor.appColor(.primary)
+		
 		collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: "cell")
 		
 		collectionView.delegate = self
 		collectionView.dataSource = self
 	}
 	
-
-}
-extension EmojiListViewController: UICollectionViewDelegate {
 	
-	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+	override func viewWillAppear(_ animated: Bool) {
+		
+		super.viewDidAppear(animated)
+		
+		emojiService?.fetchEmojis({ [weak self] (result: Result<[Emoji],Error>) in
+			switch result{
+			case .success(let success):
+				self?.emoji = success
+				self?.emoji?.sort()
+				DispatchQueue.main.async { [weak self] in
+					self?.collectionView.reloadData()
+				}
+				
+			case .failure(let failure):
+				print("Failure: \(failure)")
+			}
+			
+
+		})
+		
 		
 	}
+	
+	
+
 }
+
+
+
+
 
 extension EmojiListViewController: UICollectionViewDataSource {
 	
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		
-		let countEmojis = emojiStorage?.emojis.count ?? 0
+		let countEmojis = emoji?.count ?? 0
 		return countEmojis
 	}
 	
+	
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+		
 		guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CollectionViewCell else {
+			
 			return UICollectionViewCell()
 		}
-		//cell.color = colors[indexPath.row]
-		let url = URL(string: (emojiStorage?.emojis[indexPath.row].url)!)!
+		
+	guard let url = emoji?[indexPath.row].imageUrl else {return UICollectionViewCell()}
+
+		cell.setUpCell(url: url)
 			   
-			   let imageView : UIImageView = .init(frame: .zero)
-			   
-			   downloadImage(url: url, imageView: imageView)
-			   
-			   cell.contentView.addSubview(imageView)
-			   
-			   imageView.translatesAutoresizingMaskIntoConstraints = false
-			   
-			   NSLayoutConstraint.activate([imageView.centerXAnchor.constraint(equalTo: cell.centerXAnchor),
-											imageView.centerYAnchor.constraint(equalTo: cell.centerYAnchor)])
+
 		return cell
 	}
 }
 
-extension EmojiListViewController: EmojiStorageDelegate {
-	func emojiListUpdated() {
-		print("Emojis: \(String(describing: emojiStorage?.emojis.count))")
-				collectionView.reloadData()
+class MockedDataSource:  NSObject, UICollectionViewDataSource {
+	
+	var emojiMock : MockEmojis = .init()
+	
+	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+		
+		return emojiMock.emojis.count
 	}
 	
-}
+	
+	
+	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+		
+		guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CollectionViewCell else {
+			
+			return UICollectionViewCell()
+		}
+		
+		cell.setUpCell(url: emojiMock.emojis[indexPath.row].imageUrl)
+
+			
+
+			return cell
+		}
+		
+	}
+	
+
+	
+
 
 extension EmojiListViewController: UICollectionViewDelegateFlowLayout {
+	
 	func collectionView(_ collectionView: UICollectionView,
 				  layout collectionViewLayout: UICollectionViewLayout,
 				  insetForSectionAt section: Int) -> UIEdgeInsets {
+		
 		return UIEdgeInsets(top: 1.0, left: 8.0, bottom: 1.0, right: 8.0)
 	}
+	
 	
 	func collectionView (_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
 	{
