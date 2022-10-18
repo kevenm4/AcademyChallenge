@@ -12,6 +12,11 @@ class EmojiCoreData {
 	
 	 var EmojiPersistence: [NSManagedObject] = []
 	
+	var appDelegate: AppDelegate
+	
+	init() {
+		appDelegate = UIApplication.shared.delegate as! AppDelegate
+	}
 	
 	func persist(name: String, imageUrl: String){
 		
@@ -70,6 +75,30 @@ class EmojiCoreData {
 
 			   return array
 		   }
-//
+
+	
+	func delete(emojiObject: Emoji) {
+			
+			let managedContext = self.appDelegate.persistentContainer.viewContext
+			
+			
+			let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "EmojiEntity")
+
+		fetchRequest.predicate = NSPredicate(format: "name = %@", emojiObject.name)
+		
+			
+			do {
+				let emojiToDelete = try managedContext.fetch(fetchRequest)
+				if emojiToDelete.count == 1 {
+					guard let emoji = emojiToDelete.first else { return }
+					managedContext.delete(emoji)
+					try managedContext.save()
+				}
+				
+			} catch let error as NSError {
+				print("[DELETE EMOJI] Error to delete emoji: \(error)")
+			}
+			
+		}
 	
 	}

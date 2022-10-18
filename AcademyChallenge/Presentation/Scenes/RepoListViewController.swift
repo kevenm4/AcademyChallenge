@@ -93,6 +93,8 @@ extension RepoListViewController: UITableViewDataSource {
 		cell.textLabel?.text = repoList[indexPath.row].full_name
 		cell.backgroundColor = UIColor.appColor(.primary)
 		cell.textLabel?.textColor = UIColor.appColor(.secondary)
+		
+		
 		return cell
 	}
 	

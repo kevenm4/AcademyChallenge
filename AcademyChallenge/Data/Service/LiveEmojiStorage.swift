@@ -50,15 +50,38 @@ class LiveEmojiStorage: EmojiService {
 						   resultHandler(.success(success.emojis))
 					   case .failure(let failure):
 						   print("Failure: \(failure)")
+						
 						   resultHandler(.failure(failure))
 					   }
 				   }
 		   }
 		   
 	   }
+	func deleteEmoji(emojiToDelete: Emoji, _ resultHandler: @escaping ([Emoji]) -> Void) {
+		   
+		   persistence.delete(emojiObject: emojiToDelete)
+		
+		fetchEmojis {(result: Result<[Emoji], Error> )in
+			
+			switch result {
+			case .success(let success):
+				
+				resultHandler(success)
+				
+			case .failure(let failure):
+				
+				print("Failure: \(failure)")
+			 
+			}
+			
+			
+		}
+		   }
+	
+	   }
 
 
-}
+
 
 
 
