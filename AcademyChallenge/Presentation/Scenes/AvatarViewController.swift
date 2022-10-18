@@ -60,7 +60,7 @@ class AvatarViewController: UIViewController {
 		
 		collectionView = .init(frame: .zero, collectionViewLayout: layout)
 		
-		collectionView.backgroundColor = .blue
+		collectionView.backgroundColor = UIColor.appColor(.primary)
 		
 		collectionView.register(AvatarViewCell.self, forCellWithReuseIdentifier: "cell")
 		

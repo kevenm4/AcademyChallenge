@@ -69,7 +69,7 @@ class EmojiListViewController: UIViewController {
 		
 		collectionView = .init(frame: .zero, collectionViewLayout: layout)
 		
-		collectionView.backgroundColor = .blue
+		collectionView.backgroundColor = UIColor.appColor(.primary)
 		
 		collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: "cell")
 		

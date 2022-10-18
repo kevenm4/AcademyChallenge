@@ -53,8 +53,8 @@ class MainPageViewControler: UIViewController {
 		super.viewDidLoad()
 		
 		//getEmojis()
-		view.backgroundColor = .blue
-		view.tintColor = .gray
+	    view.backgroundColor = UIColor.appColor(.primary)
+		view.tintColor = UIColor.appColor(.secondary)
 		setUpView()
 		addtoSuperView()
 		setUpConstraints()
