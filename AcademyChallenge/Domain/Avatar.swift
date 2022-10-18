@@ -9,8 +9,8 @@ import Foundation
 
 
 struct Avatar: Codable {
-	let login: String?
+    let login: String
 	let id: Int
-	let avatar_url: URL?
+	let avatar_url: URL
 }
 

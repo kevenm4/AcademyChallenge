@@ -9,17 +9,17 @@ import UIKit
 
 class CollectionViewCell: UICollectionViewCell {
 	
-	private var emojiImageView: UIImageView
+	private var imageView: UIImageView
 	var dataTask: URLSessionTask?
 	
 	override init(frame: CGRect) {
 		
-		emojiImageView = .init(frame: .zero)
-		emojiImageView.contentMode = .scaleAspectFit
-		emojiImageView.clipsToBounds = true
+		imageView = .init(frame: .zero)
+		imageView.contentMode = .scaleAspectFit
+		imageView.clipsToBounds = true
 		
 		super.init(frame: .zero)
-		self.contentView.addSubview(emojiImageView)
+		self.contentView.addSubview(imageView)
 		setupConstraints()
 	}
 	
@@ -29,17 +29,18 @@ class CollectionViewCell: UICollectionViewCell {
 	
 	
 	func setUpCell(url: URL){
-		self.emojiImageView.downloadImageFromURL(from: url)
+		
+		self.imageView.downloadImageFromURL(from: url)
 	}
 	
 	func setupConstraints(){
-		emojiImageView.translatesAutoresizingMaskIntoConstraints = false
+		imageView.translatesAutoresizingMaskIntoConstraints = false
 		
 		NSLayoutConstraint.activate([
-			emojiImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-					  emojiImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-					  emojiImageView.topAnchor.constraint(equalTo: self.topAnchor),
-					  emojiImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+			imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+					  imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+					  imageView.topAnchor.constraint(equalTo: self.topAnchor),
+					  imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
 		
 		])
 	}
@@ -50,7 +51,7 @@ class CollectionViewCell: UICollectionViewCell {
 		
 		dataTask?.cancel()
 		
-		emojiImageView.image = nil
+		imageView.image = nil
 	
 	}
 }

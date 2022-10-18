@@ -10,6 +10,12 @@ import Foundation
 
 class EmojiNetwork {
 	
+	
+	static func initialize() {
+	 URLSession.shared.configuration.urlCache?.diskCapacity = 100 * 1024 * 1024
+	 print("Current disk cache capacity: \(URLSession.shared.configuration.urlCache?.diskCapacity)")
+ }
+	
 	func executeNetworkCall<ResultType: Decodable>(_ call: APIProtocol, _ resultHandler: @escaping (Result<ResultType, Error>) -> Void) {
 		let decoder = JSONDecoder()
 		var request = URLRequest(url: call.url)
