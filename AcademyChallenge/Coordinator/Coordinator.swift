@@ -18,4 +18,6 @@ var emojiSource = LiveEmojiStorage()
 
 var avatarService = LiveAvatarStorage()
 
+var reposService = LiveReposStorage()
+
 

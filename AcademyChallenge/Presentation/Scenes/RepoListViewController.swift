@@ -10,29 +10,49 @@ import UIKit
 class RepoListViewController: UIViewController{
 	
 	
-	var reposService: LiveReposStorage?
+	var reposService: ReposService?
+	
 	var repoList: [Repos] = []
 	
 	let tableView = UITableView()
 	
-	var data = [String]()
 	
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		title = "Repo List"
 		
-		for x in 0...100 {
-			
-			data.append("keven is gigant \(x)")
-		}
-		view.backgroundColor = UIColor.appColor(.primary)
+		tableView.backgroundColor = UIColor.appColor(.primary)
 		view.addSubview(tableView)
 		tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
 		tableView.delegate = self
 		tableView.dataSource = self
 		
 	}
+	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		
+		reposService?.fetchRepos({ [weak self] (result: Result<[Repos],Error>) in
+			
+			switch result{
+			case .success(let success):
+				self?.repoList = success
+				//self?.repoList.sorted()
+				DispatchQueue.main.async { [weak self] in
+					self?.tableView.reloadData()
+				}
+				
+			case .failure(let failure):
+				print("Failure: \(failure)")
+			}
+			
+
+		})
+		
+		
+	}
+	
+	
 	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
@@ -60,8 +80,9 @@ extension RepoListViewController: UITableViewDataSource {
 	
 	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		
-		return data.count
+		print(repoList.count)
+		return repoList.count
+	
 	}
 	
 	
@@ -69,8 +90,9 @@ extension RepoListViewController: UITableViewDataSource {
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
 		
-		cell.textLabel?.text = data[indexPath.row]
-		//avatarList[indexPath.row].avatar_url
+		cell.textLabel?.text = repoList[indexPath.row].full_name
+		cell.backgroundColor = UIColor.appColor(.primary)
+		cell.textLabel?.textColor = UIColor.appColor(.secondary)
 		return cell
 	}
 	

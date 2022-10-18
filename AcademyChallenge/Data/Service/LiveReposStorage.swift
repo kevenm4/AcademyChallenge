@@ -12,7 +12,7 @@ import CoreData
 
 
 
-class LiveReposStorage {
+class LiveReposStorage : ReposService {
 	
 	
 	private	var reposNetwork: ReposNetwork = .init()
