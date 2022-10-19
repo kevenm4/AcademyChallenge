@@ -108,13 +108,24 @@ extension AvatarViewController: UICollectionViewDataSource {
 	
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		   
-		   let avatar = avatarList[indexPath.row]
-		   
-		   avatarService?.deleteAvatar(avatarToDelete: avatar, { (result: [Avatar]) in
-			   self.avatarList = result
-			   
-		   })
-		   collectionView.reloadData()
+		let alert = UIAlertController(title: "Delete Avatar", message: "Are you sure you want delete ?", preferredStyle: .alert)
+			  
+			  alert.addAction(UIAlertAction(title: "Cancel", style: .default))
+			  
+			  alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: {(_: UIAlertAction!) in
+				  
+				  let avatar = self.avatarList[indexPath.row]
+				  
+				  self.avatarService?.deleteAvatar(avatarToDelete: avatar)
+				  
+				  self.avatarList.remove(at: indexPath.row)
+				  
+				  collectionView.reloadData()
+				  
+			  }))
+			  
+			  self.present(alert, animated: true, completion: nil)
+
 
 	   }
 }

@@ -14,19 +14,6 @@ class LiveEmojiStorage: EmojiService {
 	
 	private let persistence: EmojiCoreData = .init()
 	
-//	func fetchEmojis(_ resultHandler: @escaping (Result<[Emoji], Error>) -> Void) {
-//
-//		emojiNetwork.executeNetworkCall(EmojiAPI.getEmojis) { (result: Result<EmojiResponse, Error>) in
-//			switch result {
-//			case .success(let success):
-//				resultHandler(.success(success.emojis))
-////                print("Success: \(success)")
-//			case .failure(let failure):
-//				print("Error: \(failure)")
-//			}
-//		}
-//
-//	}
 	
 	
 	func fetchEmojis (_ resultHandler: @escaping (Result<[Emoji], Error>) -> Void){
@@ -57,26 +44,11 @@ class LiveEmojiStorage: EmojiService {
 		   }
 		   
 	   }
-	func deleteEmoji(emojiToDelete: Emoji, _ resultHandler: @escaping ([Emoji]) -> Void) {
-		   
-		   persistence.delete(emojiObject: emojiToDelete)
-		
-		fetchEmojis {(result: Result<[Emoji], Error> )in
-			
-			switch result {
-			case .success(let success):
-				
-				resultHandler(success)
-				
-			case .failure(let failure):
-				
-				print("Failure: \(failure)")
-			 
-			}
-			
-			
-		}
-		   }
+	func deleteEmoji(emojiToDelete: Emoji) {
+		 
+		 persistence.delete(emojiObject:emojiToDelete)
+	 }
+	
 	
 	   }
 

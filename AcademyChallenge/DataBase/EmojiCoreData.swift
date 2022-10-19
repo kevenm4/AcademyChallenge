@@ -84,7 +84,7 @@ class EmojiCoreData {
 			
 			let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "EmojiEntity")
 
-		fetchRequest.predicate = NSPredicate(format: "name = %@", emojiObject.name)
+		fetchRequest.predicate = NSPredicate(format: "name = %@", emojiObject.name as CVarArg)
 		
 			
 			do {
