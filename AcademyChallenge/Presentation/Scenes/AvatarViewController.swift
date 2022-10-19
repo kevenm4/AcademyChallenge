@@ -72,7 +72,7 @@ class AvatarViewController: UIViewController {
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
-		avatarService?.fetchAvatarList({ (result: [Avatar]) in
+		avatarService?.fetchAvatar({ (result: [Avatar]) in
 			self.avatarList = result
 		})
 		collectionView.reloadData()
@@ -98,7 +98,7 @@ extension AvatarViewController: UICollectionViewDataSource {
 			return UICollectionViewCell()
 		}
 
-		let url = avatarList[indexPath.row].avatar_url
+		let url = avatarList[indexPath.row].avatarUrl
 		cell.setUpCell(url: url)
 
 

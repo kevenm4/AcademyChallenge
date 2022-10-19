@@ -31,12 +31,3 @@ struct EmojiResponse: Decodable {
 }
 
 
-
-//extension NSManagedObject {
-//	
-//	func NSToEmoji() {
-//		
-//		
-//		
-//	}
-//}

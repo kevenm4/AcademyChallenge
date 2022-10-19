@@ -1,18 +1,22 @@
 //
-//  ReposNetwork.swift
+//  Network.swift
 //  AcademyChallenge
 //
-//  Created by Keven Esmael on 17/10/2022.
+//  Created by Keven Esmael on 30/09/2022.
 //
 
 import Foundation
-import UIKit
 
 
-class ReposNetwork{
+class Network {
 	
 	
-	func executeNetwork<ResultType: Decodable>(_ call: APIProtocol, _ resultHandler: @escaping (Result<ResultType, Error>) -> Void) {
+	static func initialize() {
+	 URLSession.shared.configuration.urlCache?.diskCapacity = 100 * 1024 * 1024
+	 print("Current disk cache capacity: \(URLSession.shared.configuration.urlCache?.diskCapacity)")
+ }
+	
+	func executeNetworkCall<ResultType: Decodable>(_ call: APIProtocol, _ resultHandler: @escaping (Result<ResultType, Error>) -> Void) {
 		let decoder = JSONDecoder()
 		var request = URLRequest(url: call.url)
 		request.httpMethod = call.method.rawValue
@@ -34,5 +38,8 @@ class ReposNetwork{
 
 		task.resume()
 	}
-
 }
+
+
+
+

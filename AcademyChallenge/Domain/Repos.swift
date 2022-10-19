@@ -11,12 +11,12 @@ import UIKit
 
 
 struct Repos: Decodable {
-	let full_name: String
 	let id: Int
+	let fullName: String
 	let unique : Bool
 	
 	enum CodingKeys : String, CodingKey {
-		case full_name
+		case fullName = "full_name"
 		case id
 		case unique = "private"
 		

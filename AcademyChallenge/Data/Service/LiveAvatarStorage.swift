@@ -10,8 +10,9 @@ import UIKit
 import CoreData
 
 class LiveAvatarStorage {
+
 	
-	private	var avatarNetwork: AvatarNetwork = .init()
+	private	var avatarNetwork: Network = .init()
 	
 	
 	private let persistence: AvatarCoreData = .init()
@@ -22,7 +23,7 @@ class LiveAvatarStorage {
 	
 	
 	
-	func fetchAvatarList(_ resultHandler: @escaping ([Avatar]) -> Void){
+	func fetchAvatar(_ resultHandler: @escaping ([Avatar]) -> Void){
 		
 		persistence.fetch() { (result: [NSManagedObject]) in
 			
@@ -56,7 +57,7 @@ class LiveAvatarStorage {
 				} else {
 					
 					// GET THE AVATAR FROM API
-					self.avatarNetwork.executeNetwork(AvatarAPI.getAvatar(searchText)) {(result: Result<Avatar, Error>) in
+					self.avatarNetwork.executeNetworkCall(AvatarAPI.getAvatar(searchText)) {(result: Result<Avatar, Error>) in
 						
 						switch result{
 							

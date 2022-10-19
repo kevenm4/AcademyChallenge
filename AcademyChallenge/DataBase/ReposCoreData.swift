@@ -13,11 +13,11 @@ class ReposCoreData {
 	
 	var ReposPersistence: [NSManagedObject] = []
    
-   var appDelegate: AppDelegate
-   
-   init() {
-	   appDelegate = UIApplication.shared.delegate as! AppDelegate
-   }
+//   var appDelegate: AppDelegate
+//   
+//   init() {
+//	   appDelegate = UIApplication.shared.delegate as! AppDelegate
+//   }
    
 	
 	func persist(repositories : Repos){
@@ -38,7 +38,7 @@ class ReposCoreData {
 	   
 	   let repos = NSManagedObject(entity: entity, insertInto: managedContext)
 	   
-		   repos.setValue( repositories.full_name, forKeyPath: "full_name")
+		   repos.setValue( repositories.fullName, forKeyPath: "fullName")
 	   
 		   repos.setValue(repositories.unique, forKey: "unique")
 		   

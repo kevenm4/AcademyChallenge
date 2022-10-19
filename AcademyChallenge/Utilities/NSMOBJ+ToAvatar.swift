@@ -14,6 +14,6 @@ extension NSManagedObject {
 		return Avatar(
 			login: self.value(forKey: "login") as! String,
 			id: self.value(forKey: "id") as! Int,
-			avatar_url: URL(string: self.value(forKey: "avatar_url") as! String)!)
+			avatarUrl: URL(string: self.value(forKey: "avatarUrl") as! String)!)
 	}
 }

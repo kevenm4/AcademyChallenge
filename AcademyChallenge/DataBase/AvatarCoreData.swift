@@ -34,7 +34,7 @@ class AvatarCoreData {
 		
 			avatar.setValue(currentAvatar.login, forKeyPath: "login")
 		
-			avatar.setValue(currentAvatar.avatar_url.absoluteString, forKey: "avatar_url")
+			avatar.setValue(currentAvatar.avatarUrl.absoluteString, forKey: "avatarUrl")
 			
 			avatar.setValue(currentAvatar.id, forKey: "id")
 		

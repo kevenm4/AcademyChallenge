@@ -10,7 +10,7 @@ import CoreData
 import UIKit
 class LiveEmojiStorage: EmojiService {
 
-	private var emojiNetwork: EmojiNetwork = .init()
+	private var emojiNetwork: Network = .init()
 	
 	private let persistence: EmojiCoreData = .init()
 	
