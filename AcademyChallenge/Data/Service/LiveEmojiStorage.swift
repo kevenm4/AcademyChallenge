@@ -13,10 +13,17 @@ class LiveEmojiStorage: EmojiService {
 	private var emojiNetwork: Network = .init()
 	
 	private let persistence: EmojiCoreData = .init()
+//
+//	var emojis: [Emoji] = []
 	
-	
+	func persistEmjis(emojis: [Emoji]){
+		emojis.forEach { emoji in
+			persistence.persist(name: emoji.name, imageUrl: emoji.imageUrl.absoluteString)
+		}
+	}
 	
 	func fetchEmojis (_ resultHandler: @escaping (Result<[Emoji], Error>) -> Void){
+		
 		   var fetchedEmojis : [NSManagedObject] = []
 		   fetchedEmojis = persistence.fetch()
 		   
@@ -34,6 +41,7 @@ class LiveEmojiStorage: EmojiService {
 					   switch result{
 					   case .success(let success):
 	   //                    print("Success: \(success.emojis)")
+						   self.persistEmjis(emojis: success.emojis)
 						   resultHandler(.success(success.emojis))
 					   case .failure(let failure):
 						   print("Failure: \(failure)")

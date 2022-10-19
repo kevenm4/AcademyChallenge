@@ -14,7 +14,7 @@ class EmojiListViewController: UIViewController {
 	
 	//var strong = MockedDataSource()
 	
-	var emojiService: EmojiService?
+	weak var emojiService: EmojiService?
 	
 	var emojiServer: LiveEmojiStorage?
 	

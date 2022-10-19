@@ -11,10 +11,9 @@ class AvatarCoreData {
 	
 	 var AvatarPersistence: [NSManagedObject] = []
 	
-	var appDelegate: AppDelegate
-	
-	init() {
-		appDelegate = UIApplication.shared.delegate as! AppDelegate
+	var appDelegate: AppDelegate {
+		
+		UIApplication.shared.delegate as! AppDelegate
 	}
 	
 	func persist(currentAvatar: Avatar){
