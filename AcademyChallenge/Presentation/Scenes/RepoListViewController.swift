@@ -11,7 +11,7 @@ class RepoListViewController: UIViewController{
 	
 	
 	var reposService:ReposService?
-	var repoServer: LiveReposStorage?
+	
 	var repoList: [Repos] = []
 	
 	let tableView = UITableView()
@@ -33,7 +33,7 @@ class RepoListViewController: UIViewController{
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
-		repoServer?.fetchRepos(page: page, size: 10, { [weak self] (result: Result<[Repos],Error>) in
+		reposService?.fetchRepos(page: page, size: 10, { [weak self] (result: Result<[Repos],Error>) in
 			
 			switch result{
 			case .success(let success):
@@ -111,7 +111,7 @@ extension RepoListViewController: UITableViewDataSourcePrefetching {
 		
 		page += 1
 		
-		repoServer?.fetchRepos(page: page , size: 10, {( result: Result<[Repos], Error>) in
+		reposService?.fetchRepos(page: page , size: 10, {( result: Result<[Repos], Error>) in
 			switch result{
 			
 			case .success(let success):

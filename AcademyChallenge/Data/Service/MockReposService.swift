@@ -12,7 +12,7 @@ class MockReposService: ReposService {
 	
 	private var mockedrepos: MockRepos  = .init()
 	
-	func fetchRepos(_ resultHandler: @escaping (Result<[Repos], Error>) -> Void) {
+	func fetchRepos(page:Int , size:Int,_ resultHandler: @escaping (Result<[Repos], Error>) -> Void) {
 		resultHandler(.success(mockedrepos.appleRepos))
 	}
 

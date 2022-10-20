@@ -25,7 +25,7 @@ class RepoListCoordinator: Coordinator {
 		
 		let repoListViewController = RepoListViewController()
 		presenter.pushViewController(repoListViewController, animated: true)
-		repoListViewController.reposService = reposService
+		repoListViewController.reposService = reposSource
 		self.repoListViewControler = repoListViewController
 	}
 	

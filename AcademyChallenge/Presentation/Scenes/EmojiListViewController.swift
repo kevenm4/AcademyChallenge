@@ -16,7 +16,7 @@ class EmojiListViewController: UIViewController {
 	
 	weak var emojiService: EmojiService?
 	
-	var emojiServer: LiveEmojiStorage?
+	//var emojiServer: LiveEmojiStorage?
 	
 	lazy var collectionView: UICollectionView = {
 			let v = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -140,7 +140,7 @@ extension EmojiListViewController: UICollectionViewDataSource {
 
 				  let emojis = self.emoji?[indexPath.row]
 				  
-				  self.emojiServer?.deleteEmoji(emojiToDelete: emojis!)
+				  self.emojiService?.deleteEmoji(emojiToDelete: emojis!)
 				  
 				  self.emoji?.remove(at: indexPath.row)
 				  

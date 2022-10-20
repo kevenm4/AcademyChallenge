@@ -50,8 +50,10 @@ class LiveEmojiStorage: EmojiService {
 					   }
 				   }
 		   }
+		
 		   
 	   }
+	
 	func deleteEmoji(emojiToDelete: Emoji) {
 		 
 		 persistence.delete(emojiObject:emojiToDelete)
