@@ -12,9 +12,11 @@ class EmojiListViewController: UIViewController {
 	
 	var emoji: [Emoji]?
 	
-	var strong = MockedDataSource()
+	//var strong = MockedDataSource()
 	
-	var emojiService: EmojiService?
+	weak var emojiService: EmojiService?
+	
+	//var emojiServer: LiveEmojiStorage?
 	
 	lazy var collectionView: UICollectionView = {
 			let v = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -132,7 +134,22 @@ extension EmojiListViewController: UICollectionViewDataSource {
 
 		return cell
 	}
-}
+	
+	
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+				  let emojis = self.emoji?[indexPath.row]
+				  
+				  self.emojiService?.deleteEmoji(emojiToDelete: emojis!)
+				  
+				  self.emoji?.remove(at: indexPath.row)
+				  
+				  collectionView.reloadData()
+
+	   }
+	
+	   }
+
 
 class MockedDataSource:  NSObject, UICollectionViewDataSource {
 	
@@ -186,7 +203,6 @@ extension EmojiListViewController: UICollectionViewDelegateFlowLayout {
 	}
 
 }
-	
 	
 
 
