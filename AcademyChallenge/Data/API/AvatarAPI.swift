@@ -13,8 +13,10 @@ enum AvatarAPI {
 }
 
 
+
 extension AvatarAPI: APIProtocol{
 	var url: URL {
+		
 		URL(string: "https://api.github.com/users")!
 	}
 	

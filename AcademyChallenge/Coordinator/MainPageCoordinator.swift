@@ -16,6 +16,7 @@ class MainPageCoordinator: Coordinator {
 	  private var emojis: [Emoji]?
 
 	
+	
 	init( presenter:UINavigationController){
 		self.presenter = presenter
 	}
@@ -29,7 +30,8 @@ class MainPageCoordinator: Coordinator {
 		let mainViewController = MainPageViewControler()
 		
 		mainViewController.emojiService = emojiSource
-	
+		mainViewController.avatarService = avatarService
+		
 		presenter.pushViewController(mainViewController, animated: true)
 		
 		self.mainPageViewController = mainViewController

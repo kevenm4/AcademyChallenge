@@ -16,6 +16,6 @@ protocol Coordinator {
 
 var emojiSource = LiveEmojiStorage()
 
-
+var avatarService = LiveAvatarStorage()
 
 

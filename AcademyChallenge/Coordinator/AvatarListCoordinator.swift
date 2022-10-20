@@ -15,15 +15,25 @@ class AvatarListCoordinator: Coordinator {
 	
 	private var avatarViewController: AvatarViewController?
 	
-	init(presenter: UINavigationController){
+	
+	init(presenter: UINavigationController ){
 		
 		self.presenter = presenter
+	
+		
 	}
+	
+	
 	func start() {
 		
 		let avatarViewController = AvatarViewController()
+
 		presenter.pushViewController(avatarViewController, animated: true)
+		
+		avatarViewController.avatarService = avatarService
+		
 		self.avatarViewController = avatarViewController
+		
 	}
 	
 }
