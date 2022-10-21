@@ -16,7 +16,8 @@ enum ReposAPI {
 
 //let user = "apple"
 
-extension ReposAPI: APIProtocol{
+extension ReposAPI: APIProtocol {
+	
 	var method: Method {
 		switch self {
 		case .getRepos:
@@ -38,6 +39,7 @@ extension ReposAPI: APIProtocol{
 		switch self {
 			
 		case .getRepos(let perPage, let page):
+			
 			var urlComponents = URLComponents(string:"https://api.github.com/users/apple/repos")
 			
 			urlComponents?.queryItems = [

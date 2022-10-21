@@ -33,7 +33,6 @@
 		4CD834E728F6F88600A61AE2 /* ImageSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD834E628F6F88600A61AE2 /* ImageSpinner.swift */; };
 		4CD834EF28F7132800A61AE2 /* AvatarCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD834EE28F7132800A61AE2 /* AvatarCoreData.swift */; };
 		4CD834F328F99D6B00A61AE2 /* NSMOBJ+ToAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD834F228F99D6B00A61AE2 /* NSMOBJ+ToAvatar.swift */; };
-		4CD834F528FD992800A61AE2 /* ReposCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD834F428FD992800A61AE2 /* ReposCoreData.swift */; };
 		4CD834F728FD9F7B00A61AE2 /* Repos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD834F628FD9F7B00A61AE2 /* Repos.swift */; };
 		4CD834F928FDA33900A61AE2 /* LiveReposStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD834F828FDA33900A61AE2 /* LiveReposStorage.swift */; };
 		4CD834FF28FDAAA400A61AE2 /* ReposAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD834FE28FDAAA400A61AE2 /* ReposAPI.swift */; };
@@ -78,7 +77,6 @@
 		4CD834E628F6F88600A61AE2 /* ImageSpinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSpinner.swift; sourceTree = "<group>"; };
 		4CD834EE28F7132800A61AE2 /* AvatarCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarCoreData.swift; sourceTree = "<group>"; };
 		4CD834F228F99D6B00A61AE2 /* NSMOBJ+ToAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMOBJ+ToAvatar.swift"; sourceTree = "<group>"; };
-		4CD834F428FD992800A61AE2 /* ReposCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReposCoreData.swift; sourceTree = "<group>"; };
 		4CD834F628FD9F7B00A61AE2 /* Repos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repos.swift; sourceTree = "<group>"; };
 		4CD834F828FDA33900A61AE2 /* LiveReposStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveReposStorage.swift; sourceTree = "<group>"; };
 		4CD834FE28FDAAA400A61AE2 /* ReposAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReposAPI.swift; sourceTree = "<group>"; };
@@ -117,7 +115,6 @@
 				4CD834DB28F4726800A61AE2 /* GeneralEntity.xcdatamodeld */,
 				4CD834E028F576D800A61AE2 /* EmojiCoreData.swift */,
 				4CD834EE28F7132800A61AE2 /* AvatarCoreData.swift */,
-				4CD834F428FD992800A61AE2 /* ReposCoreData.swift */,
 			);
 			path = DataBase;
 			sourceTree = "<group>";
@@ -380,7 +377,6 @@
 				4CD834E728F6F88600A61AE2 /* ImageSpinner.swift in Sources */,
 				4CE8D7DA28EEE3DB002A77C1 /* MockedEmojiService.swift in Sources */,
 				4CC7565E290038D7009FDF88 /* APIProtocol.swift in Sources */,
-				4CD834F528FD992800A61AE2 /* ReposCoreData.swift in Sources */,
 				4CE8D7D828EEE240002A77C1 /* EmojiService.swift in Sources */,
 				4CC7565828FE9759009FDF88 /* ReposService.swift in Sources */,
 				4CE38D7428DDB5CA0000B72B /* MainPageViewController.swift in Sources */,
