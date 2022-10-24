@@ -12,20 +12,21 @@ class RepoListViewController: UIViewController{
 	
 	var reposService:ReposService?
 	
+	
 	var repoList: [Repos] = []
 	
 	let tableView = UITableView()
 	
-	var page: Int = 1
+	var page: Int = 0
+	
 	var perPage: Int = 10
-	var appleReposListRowHeigth: Int = 64
+	var appleReposListRowHeigth: Int = 90
 	
 	var tofinished : Bool = true
 	
 	var isEnd: Bool = false
 	
 	
-	let strong = MockedDataSources()
 	override func viewDidLoad() {
 		
 		
@@ -38,13 +39,36 @@ class RepoListViewController: UIViewController{
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
+		
+		super.viewWillAppear(animated)
+		
+		fetchDataForTableView()
+
+	}
+	
+
+
+	
+	override func viewDidAppear(_ animated: Bool) {
+		
 		super.viewDidAppear(animated)
 		
+	
+		if tableView.contentSize.height < tableView.frame.size.height {
+			
+			fetchDataForTableView()
+		}
+	}
+	
+	
+	
+	func fetchDataForTableView(){
+		self.page += 1
 		reposService?.fetchRepos(page: page, size: perPage, { [weak self] (result: Result<[Repos],Error>) in
 			
 			switch result{
 			case .success(let success):
-				self?.repoList = success
+				self?.repoList.append(contentsOf: success)
 				DispatchQueue.main.async { [weak self] in
 					self?.tableView.reloadData()
 				}
@@ -56,11 +80,7 @@ class RepoListViewController: UIViewController{
 			
 		})
 		
-		
 	}
-	
-	
-	
 	
 	
 	
@@ -70,16 +90,19 @@ class RepoListViewController: UIViewController{
 		tableView.backgroundColor = .clear
 		tableView.automaticallyAdjustsScrollIndicatorInsets = false
 		tableView.contentInsetAdjustmentBehavior = .never
+		tableView.rowHeight = UITableView.automaticDimension
 		tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
 		tableView.delegate = self
 		tableView.dataSource = self
 		
 	}
 	
+	
 	private func addToSuper(){
 		
 		view.addSubview(tableView)
 	}
+	
 	
 	private func constrainis(){
 		
@@ -137,7 +160,7 @@ extension RepoListViewController: UITableViewDataSource, UITableViewDelegate {
 		
 		let heightVisibleScroll = scrollView.frame.size.height
 		let heightTable = scrollView.contentSize.height
-		let heightCell = CGFloat(appleReposListRowHeigth * 4)
+		let heightCell = view.frame.height * 0.10
 		
 		
 		if( offset > 0 && (offset + heightVisibleScroll + (heightCell)) > heightTable && tofinished && !isEnd) {
@@ -166,34 +189,14 @@ extension RepoListViewController: UITableViewDataSource, UITableViewDelegate {
 	
 	
 	
-}
-
-
-
-
-class MockedDataSources:  NSObject, UITableViewDataSource {
-	
-	
-	var repoMock : MockRepos = .init()
-	
-	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		
-		return repoMock.appleRepos.count
-	}
-	
-	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		
-		
-		let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-		
-		cell.textLabel?.text = repoMock.appleRepos[indexPath.row].fullName
-		cell.backgroundColor = UIColor.appColor(.primary)
-		cell.textLabel?.textColor = UIColor.appColor(.secondary)
-		
-		
-		return cell
-		
-	}
 	
 	
 }
+
+
+
+	
+	
+	
+	
+

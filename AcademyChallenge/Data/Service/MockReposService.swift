@@ -35,7 +35,7 @@ class MockReposService: ReposService {
 		}
 		
 		
-		resultHandler(.success(mockedrepos.appleRepos))
+		resultHandler(.success(repos))
 	}
 
 	
