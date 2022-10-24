@@ -10,8 +10,17 @@ import Foundation
 import UIKit
 
 
-struct Repos: Codable {
-	let full_name: String
+struct Repos: Decodable {
 	let id: Int
-	let `private`: Bool
+	let fullName: String
+	let unique : Bool
+	
+	enum CodingKeys : String, CodingKey {
+		case fullName = "full_name"
+		case id
+		case unique = "private"
+		
+	}
+	
 }
+

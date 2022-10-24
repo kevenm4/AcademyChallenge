@@ -8,30 +8,37 @@
 import Foundation
 
 enum AvatarAPI {
-	case getAvatar
-	case postAvatar
+	case getAvatar(String)
+	//case postAvatar
 }
 
 
 
 extension AvatarAPI: APIProtocol{
-	var url: URL {
-		
-		URL(string: "https://api.github.com/users")!
-	}
-	
 	var method: Method {
 		switch self {
 		case .getAvatar:
 			return .get
-		case .postAvatar:
-			return .post
 		}
 	}
-	
 	var headers: [String : String] {
 		["Content-Type": "application/json"]
 	}
 	
+	
+	var url: URL {
+		
+		switch self {
+		case .getAvatar(let name):
+			
+			return URL(string: "https://api.github.com/users/\(name)")!
+			
+		}
+		
+		
+		
+		
+		
+	}
 	
 }

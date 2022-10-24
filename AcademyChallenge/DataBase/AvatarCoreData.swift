@@ -11,10 +11,9 @@ class AvatarCoreData {
 	
 	 var AvatarPersistence: [NSManagedObject] = []
 	
-	var appDelegate: AppDelegate
-	
-	init() {
-		appDelegate = UIApplication.shared.delegate as! AppDelegate
+	var appDelegate: AppDelegate {
+		
+		UIApplication.shared.delegate as! AppDelegate
 	}
 	
 	func persist(currentAvatar: Avatar){
@@ -34,7 +33,7 @@ class AvatarCoreData {
 		
 			avatar.setValue(currentAvatar.login, forKeyPath: "login")
 		
-			avatar.setValue(currentAvatar.avatar_url.absoluteString, forKey: "avatar_url")
+			avatar.setValue(currentAvatar.avatarUrl.absoluteString, forKey: "avatarUrl")
 			
 			avatar.setValue(currentAvatar.id, forKey: "id")
 		

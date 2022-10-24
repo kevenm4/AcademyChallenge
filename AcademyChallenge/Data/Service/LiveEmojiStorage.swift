@@ -10,26 +10,20 @@ import CoreData
 import UIKit
 class LiveEmojiStorage: EmojiService {
 
-	private var emojiNetwork: EmojiNetwork = .init()
+	private var emojiNetwork: Network = .init()
 	
 	private let persistence: EmojiCoreData = .init()
-	
-//	func fetchEmojis(_ resultHandler: @escaping (Result<[Emoji], Error>) -> Void) {
 //
-//		emojiNetwork.executeNetworkCall(EmojiAPI.getEmojis) { (result: Result<EmojiResponse, Error>) in
-//			switch result {
-//			case .success(let success):
-//				resultHandler(.success(success.emojis))
-////                print("Success: \(success)")
-//			case .failure(let failure):
-//				print("Error: \(failure)")
-//			}
-//		}
-//
-//	}
+//	var emojis: [Emoji] = []
 	
+	func persistEmjis(emojis: [Emoji]){
+		emojis.forEach { emoji in
+			persistence.persist(name: emoji.name, imageUrl: emoji.imageUrl.absoluteString)
+		}
+	}
 	
 	func fetchEmojis (_ resultHandler: @escaping (Result<[Emoji], Error>) -> Void){
+		
 		   var fetchedEmojis : [NSManagedObject] = []
 		   fetchedEmojis = persistence.fetch()
 		   
@@ -47,18 +41,29 @@ class LiveEmojiStorage: EmojiService {
 					   switch result{
 					   case .success(let success):
 	   //                    print("Success: \(success.emojis)")
+						   self.persistEmjis(emojis: success.emojis)
 						   resultHandler(.success(success.emojis))
 					   case .failure(let failure):
 						   print("Failure: \(failure)")
+						
 						   resultHandler(.failure(failure))
 					   }
 				   }
 		   }
+		
 		   
+	   }
+	
+	func deleteEmoji(emojiToDelete: Emoji) {
+		 
+		 persistence.delete(emojiObject:emojiToDelete)
+	 }
+	
+	
 	   }
 
 
-}
+
 
 
 

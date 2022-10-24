@@ -8,7 +8,7 @@
 import Foundation
 
 
-class EmojiNetwork {
+class Network {
 	
 	
 	static func initialize() {
@@ -42,18 +42,4 @@ class EmojiNetwork {
 
 
 
-enum Method: String {
-	case get = "GET"
-	case post = "POST"
-}
-
-protocol APIProtocol {
-	var url: URL { get }
-	var method: Method { get }
-	var headers: [String: String] { get }
-}
-
-enum APIError: Error {
-	case unknownError
-}
 

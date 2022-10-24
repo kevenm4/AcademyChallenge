@@ -212,7 +212,7 @@ class MainPageViewControler: UIViewController {
 			switch result {
 			case .success(let success):
 				
-				let avatarUrl = success.avatar_url
+				let avatarUrl = success.avatarUrl
 				
 				self.emojiImage.downloadImageFromURL(from: avatarUrl)
 				

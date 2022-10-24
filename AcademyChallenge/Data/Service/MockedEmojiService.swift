@@ -16,4 +16,8 @@ class MockedEmojiService: EmojiService {
 	func fetchEmojis(_ resultHandler: @escaping (Result<[Emoji], Error>) -> Void) {
 		resultHandler(.success(mockedemojis.emojis))
 	}
+	
+	func deleteEmoji(emojiToDelete: Emoji) {
+		mockedemojis.emojis
+	}
 }

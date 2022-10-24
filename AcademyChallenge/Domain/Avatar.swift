@@ -8,9 +8,17 @@ import UIKit
 import Foundation
 
 
-struct Avatar: Codable {
+struct Avatar: Decodable {
+	
     let login: String
 	let id: Int
-	let avatar_url: URL
+	let avatarUrl: URL
+	
+	enum CodingKeys : String, CodingKey {
+		case login
+		case id
+		case avatarUrl = "avatar_url"
+		
+	}
 }
 
