@@ -21,23 +21,20 @@ class MockReposService: ReposService {
 	
 	func fetchRepos(page:Int , size:Int,_ resultHandler: @escaping (Result<[Repos], Error>) -> Void) {
 		var repos: [Repos] = []
-		
 		let endIndex = size * page
-		
 		let startIndex = endIndex - size
 		
-		for i in startIndex...endIndex - 1{
-			if i < mocks.count {
-				
-				repos.append(mocks[i])
-			}
+		if endIndex <= mocks.count {
+			repos = Array<Repos>(mocks[startIndex...endIndex-1])
+		}
 			
+	
+	resultHandler(.success(repos))
 		}
 		
-		
-		resultHandler(.success(repos))
-	}
+}
+
 
 	
 	
-}
+
