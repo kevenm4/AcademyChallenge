@@ -73,7 +73,7 @@ class EmojiListViewController: UIViewController {
 		
 		collectionView.backgroundColor = UIColor.appColor(.primary)
 		
-		collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+		collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: CollectionViewCell.reuseCellIdentifier)
 		
 		collectionView.delegate = self
 		collectionView.dataSource = self
@@ -103,7 +103,6 @@ class EmojiListViewController: UIViewController {
 		
 	}
 	
-	
 
 }
 
@@ -122,10 +121,7 @@ extension EmojiListViewController: UICollectionViewDataSource {
 	
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		
-		guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CollectionViewCell else {
-			
-			return UICollectionViewCell()
-		}
+		let cell: CollectionViewCell = collectionView.dequeueReusableCell(for: indexPath) 
 		
 	guard let url = emoji?[indexPath.row].imageUrl else {return UICollectionViewCell()}
 

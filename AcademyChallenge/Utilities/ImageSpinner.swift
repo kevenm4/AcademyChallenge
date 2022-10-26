@@ -11,6 +11,7 @@ import UIKit
 
 extension UIView {
 	static let loadingViewTag = 1938123987
+	
 	func showLoading(style: UIActivityIndicatorView.Style = UIActivityIndicatorView.Style.medium) {
 		var loading = viewWithTag(UIImageView.loadingViewTag) as? UIActivityIndicatorView
 		if loading == nil {
