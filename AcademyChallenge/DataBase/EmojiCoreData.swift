@@ -13,6 +13,7 @@ class EmojiCoreData {
 	var EmojiPersistence: [NSManagedObject] = []
 	
 	var appDelegate: AppDelegate {
+		
 		UIApplication.shared.delegate as! AppDelegate
 	}
 	

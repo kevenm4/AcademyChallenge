@@ -18,8 +18,11 @@ class MainPageCoordinator: Coordinator {
 	}
 	
 	func start() {
-		let viewModel = MainPageViewModel(emojiService: emojiSource, avatarService: avatarService)
-		let mainViewController = MainPageViewControler(viewModel: viewModel)
+		let viewModel = MainPagelViewModel()
+		viewModel.emojiService = emojiSource
+		viewModel.avatarService = avatarService
+		let mainViewController = MainPageViewControler()
+		mainViewController.viewModel = viewModel
 		presenter.pushViewController(mainViewController, animated: true)
 		self.mainPageViewController = mainViewController
 	}

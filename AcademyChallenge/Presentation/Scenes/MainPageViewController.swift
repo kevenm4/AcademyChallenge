@@ -25,10 +25,10 @@ class MainPageViewControler: UIViewController {
 	private var searchInput: UISearchBar
 	private var emojiImageView : UIImageView
 	private var containerView : UIView
-	private var viewModel: MainPageViewModel
+	 var viewModel: MainPagelViewModel?
 	
-	init(viewModel: MainPageViewModel) {
-		self.viewModel = viewModel
+	init() {
+	
 		randomButton = .init(type: .system)
 		emojiList = .init(type: .system)
 		searchButton = .init(type: .system)
@@ -53,7 +53,7 @@ class MainPageViewControler: UIViewController {
 		
 		super.viewDidLoad()
 		
-		viewModel.emojiImage.bind { imageUrl in
+		viewModel?.emojiImage.bind { imageUrl in
 
 			self.emojiImageView.image = nil
 			guard let imageUrl = imageUrl else { return }
@@ -197,12 +197,12 @@ class MainPageViewControler: UIViewController {
 	
 	@objc  func didTapRandomEmojiButton() {
 		
-		viewModel.getRandom()
+		viewModel?.getRandom()
 	}
 	
 	@objc func saveSearchContent() {
 		
-		viewModel.searchQuery.value = searchInput.text
+		viewModel?.searchQuery.value = searchInput.text
 	}
 }
 

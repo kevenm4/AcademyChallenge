@@ -41,8 +41,10 @@
 		4CDB74B3290834D500DCF27A /* UICollectionViewCell+ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDB74B2290834D500DCF27A /* UICollectionViewCell+ReusableView.swift */; };
 		4CDB74B5290835D600DCF27A /* UITableViewCell+ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDB74B4290835D600DCF27A /* UITableViewCell+ReusableView.swift */; };
 		4CDB74B7290835F700DCF27A /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDB74B6290835F700DCF27A /* ReusableView.swift */; };
-		4CDB74BC2909362300DCF27A /* MainPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDB74BB2909362300DCF27A /* MainPageViewModel.swift */; };
+		4CDB74BC2909362300DCF27A /* MainPagelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDB74BB2909362300DCF27A /* MainPagelViewModel.swift */; };
 		4CDB74BE29093C1600DCF27A /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDB74BD29093C1600DCF27A /* Box.swift */; };
+		4CDB74C2290AB50800DCF27A /* EmojiListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDB74C1290AB50800DCF27A /* EmojiListViewModel.swift */; };
+		4CDB74C4290AB7A500DCF27A /* AvatarListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDB74C3290AB7A500DCF27A /* AvatarListViewModel.swift */; };
 		4CE31FD728EAD20F00C26B41 /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE31FD628EAD20F00C26B41 /* Avatar.swift */; };
 		4CE31FDB28EB3D7700C26B41 /* LiveAvatarStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE31FDA28EB3D7700C26B41 /* LiveAvatarStorage.swift */; };
 		4CE31FE128EC7D2A00C26B41 /* UIImageView+Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE31FE028EC7D2A00C26B41 /* UIImageView+Download.swift */; };
@@ -92,8 +94,10 @@
 		4CDB74B2290834D500DCF27A /* UICollectionViewCell+ReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+ReusableView.swift"; sourceTree = "<group>"; };
 		4CDB74B4290835D600DCF27A /* UITableViewCell+ReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+ReusableView.swift"; sourceTree = "<group>"; };
 		4CDB74B6290835F700DCF27A /* ReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableView.swift; sourceTree = "<group>"; };
-		4CDB74BB2909362300DCF27A /* MainPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageViewModel.swift; sourceTree = "<group>"; };
+		4CDB74BB2909362300DCF27A /* MainPagelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPagelViewModel.swift; sourceTree = "<group>"; };
 		4CDB74BD29093C1600DCF27A /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
+		4CDB74C1290AB50800DCF27A /* EmojiListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiListViewModel.swift; sourceTree = "<group>"; };
+		4CDB74C3290AB7A500DCF27A /* AvatarListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarListViewModel.swift; sourceTree = "<group>"; };
 		4CE31FD628EAD20F00C26B41 /* Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
 		4CE31FDA28EB3D7700C26B41 /* LiveAvatarStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveAvatarStorage.swift; sourceTree = "<group>"; };
 		4CE31FE028EC7D2A00C26B41 /* UIImageView+Download.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Download.swift"; sourceTree = "<group>"; };
@@ -136,7 +140,9 @@
 		4CDB74BA290935CD00DCF27A /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				4CDB74BB2909362300DCF27A /* MainPageViewModel.swift */,
+				4CDB74BB2909362300DCF27A /* MainPagelViewModel.swift */,
+				4CDB74C1290AB50800DCF27A /* EmojiListViewModel.swift */,
+				4CDB74C3290AB7A500DCF27A /* AvatarListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -394,6 +400,7 @@
 				4CC7565A29002C1F009FDF88 /* MockRepos.swift in Sources */,
 				4CE31FD728EAD20F00C26B41 /* Avatar.swift in Sources */,
 				4CE31FE328EC825200C26B41 /* MockEmojis.swift in Sources */,
+				4CDB74C4290AB7A500DCF27A /* AvatarListViewModel.swift in Sources */,
 				4CD834F328F99D6B00A61AE2 /* NSMOBJ+ToAvatar.swift in Sources */,
 				4CCED29E28E1BC0900BC8729 /* RepoListViewController.swift in Sources */,
 				4CDB74BE29093C1600DCF27A /* Box.swift in Sources */,
@@ -401,6 +408,7 @@
 				4CE31FDB28EB3D7700C26B41 /* LiveAvatarStorage.swift in Sources */,
 				4CDB74B7290835F700DCF27A /* ReusableView.swift in Sources */,
 				4CDB74B1290833AF00DCF27A /* ProjectConstant.swift in Sources */,
+				4CDB74C2290AB50800DCF27A /* EmojiListViewModel.swift in Sources */,
 				4CD6203428F016B300225483 /* EmojiListCoordinator.swift in Sources */,
 				4CCED29A28E1B1FD00BC8729 /* MainPageCoordinator.swift in Sources */,
 				4CD2290928E482A600F11863 /* CollectionViewCell.swift in Sources */,
@@ -426,7 +434,7 @@
 				4CD834EF28F7132800A61AE2 /* AvatarCoreData.swift in Sources */,
 				4CE38D7228DDB5CA0000B72B /* SceneDelegate.swift in Sources */,
 				4CCED29628E1ADC600BC8729 /* EmojiListViewController.swift in Sources */,
-				4CDB74BC2909362300DCF27A /* MainPageViewModel.swift in Sources */,
+				4CDB74BC2909362300DCF27A /* MainPagelViewModel.swift in Sources */,
 				4CDB74B3290834D500DCF27A /* UICollectionViewCell+ReusableView.swift in Sources */,
 				4CD6203A28F0246800225483 /* ApplicationCoordinator.swift in Sources */,
 			);
