@@ -8,23 +8,22 @@
 import Foundation
 
 class AvatarListViewModel {
-	
+
 	var avatarService: LiveAvatarStorage?
-	
+
 	var arrAvatar: Box<[Avatar]?> = Box([])
-	
-	
-	func getAvatar(){
-		
+
+	func getAvatar() {
+
 		avatarService?.fetchAvatar({ (result: [Avatar]) in
 			self.arrAvatar.value = result
 		})
 	}
-	
+
 	func deleteAV(avatar: Avatar) {
-		
+
 		self.avatarService?.deleteAvatar(avatarToDelete: avatar)
-		
+
 	}
-	
+
 }

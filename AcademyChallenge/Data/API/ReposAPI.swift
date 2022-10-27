@@ -8,57 +8,48 @@
 import Foundation
 import UIKit
 
-
 enum ReposAPI {
-	case getRepos(perPage: Int , page: Int)
-	//case postRepos
+	case getRepos(perPage: Int, page: Int)
+	// case postRepos
 }
 
-//let user = "apple"
+// let user = "apple"
 
 extension ReposAPI: APIProtocol {
-	
+
 	var method: Method {
 		switch self {
 		case .getRepos:
 			return .get
-		//case .postRepos:
-			//return .post
+		// case .postRepos:
+			// return .post
 		}
 	}
-	
-	var headers: [String : String] {
+
+	var headers: [String: String] {
 		["Content-Type": "application/json"]
 	}
-	
-	
 
-	
 	var url: URL {
-		
+
 		switch self {
-			
+
 		case .getRepos(let perPage, let page):
-			
-			var urlComponents = URLComponents(string:"\(Constants.baseURL)/users/apple/repos")
-			
+
+			var urlComponents = URLComponents(string: "\(Constants.baseURL)/users/apple/repos")
+
 			urlComponents?.queryItems = [
 			URLQueryItem(name: "per_page", value: String(perPage)),
-			URLQueryItem(name: "page", value: String(page)),
+			URLQueryItem(name: "page", value: String(page))
 			]
 			guard let url = urlComponents?.url else {
 				return URL(string: "")!
 			}
 
 		return url
-		
+
 	}
-	
-	
-	
-		
-	
+
 }
-	
-	
+
 }

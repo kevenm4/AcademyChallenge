@@ -8,51 +8,49 @@
 import UIKit
 
 class MainPageViewControler: UIViewController {
-	
+
 	private var emojiListCoordinator: EmojiListCoordinator?
-	
+
 	private var avatarListCoordinator: AvatarListCoordinator?
-	
+
 	private var repoListCoordinator: RepoListCoordinator?
-	
+
 	private var stackView: UIStackView
-	private var secondStackView : UIStackView
+	private var secondStackView: UIStackView
 	private var randomButton: UIButton
 	private var emojiList: UIButton
 	private var repoList: UIButton
 	private var avatarList: UIButton
 	private var searchButton: UIButton
 	private var searchInput: UISearchBar
-	private var emojiImageView : UIImageView
-	private var containerView : UIView
+	private var emojiImageView: UIImageView
+	private var containerView: UIView
 	 var viewModel: MainPagelViewModel?
-	
+
 	init() {
-	
+
 		randomButton = .init(type: .system)
 		emojiList = .init(type: .system)
 		searchButton = .init(type: .system)
 		repoList = .init(type: .system)
 		avatarList = .init(type: .system)
 		searchInput = .init()
-		containerView = .init(frame : .zero)
+		containerView = .init(frame: .zero)
 		emojiImageView = .init(frame: .zero)
-		secondStackView = .init(arrangedSubviews: [searchInput,searchButton])
-		stackView = .init(arrangedSubviews: [randomButton,emojiList,secondStackView,avatarList,repoList])
-		
+		secondStackView = .init(arrangedSubviews: [searchInput, searchButton])
+		stackView = .init(arrangedSubviews: [randomButton, emojiList, secondStackView, avatarList, repoList])
+
 		super.init(nibName: nil, bundle: nil)
 	}
-	
-	
+
 	required init(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
-	
-	
+
 	override func viewDidLoad() {
-		
+
 		super.viewDidLoad()
-		
+
 		viewModel?.emojiImage.bind { imageUrl in
 
 			self.emojiImageView.image = nil
@@ -60,8 +58,7 @@ class MainPageViewControler: UIViewController {
 			self.emojiImageView.stopLoading()
 			self.emojiImageView.downloadImageFromURL(from: imageUrl)
 		}
-		
-		
+
 		view.backgroundColor = UIColor.appColor(.primary)
 		view.tintColor = UIColor.appColor(.secondary)
 		setUpView()
@@ -70,21 +67,17 @@ class MainPageViewControler: UIViewController {
 		setUpButton()
 		didTapRandomEmojiButton()
 
-		
-		
 	}
-	
+
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		
-		
+
 	}
-	
-	
+
 	// 1- setUp the view
-	
-	private func setUpView(){
-		
+
+	private func setUpView() {
+
 		stackView.axis = .vertical
 		secondStackView.axis = .horizontal
 		secondStackView.spacing = CGFloat(5)
@@ -95,15 +88,13 @@ class MainPageViewControler: UIViewController {
 		avatarList.setTitle("AVATAR LIST", for: .normal)
 		repoList.setTitle("APPLE REPOS", for: .normal)
 		emojiImageView.showLoading()
-		
-		
+
 	}
-	
-	
+
 	// 2- setUp button
-	
-	private func setUpButton(){
-		
+
+	private func setUpButton() {
+
 		randomButton.setTitleColor(.white, for: .normal)
 		randomButton.configuration = .filled()
 		emojiList.setTitleColor(.white, for: .normal)
@@ -118,26 +109,23 @@ class MainPageViewControler: UIViewController {
 		repoList.setTitleColor(.white, for: .normal)
 		repoList.addTarget(self, action: #selector(didTapRepoiList), for: .touchUpInside)
 		repoList.configuration = .filled()
-		
+
 		randomButton.addTarget(self, action: #selector(didTapRandomEmojiButton), for: .touchUpInside)
-		
-		
+
 	}
-	
-	
-	
+
 	// 3- Add to superView
-	
-	private func addtoSuperView(){
+
+	private func addtoSuperView() {
 		view.addSubview(stackView)
 		containerView.addSubview(emojiImageView)
 		view.addSubview(containerView)
-		
+
 	}
-	
+
 	// 4- set the constraints
-	
-	private func setUpConstraints(){
+
+	private func setUpConstraints() {
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		containerView.translatesAutoresizingMaskIntoConstraints = false
 		emojiImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -146,12 +134,12 @@ class MainPageViewControler: UIViewController {
 			stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 80),
 			stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
 			stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-			
-			containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor , constant: 0.1 * view.frame.width),
-			containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor , constant: -0.1 * view.frame.width),
+
+			containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0.1 * view.frame.width),
+			containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -0.1 * view.frame.width),
 			containerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0.1 * view.frame.height),
 			containerView.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -0.1 * view.frame.height),
-			
+
 			emojiImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 0.25 * containerView.frame.width),
 			emojiImageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -0.25 * containerView.frame.width),
 			emojiImageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 0.25 * containerView.frame.height),
@@ -159,52 +147,47 @@ class MainPageViewControler: UIViewController {
 		])
 		emojiImageView.contentMode = .scaleAspectFit
 	}
-	
+
 	// 5- Button func to call event
-	
+
 	@objc func didTapEmojiList() {
-		
+
 		let emojiListCoordinator = EmojiListCoordinator(presenter: navigationController!)
-		
+
 		emojiListCoordinator.start()
-		
+
 		self.emojiListCoordinator = emojiListCoordinator
-		
+
 	}
 	@objc func didTapAvatarList() {
-		
+
 		let avatarListCoordinator = AvatarListCoordinator(presenter: navigationController!)
-		
+
 		avatarListCoordinator.start()
-		
+
 		self.avatarListCoordinator = avatarListCoordinator
-		
+
 	}
-	
+
 	@objc func didTapRepoiList() {
-		
+
 		let repoListCoordinator = RepoListCoordinator(presenter: navigationController!)
-		
+
 		repoListCoordinator.start()
-		
+
 		self.repoListCoordinator = repoListCoordinator
-		
-		
+
 	}
-	
-	
-	//6- get random emojis
-	
+
+	// 6- get random emojis
+
 	@objc  func didTapRandomEmojiButton() {
-		
+
 		viewModel?.getRandom()
 	}
-	
+
 	@objc func saveSearchContent() {
-		
+
 		viewModel?.searchQuery.value = searchInput.text
 	}
 }
-
-
-

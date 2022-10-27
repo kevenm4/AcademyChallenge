@@ -7,18 +7,16 @@
 
 import Foundation
 
-
 class EmojiListViewModel {
-	
+
 	var emojiService: EmojiService?
-	
+
 	var arrEmojis: Box<[Emoji]?> = Box([])
-	
-	
-	func getEmojis(){
-		
-		emojiService?.fetchEmojis({ [weak self] (result: Result<[Emoji],Error>) in
-			switch result{
+
+	func getEmojis() {
+
+		emojiService?.fetchEmojis({ [weak self] (result: Result<[Emoji], Error>) in
+			switch result {
 			case .success(let success):
 				self?.arrEmojis.value = success
 				self?.arrEmojis.value?.sort()
@@ -27,9 +25,9 @@ class EmojiListViewModel {
 			}
 		})
 }
-	
+
 	func deleteEM(emojis: Emoji) {
-		
+
 		self.emojiService?.deleteEmoji(emojiToDelete: emojis)
 	}
 }

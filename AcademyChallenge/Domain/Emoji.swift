@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 struct Emoji: Codable, CustomStringConvertible {
-	
+
 	let name: String
 	let imageUrl: URL
 
@@ -18,9 +18,8 @@ struct Emoji: Codable, CustomStringConvertible {
 	}
 }
 
+extension Emoji: Comparable {
 
-extension Emoji : Comparable {
-	
 	static func < (lhs: Emoji, rhs: Emoji) -> Bool {
 		lhs.name < rhs.name
 	}

@@ -7,18 +7,16 @@
 import UIKit
 import Foundation
 
-
 struct Avatar: Decodable {
-	
+
     let login: String
 	let id: Int
 	let avatarUrl: URL
-	
-	enum CodingKeys : String, CodingKey {
+
+	enum CodingKeys: String, CodingKey {
 		case login
 		case id
 		case avatarUrl = "avatar_url"
-		
+
 	}
 }
-

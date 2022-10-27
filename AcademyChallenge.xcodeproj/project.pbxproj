@@ -45,6 +45,7 @@
 		4CDB74BE29093C1600DCF27A /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDB74BD29093C1600DCF27A /* Box.swift */; };
 		4CDB74C2290AB50800DCF27A /* EmojiListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDB74C1290AB50800DCF27A /* EmojiListViewModel.swift */; };
 		4CDB74C4290AB7A500DCF27A /* AvatarListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDB74C3290AB7A500DCF27A /* AvatarListViewModel.swift */; };
+		4CDB74C6290AD0DD00DCF27A /* ReposListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDB74C5290AD0DD00DCF27A /* ReposListViewModel.swift */; };
 		4CE31FD728EAD20F00C26B41 /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE31FD628EAD20F00C26B41 /* Avatar.swift */; };
 		4CE31FDB28EB3D7700C26B41 /* LiveAvatarStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE31FDA28EB3D7700C26B41 /* LiveAvatarStorage.swift */; };
 		4CE31FE128EC7D2A00C26B41 /* UIImageView+Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE31FE028EC7D2A00C26B41 /* UIImageView+Download.swift */; };
@@ -98,6 +99,7 @@
 		4CDB74BD29093C1600DCF27A /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
 		4CDB74C1290AB50800DCF27A /* EmojiListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiListViewModel.swift; sourceTree = "<group>"; };
 		4CDB74C3290AB7A500DCF27A /* AvatarListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarListViewModel.swift; sourceTree = "<group>"; };
+		4CDB74C5290AD0DD00DCF27A /* ReposListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReposListViewModel.swift; sourceTree = "<group>"; };
 		4CE31FD628EAD20F00C26B41 /* Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
 		4CE31FDA28EB3D7700C26B41 /* LiveAvatarStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveAvatarStorage.swift; sourceTree = "<group>"; };
 		4CE31FE028EC7D2A00C26B41 /* UIImageView+Download.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Download.swift"; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 				4CDB74BB2909362300DCF27A /* MainPagelViewModel.swift */,
 				4CDB74C1290AB50800DCF27A /* EmojiListViewModel.swift */,
 				4CDB74C3290AB7A500DCF27A /* AvatarListViewModel.swift */,
+				4CDB74C5290AD0DD00DCF27A /* ReposListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -320,6 +323,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4CE38D8028DDB5CF0000B72B /* Build configuration list for PBXNativeTarget "AcademyChallenge" */;
 			buildPhases = (
+				4CDB74C7290AE7C300DCF27A /* SwiftLint */,
 				4CE38D6828DDB5CA0000B72B /* Sources */,
 				4CE38D6928DDB5CA0000B72B /* Frameworks */,
 				4CE38D6A28DDB5CA0000B72B /* Resources */,
@@ -384,12 +388,34 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4CDB74C7290AE7C300DCF27A /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		4CE38D6828DDB5CA0000B72B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				4CD8348F28F42C5200A61AE2 /* ColorSet.swift in Sources */,
+				4CDB74C6290AD0DD00DCF27A /* ReposListViewModel.swift in Sources */,
 				4CABE5CC28E725AC00EC7DDA /* Network.swift in Sources */,
 				4CABE5CA28E703EE00EC7DDA /* Application.swift in Sources */,
 				4CC7565C29002E39009FDF88 /* MockReposService.swift in Sources */,

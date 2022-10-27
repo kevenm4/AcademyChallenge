@@ -7,9 +7,8 @@
 
 import Foundation
 
-
 class MockRepos {
-	
+
 	var appleRepos: [Repos] = [
 		Repos(id: 1, fullName: "Repos 1", unique: true),
 		Repos(id: 2, fullName: "Repos 2", unique: true),
@@ -81,6 +80,6 @@ class MockRepos {
 		Repos(id: 68, fullName: "Repos 68", unique: true),
 		Repos(id: 69, fullName: "Repos 69", unique: true),
 		Repos(id: 70, fullName: "Repos 70", unique: true),
-		Repos(id: 71, fullName: "Repos 71", unique: true),
+		Repos(id: 71, fullName: "Repos 71", unique: true)
 	]
 }

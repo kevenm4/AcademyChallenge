@@ -12,27 +12,23 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 var window: UIWindow?
-	
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-	
+
 		return true
 	}
 
 	// MARK: UISceneSession Lifecycle
 
 	func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-		
+
 		return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
 	}
 
 	func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
-		
+
 	}
-	
-	
-	
-	 
+
 //
 //	// MARK: - Core Data stack
 	lazy var persistentContainer: NSPersistentContainer = {
@@ -41,7 +37,7 @@ var window: UIWindow?
 	  // application to it. This property is optional since there are legitimate
 	  // error conditions that could cause the creation of the store to fail.
 	  let container = NSPersistentContainer(name: "GeneralEntity")
-	  container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+	  container.loadPersistentStores(completionHandler: { (_, error) in
 		if let error = error as NSError? {
 		  // Replace this implementation with code to handle the error appropriately.
 		  // fatalError() causes the application to generate a crash log and terminate.
@@ -77,4 +73,3 @@ var window: UIWindow?
 	  }
 	}
 }
-

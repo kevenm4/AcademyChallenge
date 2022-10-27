@@ -14,19 +14,18 @@ public class MainPagelViewModel {
 	let emojiImage: Box<URL?> = Box(nil)
 	let searchQuery: Box<String?> = Box(nil)
 	var arrEmojis: Box<[Emoji]?> = Box([])
-	
+
 	init() {
-		
-		searchQuery.bind { [weak self] searchQuery in
+
+		searchQuery.bind { [weak self] _ in
 			self?.saveAndSearchContent()
 		}
-		
-		
+
 	}
-	
-	func getRandom(){
-		emojiService?.fetchEmojis({ [weak self] (result: Result<[Emoji],Error>) in
-			switch result{
+
+	func getRandom() {
+		emojiService?.fetchEmojis({ [weak self] (result: Result<[Emoji], Error>) in
+			switch result {
 			case .success(let success):
 				guard let randomUrl = success.randomElement()?.imageUrl else { return }
 				self?.emojiImage.value = randomUrl
@@ -34,10 +33,10 @@ public class MainPagelViewModel {
 				print("Failure: \(failure)")
 
 			}
-			
+
 		})
 	}
-	
+
 	private func saveAndSearchContent() {
 		guard let searchQuery = searchQuery.value else { return }
 		avatarService?.getAvatar(searchText: searchQuery, { (result: Result<Avatar, Error>) in
@@ -51,16 +50,16 @@ public class MainPagelViewModel {
 			}
 		})
 	}
-	
-	func getEmojis(){
-		
-		emojiService?.fetchEmojis({ [weak self] (result: Result<[Emoji],Error>) in
-			switch result{
+
+	func getEmojis() {
+
+		emojiService?.fetchEmojis({ [weak self] (result: Result<[Emoji], Error>) in
+			switch result {
 			case .success(let success):
 				self?.arrEmojis.value = success
 				self?.arrEmojis.value?.sort()
 				DispatchQueue.main.async { [weak self] in
-					//self?.collectionView.reloadData()
+					// self?.collectionView.reloadData()
 				}
 			case .failure(let failure):
 				print("Failure: \(failure)")

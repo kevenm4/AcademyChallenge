@@ -7,18 +7,8 @@
 
 import Foundation
 
-
 protocol Coordinator {
-	
+
 	func start()
-	
+
 }
-
-var emojiSource = LiveEmojiStorage()
-
-var avatarService = LiveAvatarStorage()
-
-var reposSource = LiveReposStorage()
-
-
-
