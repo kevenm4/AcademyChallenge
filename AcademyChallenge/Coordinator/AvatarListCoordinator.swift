@@ -19,19 +19,19 @@ class AvatarListCoordinator: Coordinator {
 	init(presenter: UINavigationController ){
 		
 		self.presenter = presenter
-	
+		
 		
 	}
 	
 	
 	func start() {
 		
+		
+		let viewModel = AvatarListViewModel()
+		viewModel.avatarService = avatarService
 		let avatarViewController = AvatarViewController()
-
+		avatarViewController.viewModel = viewModel
 		presenter.pushViewController(avatarViewController, animated: true)
-		
-		avatarViewController.avatarService = avatarService
-		
 		self.avatarViewController = avatarViewController
 		
 	}
