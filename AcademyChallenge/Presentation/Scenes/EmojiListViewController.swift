@@ -48,7 +48,8 @@ class EmojiListViewController: UIViewController {
         layout.minimumInteritemSpacing = 4
         collectionView = .init(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = UIColor.appColor(.primary)
-        collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: CollectionViewCell.reuseCellIdentifier)
+        collectionView.register(CollectionViewCell.self,
+                                forCellWithReuseIdentifier: CollectionViewCell.reuseCellIdentifier)
         collectionView.delegate = self
         collectionView.dataSource = self
     }
@@ -76,7 +77,8 @@ extension EmojiListViewController: UICollectionViewDataSource {
         return countEmojis
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: CollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
         guard let url = emoji?[indexPath.row].imageUrl else {return UICollectionViewCell()}
         cell.setUpCell(url: url)
@@ -99,7 +101,8 @@ class MockedDataSource: NSObject, UICollectionViewDataSource {
         return emojiMock.emojis.count
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as?
 

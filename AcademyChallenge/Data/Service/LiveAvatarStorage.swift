@@ -27,8 +27,9 @@ class LiveAvatarStorage {
 
 			if result.count != 0 {
 				// TRANSFORM NSMANAGEDOBJECT ARRAY TO AVATAR ARRAY
-				avatars = result.map({ item in
-					return item.toAvatar()
+                avatars = result.compactMap({ item  in
+
+                    return item.toAvatar()
 				})
 
 			}
@@ -46,8 +47,8 @@ class LiveAvatarStorage {
 				if success.count != 0 {
 
 					guard let avatarFound = success.first else { return }
-
-					resultHandler(.success(avatarFound.toAvatar()))
+                    guard let avatar = avatarFound.toAvatar() else { return }
+                    resultHandler(.success(avatar))
 				} else {
 
 					// GET THE AVATAR FROM API

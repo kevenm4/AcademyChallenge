@@ -8,9 +8,7 @@
 import Foundation
 
 public class MainPagelViewModel {
-	var emojiService: EmojiService?
-	var avatarService: LiveAvatarStorage?
-
+    var application: Application?
 	let emojiImage: Box<URL?> = Box(nil)
 	let searchQuery: Box<String?> = Box(nil)
 	var arrEmojis: Box<[Emoji]?> = Box([])
@@ -24,7 +22,8 @@ public class MainPagelViewModel {
 	}
 
 	func getRandom() {
-		emojiService?.fetchEmojis({ [weak self] (result: Result<[Emoji], Error>) in
+
+        application?.emojiSource.fetchEmojis({ [weak self] (result: Result<[Emoji], Error>) in
 			switch result {
 			case .success(let success):
 				guard let randomUrl = success.randomElement()?.imageUrl else { return }
@@ -39,7 +38,7 @@ public class MainPagelViewModel {
 
 	private func saveAndSearchContent() {
 		guard let searchQuery = searchQuery.value else { return }
-		avatarService?.getAvatar(searchText: searchQuery, { (result: Result<Avatar, Error>) in
+        application?.avatarService.getAvatar(searchText: searchQuery, { (result: Result<Avatar, Error>) in
 			switch result {
 			case .success(let success):
 				let avatarUrl = success.avatarUrl
@@ -53,7 +52,7 @@ public class MainPagelViewModel {
 
 	func getEmojis() {
 
-		emojiService?.fetchEmojis({ [weak self] (result: Result<[Emoji], Error>) in
+        application?.emojiSource.fetchEmojis({ [weak self] (result: Result<[Emoji], Error>) in
 			switch result {
 			case .success(let success):
 				self?.arrEmojis.value = success

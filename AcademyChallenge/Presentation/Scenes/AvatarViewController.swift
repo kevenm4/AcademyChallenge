@@ -59,7 +59,8 @@ class AvatarViewController: UIViewController {
 
         collectionView = .init(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = UIColor.appColor(.primary)
-        collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: CollectionViewCell.reuseCellIdentifier)
+        collectionView.register(CollectionViewCell.self,
+                                forCellWithReuseIdentifier: CollectionViewCell.reuseCellIdentifier)
         collectionView.delegate = self
         collectionView.dataSource = self
     }
@@ -85,7 +86,8 @@ extension AvatarViewController: UICollectionViewDataSource {
         return countAvatar
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         let cell: CollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
         let url = avatarList[indexPath.row].avatarUrl
@@ -96,7 +98,8 @@ extension AvatarViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-        let alert = UIAlertController(title: "Delete Avatar", message: "Are you sure you want delete ?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Delete Avatar",
+                                      message: "Are you sure you want delete ?", preferredStyle: .alert)
 
         alert.addAction(UIAlertAction(title: "Cancel", style: .default))
 
@@ -123,7 +126,9 @@ extension AvatarViewController: UICollectionViewDelegateFlowLayout {
         return UIEdgeInsets(top: 1.0, left: 8.0, bottom: 1.0, right: 8.0)
     }
 
-    func collectionView (_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView (_ collectionView: UICollectionView,
+                         layout collectionViewLayout: UICollectionViewLayout,
+                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         guard  let layout = collectionViewLayout as? UICollectionViewFlowLayout else {return .zero}
         let widthPerItem = collectionView.frame.width / 3 - layout.minimumInteritemSpacing
         return CGSize(width: widthPerItem - 8, height: widthPerItem)

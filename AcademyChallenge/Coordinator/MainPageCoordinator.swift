@@ -21,8 +21,7 @@ class MainPageCoordinator: Coordinator {
 
 	func start() {
 		let viewModel = MainPagelViewModel()
-        viewModel.emojiService = application.emojiSource
-        viewModel.avatarService = application.avatarService
+        viewModel.application = application
 		let mainViewController = MainPageViewControler()
 		mainViewController.viewModel = viewModel
 		presenter.pushViewController(mainViewController, animated: true)

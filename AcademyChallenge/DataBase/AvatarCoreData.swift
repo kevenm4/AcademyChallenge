@@ -65,7 +65,8 @@ class AvatarCoreData {
         let fetchRequest =
         NSFetchRequest<NSManagedObject>(entityName: "AvatarEntity")
 
-        // WE GET THE DATA THOUGH THE FETCHREQUEST CRITERIA, IN THIS CASE WE ASK THE MANAGED CONTEXT TO SEND ALL THE DATA FROM THE PERSON ENTITY
+        // WE GET THE DATA THOUGH THE FETCHREQUEST CRITERIA,
+        // IN THIS CASE WE ASK THE MANAGED CONTEXT TO SEND ALL THE DATA FROM THE PERSON ENTITY
         do {
             array = try managedContext.fetch(fetchRequest)
 

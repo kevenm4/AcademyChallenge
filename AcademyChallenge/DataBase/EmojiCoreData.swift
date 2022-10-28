@@ -53,7 +53,8 @@ class EmojiCoreData {
         // FETCH ALL THE DATA FROM THE ENTITY PERSON
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "EmojiEntity")
 
-        // WE GET THE DATA THOUGH THE FETCHREQUEST CRITERIA, IN THIS CASE WE ASK THE MANAGED CONTEXT TO SEND ALL THE DATA FROM THE PERSON ENTITY
+        // WE GET THE DATA THOUGH THE FETCHREQUEST CRITERIA,
+        // IN THIS CASE WE ASK THE MANAGED CONTEXT TO SEND ALL THE DATA FROM THE PERSON ENTITY
         do {
             array = try managedContext.fetch(fetchRequest)
         } catch let error as NSError {

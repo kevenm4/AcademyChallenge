@@ -10,17 +10,17 @@ import UIKit
 class EmojiListCoordinator: Coordinator {
 
 	private let presenter: UINavigationController
-
 	private var emojiListViewController: EmojiListViewController?
+    private let emojiService: EmojiService
 
-	init(presenter: UINavigationController) {
-
+    init(presenter: UINavigationController, emojiService: EmojiService) {
+        self.emojiService = emojiService
 		self.presenter = presenter
 	}
 	func start() {
 
 		let viewModel = EmojiListViewModel()
-		viewModel.emojiService = emojiSource
+        viewModel.emojiService = emojiService
 		let emojiListViewController = EmojiListViewController()
 		emojiListViewController.viewModel = viewModel
 

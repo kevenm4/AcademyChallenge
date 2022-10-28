@@ -11,10 +11,11 @@ class Network {
 
 	static func initialize() {
 	 URLSession.shared.configuration.urlCache?.diskCapacity = 100 * 1024 * 1024
-	 print("Current disk cache capacity: \(URLSession.shared.configuration.urlCache?.diskCapacity)")
+        print("disk cache capacity: \(String(describing: URLSession.shared.configuration.urlCache?.diskCapacity))")
  }
 
-	func executeNetworkCall<ResultType: Decodable>(_ call: APIProtocol, _ resultHandler: @escaping (Result<ResultType, Error>) -> Void) {
+	func executeNetworkCall<ResultType: Decodable>
+    (_ call: APIProtocol, _ resultHandler: @escaping (Result<ResultType, Error>) -> Void) {
 		let decoder = JSONDecoder()
 		var request = URLRequest(url: call.url)
 		request.httpMethod = call.method.rawValue

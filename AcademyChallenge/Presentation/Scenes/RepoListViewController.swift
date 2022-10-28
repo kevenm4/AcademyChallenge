@@ -9,171 +9,178 @@ import UIKit
 
 class RepoListViewController: UIViewController {
 
-	// var reposService:ReposService?
-	var viewModel: ReposListViewModel?
+    var viewModel: ReposListViewModel?
 
-	var repoList: [Repos] = []
+    var repoList: [Repos] = []
 
-	let tableView = UITableView()
+    let tableView = UITableView()
 
-	let loadSpinner: UIActivityIndicatorView = .init(style: .large)
+    let loadSpinner: UIActivityIndicatorView = .init(style: .large)
 
-	var page: Int = 0
+    var page: Int = 0
 
-	var appleReposListRowHeigth: Int = 64
+    var appleReposListRowHeigth: Int = 64
 
-	var tofinished: Bool = true
+    var tofinished: Bool = true
 
-	var isEnd: Bool = false
+    var isEnd: Bool = false
 
-	override func viewDidLoad() {
+    override func viewDidLoad() {
 
-		super.viewDidLoad()
+        super.viewDidLoad()
 
-		view.backgroundColor = UIColor.appColor(.primary)
-		setUPtable()
-		addToSuper()
-		constrainis()
-	}
+        view.backgroundColor = UIColor.appColor(.primary)
+        setUPtable()
+        addToSuper()
+        constrainis()
+    }
 
-	override func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
 
-		super.viewWillAppear(animated)
+        super.viewWillAppear(animated)
 
-		fetchDataForTableView()
+        viewModel?.arrRepos.bind(listener: { [weak self] newArr in
+            self?.repoList = newArr!
 
-	}
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
+        })
+        viewModel?.fetchDataForTableView()
+    }
 
-//	override func viewDidAppear(_ animated: Bool) {
+
+
+    	override func viewDidAppear(_ animated: Bool) {
+
+    		super.viewDidAppear(animated)
+
+
+    		if tableView.contentSize.height < tableView.frame.size.height {
+
+                viewModel?.fetchDataForTableView()
+    		}
+    	}
+
+
+
+        // loadSpinner.startAnimating()
+       // self.page += 1
+        //reposService?.fetchRepos(page: page, size: Constants.AppleRepos.AppleReposPagination.perPage,
+//         { [weak self] (result: Result<[Repos],Error>) in
 //
-//		super.viewDidAppear(animated)
+//         switch result{
+//         case .success(let success):
+//         self?.repoList.append(contentsOf: success)
+//         DispatchQueue.main.async { [weak self] in
+//         self?.tableView.reloadData()
+
+//         if (self?.tableView.contentSize.height)! < (self?.tableView.frame.size.height)! {
+//
+//         self?.fetchDataForTableView()
+//         }
+//         self?.loadSpinner.stopAnimating()
+//         }
 //
 //
-//		if tableView.contentSize.height < tableView.frame.size.height {
+//         case .failure(let failure):
+//         print("Failure: \(failure)")
+//         }
 //
-//			fetchDataForTableView()
-//		}
-//	}
+//
+//         })*/
 
-	func fetchDataForTableView() {
 
-		// loadSpinner.startAnimating()
+    private func setUPtable() {
 
-		self.page += 1
-		/*reposService?.fetchRepos(page: page, size: Constants.AppleRepos.AppleReposPagination.perPage, { [weak self] (result: Result<[Repos],Error>) in
-			
-			switch result{
-			case .success(let success):
-				self?.repoList.append(contentsOf: success)
-				DispatchQueue.main.async { [weak self] in
-					self?.tableView.reloadData()
-					
-					if (self?.tableView.contentSize.height)! < (self?.tableView.frame.size.height)! {
-							
-						self?.fetchDataForTableView()
-						}
-						self?.loadSpinner.stopAnimating()
-				}
-			
-				
-			case .failure(let failure):
-				print("Failure: \(failure)")
-			}
-			
-			
-		})*/
+        tableView.frame = view.bounds
+        tableView.backgroundColor = .clear
+        tableView.automaticallyAdjustsScrollIndicatorInsets = false
+        tableView.contentInsetAdjustmentBehavior = .never
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.tableFooterView = loadSpinner
+        tableView.register(TableViewCell.self, forCellReuseIdentifier: TableViewCell.reuseCellIdentifier)
+        tableView.delegate = self
+        tableView.dataSource = self
 
-	}
+    }
 
-	private func setUPtable() {
+    private func addToSuper() {
 
-		tableView.frame = view.bounds
-		tableView.backgroundColor = .clear
-		tableView.automaticallyAdjustsScrollIndicatorInsets = false
-		tableView.contentInsetAdjustmentBehavior = .never
-		tableView.rowHeight = UITableView.automaticDimension
-		tableView.tableFooterView = loadSpinner
-		tableView.register(TableViewCell.self, forCellReuseIdentifier: TableViewCell.reuseCellIdentifier)
-		tableView.delegate = self
-		tableView.dataSource = self
+        view.addSubview(tableView)
+    }
 
-	}
+    private func constrainis() {
 
-	private func addToSuper() {
+        tableView.translatesAutoresizingMaskIntoConstraints = false
 
-		view.addSubview(tableView)
-	}
-
-	private func constrainis() {
-
-		tableView.translatesAutoresizingMaskIntoConstraints = false
-
-		NSLayoutConstraint.activate([
-			tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-			tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-			tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-			tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-		])
-	}
+        NSLayoutConstraint.activate([
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
 }
 
 extension RepoListViewController: UITableViewDataSource, UITableViewDelegate {
 
-	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-		self.tofinished = true
-		return repoList.count
+        self.tofinished = true
+        return repoList.count
 
-	}
+    }
 
-	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-		 let cell: TableViewCell = tableView.dequeueReusableCell( for: indexPath)
+        let cell: TableViewCell = tableView.dequeueReusableCell( for: indexPath)
 
-		let styleText = repoList[indexPath.row].fullName
+        let styleText = repoList[indexPath.row].fullName
 
-		cell.setUpCells(textField: styleText)
+        cell.setUpCells(textField: styleText)
 
-		return cell
-	}
+        return cell
+    }
 
-	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		tableView.deselectRow(at: indexPath, animated: true)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
 
-		print("cell tapped")
-	}
+        print("cell tapped")
+    }
 
-	func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
 
-		let offset = scrollView.contentOffset.y
+        		let offset = scrollView.contentOffset.y
 
-		let heightVisibleScroll = scrollView.frame.size.height
-		let heightTable = scrollView.contentSize.height
-		let heightCell = view.frame.height * 0.10
+        		let heightVisibleScroll = scrollView.frame.size.height
+        		let heightTable = scrollView.contentSize.height
+        		let heightCell = view.frame.height * 0.10
 
-		if  offset > 0 && (offset + heightVisibleScroll + (heightCell)) > heightTable && tofinished && !isEnd {
+        		if  offset > 0 && (offset + heightVisibleScroll + (heightCell)) > heightTable && tofinished && !isEnd {
 
-			tofinished = false
-			self.page += 1
-			self.reposService?.fetchRepos(page: self.page, size: Constants.AppleRepos.AppleReposPagination.perPage, { ( result: Result<[Repos], Error>) in
-				switch result {
-				case .success(let success):
-					self.repoList.append(contentsOf: success)
+        			tofinished = false
+        			self.page += 1
+                    self.viewModel?.reposService?.fetchRepos(page: self.page,
+         size: Constants.AppleRepos.AppleReposPagination.perPage,
+         { ( result: Result<[Repos], Error>) in
+        				switch result {
+        				case .success(let success):
+        					self.repoList.append(contentsOf: success)
 
-					DispatchQueue.main.async { [weak self] in
-						self?.tableView.reloadData()
-					}
+        					DispatchQueue.main.async { [weak self] in
+        						self?.tableView.reloadData()
+        					}
 
-					if success.count < Constants.AppleRepos.AppleReposPagination.perPage {
-						self.isEnd = true
-					}
+        					if success.count < Constants.AppleRepos.AppleReposPagination.perPage {
+        						self.isEnd = true
+        					}
 
-				case .failure(let failure):
-					print("[PREFETCH] Error : \(failure)")
-				}
-			})
-		}
-	}
+        				case .failure(let failure):
+        					print("[PREFETCH] Error : \(failure)")
+        				}
+        			})
+        		}
+    }
 
 }
-

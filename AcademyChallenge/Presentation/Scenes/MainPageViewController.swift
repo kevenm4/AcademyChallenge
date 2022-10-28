@@ -140,10 +140,13 @@ class MainPageViewControler: UIViewController {
 			containerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0.1 * view.frame.height),
 			containerView.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -0.1 * view.frame.height),
 
-			emojiImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 0.25 * containerView.frame.width),
-			emojiImageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -0.25 * containerView.frame.width),
+			emojiImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor,
+                                                    constant: 0.25 * containerView.frame.width),
+            emojiImageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor,
+                                                     constant: -0.25 * containerView.frame.width),
 			emojiImageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 0.25 * containerView.frame.height),
-			emojiImageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -0.25 * containerView.frame.height)
+			emojiImageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor,
+                                                   constant: -0.25 * containerView.frame.height)
 		])
 		emojiImageView.contentMode = .scaleAspectFit
 	}
@@ -151,8 +154,8 @@ class MainPageViewControler: UIViewController {
 	// 5- Button func to call event
 
 	@objc func didTapEmojiList() {
-
-		let emojiListCoordinator = EmojiListCoordinator(presenter: navigationController!)
+        guard let emojiService = viewModel?.application?.emojiSource else {return}
+        let emojiListCoordinator = EmojiListCoordinator(presenter: navigationController!, emojiService: emojiService)
 
 		emojiListCoordinator.start()
 
@@ -160,8 +163,8 @@ class MainPageViewControler: UIViewController {
 
 	}
 	@objc func didTapAvatarList() {
-
-		let avatarListCoordinator = AvatarListCoordinator(presenter: navigationController!)
+        guard let avatarService = viewModel?.application?.avatarService else {return}
+		let avatarListCoordinator = AvatarListCoordinator(presenter: navigationController!, avatarService: avatarService )
 
 		avatarListCoordinator.start()
 
@@ -170,8 +173,9 @@ class MainPageViewControler: UIViewController {
 	}
 
 	@objc func didTapRepoiList() {
+        guard let reposService = viewModel?.application?.reposSource else {return}
 
-		let repoListCoordinator = RepoListCoordinator(presenter: navigationController!)
+		let repoListCoordinator = RepoListCoordinator(presenter: navigationController!, reposService: reposService)
 
 		repoListCoordinator.start()
 

@@ -30,4 +30,3 @@ class LiveReposStorage: ReposService {
 		}
 
 	}
-
