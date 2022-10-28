@@ -40,57 +40,30 @@ class RepoListViewController: UIViewController {
         super.viewWillAppear(animated)
 
         viewModel?.arrRepos.bind(listener: { [weak self] newArr in
-            self?.repoList = newArr!
+            guard let newArr = newArr else {return}
+            self?.repoList = newArr
 
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
         })
+
+        viewModel?.end.bind(listener: { [weak self] ended in
+            guard let ended = ended else {return}
+            self?.isEnd = ended
+        })
         viewModel?.fetchDataForTableView()
     }
+    override func viewDidAppear(_ animated: Bool) {
 
+        super.viewDidAppear(animated)
 
+        if tableView.contentSize.height < tableView.frame.size.height {
+            loadSpinner.startAnimating()
+            viewModel?.fetchDataForTableView()
+        }
 
-    	override func viewDidAppear(_ animated: Bool) {
-
-    		super.viewDidAppear(animated)
-
-
-    		if tableView.contentSize.height < tableView.frame.size.height {
-
-                viewModel?.fetchDataForTableView()
-    		}
-    	}
-
-
-
-        // loadSpinner.startAnimating()
-       // self.page += 1
-        //reposService?.fetchRepos(page: page, size: Constants.AppleRepos.AppleReposPagination.perPage,
-//         { [weak self] (result: Result<[Repos],Error>) in
-//
-//         switch result{
-//         case .success(let success):
-//         self?.repoList.append(contentsOf: success)
-//         DispatchQueue.main.async { [weak self] in
-//         self?.tableView.reloadData()
-
-//         if (self?.tableView.contentSize.height)! < (self?.tableView.frame.size.height)! {
-//
-//         self?.fetchDataForTableView()
-//         }
-//         self?.loadSpinner.stopAnimating()
-//         }
-//
-//
-//         case .failure(let failure):
-//         print("Failure: \(failure)")
-//         }
-//
-//
-//         })*/
-
-
+    }
     private func setUPtable() {
 
         tableView.frame = view.bounds
@@ -151,36 +124,22 @@ extension RepoListViewController: UITableViewDataSource, UITableViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
 
-        		let offset = scrollView.contentOffset.y
+        let offset = scrollView.contentOffset.y
 
-        		let heightVisibleScroll = scrollView.frame.size.height
-        		let heightTable = scrollView.contentSize.height
-        		let heightCell = view.frame.height * 0.10
+        let heightVisibleScroll = scrollView.frame.size.height
+        let heightTable = scrollView.contentSize.height
+        let heightCell = view.frame.height * 0.10
 
-        		if  offset > 0 && (offset + heightVisibleScroll + (heightCell)) > heightTable && tofinished && !isEnd {
+        if  offset > 0 && (offset + heightVisibleScroll + (heightCell)) > heightTable && tofinished && !isEnd {
 
-        			tofinished = false
-        			self.page += 1
-                    self.viewModel?.reposService?.fetchRepos(page: self.page,
-         size: Constants.AppleRepos.AppleReposPagination.perPage,
-         { ( result: Result<[Repos], Error>) in
-        				switch result {
-        				case .success(let success):
-        					self.repoList.append(contentsOf: success)
+            tofinished = false
+            viewModel?.scrollTable()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+            loadSpinner.stopAnimating()
 
-        					DispatchQueue.main.async { [weak self] in
-        						self?.tableView.reloadData()
-        					}
-
-        					if success.count < Constants.AppleRepos.AppleReposPagination.perPage {
-        						self.isEnd = true
-        					}
-
-        				case .failure(let failure):
-        					print("[PREFETCH] Error : \(failure)")
-        				}
-        			})
-        		}
+        }
     }
 
 }
