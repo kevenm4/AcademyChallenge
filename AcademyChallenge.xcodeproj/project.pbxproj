@@ -59,6 +59,7 @@
 		4CE38D7C28DDB5CE0000B72B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CE38D7A28DDB5CE0000B72B /* LaunchScreen.storyboard */; };
 		4CE8D7D828EEE240002A77C1 /* EmojiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8D7D728EEE240002A77C1 /* EmojiService.swift */; };
 		4CE8D7DA28EEE3DB002A77C1 /* MockedEmojiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8D7D928EEE3DB002A77C1 /* MockedEmojiService.swift */; };
+		4CEACF3129127BAD00996441 /* NSMOBJ+ToEmoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEACF3029127BAD00996441 /* NSMOBJ+ToEmoji.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -115,6 +116,7 @@
 		4CE38D7D28DDB5CF0000B72B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4CE8D7D728EEE240002A77C1 /* EmojiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiService.swift; sourceTree = "<group>"; };
 		4CE8D7D928EEE3DB002A77C1 /* MockedEmojiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedEmojiService.swift; sourceTree = "<group>"; };
+		4CEACF3029127BAD00996441 /* NSMOBJ+ToEmoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMOBJ+ToEmoji.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -254,6 +256,7 @@
 				4CDB74B2290834D500DCF27A /* UICollectionViewCell+ReusableView.swift */,
 				4CDB74B4290835D600DCF27A /* UITableViewCell+ReusableView.swift */,
 				4CDB74BD29093C1600DCF27A /* Box.swift */,
+				4CEACF3029127BAD00996441 /* NSMOBJ+ToEmoji.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -446,6 +449,7 @@
 				4CC7565E290038D7009FDF88 /* APIProtocol.swift in Sources */,
 				4CE8D7D828EEE240002A77C1 /* EmojiService.swift in Sources */,
 				4CC7565828FE9759009FDF88 /* ReposService.swift in Sources */,
+				4CEACF3129127BAD00996441 /* NSMOBJ+ToEmoji.swift in Sources */,
 				4CDB74AF2907CF6900DCF27A /* TableViewCell.swift in Sources */,
 				4CE38D7428DDB5CA0000B72B /* MainPageViewController.swift in Sources */,
 				4C5366ED28E5A4B400EE97A3 /* LiveEmojiStorage.swift in Sources */,

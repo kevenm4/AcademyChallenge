@@ -26,25 +26,17 @@ class LiveEmojiStorage: EmojiService {
 
     func fetchEmojis (_ resultHandler: @escaping (Result<[Emoji], Error>) -> Void) {
 
-        var fetchedEmojis: [NSManagedObject] = []
+        var fetchedEmojis: [Emoji] = []
         fetchedEmojis = emojiPersistence.fetch()
 
         if !fetchedEmojis.isEmpty {
-            let emojis = fetchedEmojis.compactMap({ item -> Emoji? in
-                guard let name = item.value(forKey: "name") as? String,
-                      let imageUrlString = item.value(forKey: "imageUrl") as? String,
-                      let imageUrl = URL(string: imageUrlString) else { return nil }
-                return Emoji(name: name, imageUrl: imageUrl)
-            })
-            print(emojis.count)
-            resultHandler(.success(emojis))
+            resultHandler(.success(fetchedEmojis))
 
         } else {
             // METHOD IN EMOJI API
             emojiNetwork.executeNetworkCall(EmojiAPI.getEmojis) { (result: Result<EmojiResponse, Error>) in
                 switch result {
                 case .success(let success):
-                    //                    print("Success: \(success.emojis)")
                     self.persistEmjis(emojis: success.emojis)
                     resultHandler(.success(success.emojis))
                 case .failure(let failure):

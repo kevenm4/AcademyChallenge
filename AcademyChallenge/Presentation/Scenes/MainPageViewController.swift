@@ -10,11 +10,8 @@ import UIKit
 class MainPageViewControler: UIViewController {
 
 	private var emojiListCoordinator: EmojiListCoordinator?
-
 	private var avatarListCoordinator: AvatarListCoordinator?
-
 	private var repoListCoordinator: RepoListCoordinator?
-
 	private var stackView: UIStackView
 	private var secondStackView: UIStackView
 	private var randomButton: UIButton
@@ -52,11 +49,18 @@ class MainPageViewControler: UIViewController {
 		super.viewDidLoad()
 
 		viewModel?.emojiImage.bind { imageUrl in
+            DispatchQueue.main.async {
+                self.emojiImageView.image = nil
+                guard let imageUrl = imageUrl else { return }
+                self.emojiImageView.stopLoading()
+                self.emojiImageView.downloadImageFromURL(from: imageUrl)
+                    self.emojiList.isEnabled = true
+            }
+//			guard let imageUrl = imageUrl else { return }
+//			self.emojiImageView.stopLoading()
+//			self.emojiImageView.downloadImageFromURL(from: imageUrl)
+//                self.emojiList.isEnabled = true
 
-			self.emojiImageView.image = nil
-			guard let imageUrl = imageUrl else { return }
-			self.emojiImageView.stopLoading()
-			self.emojiImageView.downloadImageFromURL(from: imageUrl)
 		}
 
 		view.backgroundColor = UIColor.appColor(.primary)
@@ -155,12 +159,12 @@ class MainPageViewControler: UIViewController {
 
 	@objc func didTapEmojiList() {
         guard let emojiService = viewModel?.application?.emojiSource else {return}
+
         let emojiListCoordinator = EmojiListCoordinator(presenter: navigationController!, emojiService: emojiService)
 
 		emojiListCoordinator.start()
 
 		self.emojiListCoordinator = emojiListCoordinator
-
 	}
 	@objc func didTapAvatarList() {
         guard let avatarService = viewModel?.application?.avatarService else {return}
@@ -181,6 +185,7 @@ class MainPageViewControler: UIViewController {
 
 		self.repoListCoordinator = repoListCoordinator
 
+        emojiList.isEnabled = false
 	}
 
 	// 6- get random emojis

@@ -16,6 +16,6 @@ class MockedEmojiService: EmojiService {
 	}
 
 	func deleteEmoji(emojiToDelete: Emoji) {
-		mockedemojis.emojis
+		// mockedemojis.emojis
 	}
 }

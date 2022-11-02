@@ -34,11 +34,7 @@ class AvatarCoreData {
             avatar.setValue(currentAvatar.id, forKey: "id")
 
             do {
-
                 try managedContext.save()
-
-                // self.AvatarPersistence.append(avatar)
-
             } catch let error as NSError {
 
                 print("Could not save. \(error), \(error.userInfo)")
@@ -47,30 +43,21 @@ class AvatarCoreData {
         }
     }
 
-    func fetch(_ resulthandler: @escaping ([NSManagedObject]) -> Void) {
+    func fetch(_ resulthandler: @escaping ([Avatar]) -> Void) {
 
         var array: [NSManagedObject]
-
-        //			   guard let appDelegate =
-        //
-        //				 UIApplication.shared.delegate as? AppDelegate else {
-        //
-        //				   return
-        //			   }
+        var result: [Avatar] = []
 
         let managedContext =
         persistentContainer.viewContext
-
-        // FETCH ALL THE DATA FROM THE ENTITY PERSON
         let fetchRequest =
         NSFetchRequest<NSManagedObject>(entityName: "AvatarEntity")
-
-        // WE GET THE DATA THOUGH THE FETCHREQUEST CRITERIA,
-        // IN THIS CASE WE ASK THE MANAGED CONTEXT TO SEND ALL THE DATA FROM THE PERSON ENTITY
         do {
             array = try managedContext.fetch(fetchRequest)
-
-            resulthandler(array)
+            result = array.compactMap({ item in
+                item.toAvatar()
+            })
+            resulthandler(result)
 
         } catch let error as NSError {
 

@@ -57,9 +57,6 @@ public class MainPagelViewModel {
 			case .success(let success):
 				self?.arrEmojis.value = success
 				self?.arrEmojis.value?.sort()
-				DispatchQueue.main.async { [weak self] in
-					// self?.collectionView.reloadData()
-				}
 			case .failure(let failure):
 				print("Failure: \(failure)")
 			}
