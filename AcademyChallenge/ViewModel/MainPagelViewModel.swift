@@ -6,12 +6,22 @@
 //
 
 import Foundation
-
+import UIKit
+//
+import RxSwift
 public class MainPagelViewModel {
     var application: Application?
 	let emojiImage: Box<URL?> = Box(nil)
 	let searchQuery: Box<String?> = Box(nil)
 	var arrEmojis: Box<[Emoji]?> = Box([])
+    let backgroundScheduler = SerialDispatchQueueScheduler(internalSerialQueueName: "MainPageViewModel.backgroundScheduler")
+
+    private var rxEmojiImageUrl: BehaviorSubject<URL?> = BehaviorSubject(value: nil)
+    private var _rxEmojiImage: BehaviorSubject<UIImage?> = BehaviorSubject(value: nil)
+    var rxEmojiImage: Observable<UIImage?> { _rxEmojiImage.asObservable() }
+
+    let disposeBag = DisposeBag()
+    var ongoingRequests: [String: Observable<UIImage?>] = [:]
 
 	init() {
 
@@ -19,6 +29,16 @@ public class MainPagelViewModel {
 			self?.saveAndSearchContent()
 		}
 
+//        rxEmojiImageUrl
+//            .debug("rxEmojiImageUrl")
+//            .flatMap ({ [weak self] url -> Observable<UIImage?> in
+//                guard let self = self else {return Observable.never() }
+//                var observable = self.ongoingRequests[url?.absoluteString ?? ""]
+//
+//                if observable == nil {
+//                    self.ongoingRequests[url?.absoluteString ?? ""] = 
+//                }
+//            })
 	}
 
 	func getRandom() {

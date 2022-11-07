@@ -7,62 +7,15 @@
 
 import UIKit
 
-class AvatarViewController: UIViewController {
+class AvatarViewController: BaseGenericViewController<AvatarView> {
 
     var avatarList: [Avatar] = []
 
     var viewModel: AvatarListViewModel?
-
-    lazy var collectionView: UICollectionView = {
-        let sCollection = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-        return sCollection
-    }()
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        setUpViews()
-        addViewToSuperview()
-        setUpConstrains()
-
-    }
-    private func setUpViews() {
-
-        setUpCollecionView()
-    }
-
-    private func addViewToSuperview() {
-
-        view.addSubview(collectionView)
-    }
-
-    private func setUpConstrains() {
-
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-
-        ])
-    }
-
-    private func setUpCollecionView() {
-
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-
-        layout.minimumLineSpacing = 8
-        layout.minimumInteritemSpacing = 4
-
-        collectionView = .init(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = UIColor.appColor(.primary)
-        collectionView.register(CollectionViewCell.self,
-                                forCellWithReuseIdentifier: CollectionViewCell.reuseCellIdentifier)
-        collectionView.delegate = self
-        collectionView.dataSource = self
+            genericView.collectionView.dataSource = self
+        genericView.collectionView.delegate = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -70,7 +23,7 @@ class AvatarViewController: UIViewController {
 
         viewModel?.arrAvatar.bind(listener: { [weak self] newArrAvatar in
             self?.avatarList = newArrAvatar!
-            self?.collectionView.reloadData()
+            self?.genericView.collectionView.reloadData()
         })
 
         viewModel?.getAvatar()
@@ -108,7 +61,7 @@ extension AvatarViewController: UICollectionViewDataSource {
             let avatar = self.avatarList[indexPath.row]
             self.viewModel?.deleteAV(avatar: avatar)
             self.avatarList.remove(at: indexPath.row)
-            collectionView.reloadData()
+                collectionView.reloadData()
 
         }))
 

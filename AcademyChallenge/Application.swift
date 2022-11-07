@@ -11,9 +11,9 @@ import CoreData
 class Application {
 	static var urlSession: URLSession?
 
-    let emojiSource: LiveEmojiStorage
+    let emojiSource: EmojiService
     let avatarService: LiveAvatarStorage
-    let reposSource: LiveReposStorage
+    let reposSource: ReposService
      let persistentContainer: NSPersistentContainer
 
     init() {

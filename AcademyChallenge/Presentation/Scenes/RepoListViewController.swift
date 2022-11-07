@@ -82,7 +82,7 @@ class RepoListViewController: UIViewController {
 
         view.addSubview(tableView)
     }
-
+    
     private func constrainis() {
 
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -96,7 +96,7 @@ class RepoListViewController: UIViewController {
     }
 }
 
-extension RepoListViewController: UITableViewDataSource, UITableViewDelegate {
+extension RepoListViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
@@ -121,7 +121,9 @@ extension RepoListViewController: UITableViewDataSource, UITableViewDelegate {
 
         print("cell tapped")
     }
+}
 
+extension RepoListViewController: UITableViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
 
         let offset = scrollView.contentOffset.y

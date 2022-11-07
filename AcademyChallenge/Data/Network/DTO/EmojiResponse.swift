@@ -14,7 +14,7 @@ struct EmojiResponse: Decodable {
         let container = try decoder.singleValueContainer()
         let emojisAsDictionary = try container.decode([String: String].self)
         emojis = emojisAsDictionary.map({ (key: String, value: String) in
-            Emoji(name: key, imageUrl: URL(string: value)!)
+            return Emoji(name: key, imageUrl: URL(string: value)!)
         })
     }
 }

@@ -29,7 +29,7 @@ class CollectionViewCell: UICollectionViewCell {
 
 	func setUpCell(url: URL) {
 
-		self.imageView.downloadImageFromURL(from: url)
+		self.imageView.downloadImage(from: url)
 	}
 
 	func setupConstraints() {
