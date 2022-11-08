@@ -14,14 +14,14 @@ public class MainPagelViewModel {
 	let emojiImage: Box<URL?> = Box(nil)
 	let searchQuery: Box<String?> = Box(nil)
 	var arrEmojis: Box<[Emoji]?> = Box([])
-    let backgroundScheduler = SerialDispatchQueueScheduler(internalSerialQueueName: "MainPageViewModel.backgroundScheduler")
+   // let backgroundScheduler = SerialDispatchQueueScheduler(internalSerialQueueName: "MainPageViewModel.backgroundScheduler")
 
-    private var rxEmojiImageUrl: BehaviorSubject<URL?> = BehaviorSubject(value: nil)
-    private var _rxEmojiImage: BehaviorSubject<UIImage?> = BehaviorSubject(value: nil)
-    var rxEmojiImage: Observable<UIImage?> { _rxEmojiImage.asObservable() }
+//    private var rxEmojiImageUrl: BehaviorSubject<URL?> = BehaviorSubject(value: nil)
+//    private var _rxEmojiImage: BehaviorSubject<UIImage?> = BehaviorSubject(value: nil)
+//    var rxEmojiImage: Observable<UIImage?> { _rxEmojiImage.asObservable() }
 
-    let disposeBag = DisposeBag()
-    var ongoingRequests: [String: Observable<UIImage?>] = [:]
+//    let disposeBag = DisposeBag()
+//    var ongoingRequests: [String: Observable<UIImage?>] = [:]
 
 	init() {
 
@@ -36,7 +36,7 @@ public class MainPagelViewModel {
 //                var observable = self.ongoingRequests[url?.absoluteString ?? ""]
 //
 //                if observable == nil {
-//                    self.ongoingRequests[url?.absoluteString ?? ""] = 
+//                    self.ongoingRequests[url?.absoluteString ?? ""] =
 //                }
 //            })
 	}
