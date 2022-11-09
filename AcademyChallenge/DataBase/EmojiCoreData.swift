@@ -19,7 +19,7 @@ class EmojiCoreData {
     }
 
     func persist(name: String, imageUrl: String) {
-        DispatchQueue.main.async{
+        DispatchQueue.main.async {
             let managedContext = self.persistentContainer.viewContext
 
             let entity = NSEntityDescription.entity(forEntityName: "EmojiEntity", in: managedContext)!

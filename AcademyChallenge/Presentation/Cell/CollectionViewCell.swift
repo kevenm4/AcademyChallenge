@@ -6,11 +6,14 @@
 //
 
 import UIKit
+//
+import RxSwift
 
 class CollectionViewCell: UICollectionViewCell {
 
-	private var imageView: UIImageView
+	 var imageView: UIImageView
 	var dataTask: URLSessionTask?
+    var reusableDisposeBag = DisposeBag()
 
 	override init(frame: CGRect) {
 
@@ -27,9 +30,7 @@ class CollectionViewCell: UICollectionViewCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	func setUpCell(url: URL) {
-
-		self.imageView.downloadImage(from: url)
+	func setUpCell(viewModel: EmojiListViewModel) {
 	}
 
 	func setupConstraints() {
@@ -46,10 +47,9 @@ class CollectionViewCell: UICollectionViewCell {
 
 	override func prepareForReuse() {
 		super.prepareForReuse()
-
 		dataTask?.cancel()
-
 		imageView.image = nil
+        reusableDisposeBag = DisposeBag()
 
 	}
 }

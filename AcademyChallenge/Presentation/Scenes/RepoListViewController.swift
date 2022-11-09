@@ -82,7 +82,6 @@ class RepoListViewController: UIViewController {
 
         view.addSubview(tableView)
     }
-    
     private func constrainis() {
 
         tableView.translatesAutoresizingMaskIntoConstraints = false

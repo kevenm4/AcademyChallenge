@@ -6,6 +6,8 @@
 //
 
 import UIKit
+//
+import RxSwift
 
 class EmojiListViewController: BaseGenericViewController<EmojiView> {
 
@@ -45,7 +47,13 @@ extension EmojiListViewController: UICollectionViewDataSource {
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: CollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
         guard let url = emoji?[indexPath.row].imageUrl else {return UICollectionViewCell()}
-        cell.setUpCell(url: url)
+
+        viewModel?.imageAtUrl(url: url)
+            .asOptional()
+            .subscribe(cell.imageView.rx.image)
+            .disposed(by: cell.reusableDisposeBag)
+
+       // cell.setUpCell(url: url)
 
         return cell
     }
@@ -59,6 +67,15 @@ extension EmojiListViewController: UICollectionViewDataSource {
     }
 
 }
+
+extension Observable {
+    // swiftlint:disable:next syntactic_sugar
+    typealias OptionalElement = Optional<Element>
+    func asOptional() -> Observable<OptionalElement> {
+        return map({ element -> OptionalElement in return element })
+    }
+}
+
 class MockedDataSource: NSObject, UICollectionViewDataSource {
     var emojiMock: MockEmojis = .init()
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -74,7 +91,7 @@ class MockedDataSource: NSObject, UICollectionViewDataSource {
 
             return UICollectionViewCell()
         }
-        cell.setUpCell(url: emojiMock.emojis[indexPath.row].imageUrl)
+       // cell.setUpCell(url: emojiMock.emojis[indexPath.row].imageUrl)
         return cell
     }
 

@@ -30,16 +30,24 @@ class MainPageViewControler: BaseGenericViewController<MainView> {
     override func viewDidLoad() {
 
         super.viewDidLoad()
+        genericView.emojiImageView.showLoading()
+        viewModel?.rxEmojiImage
+            .do(onNext: { [weak self] image in
+                guard image != nil else { return }
+                self?.genericView.emojiImageView.stopLoading()
 
-        viewModel?.emojiImage.bind { imageUrl in
-            DispatchQueue.main.async {
-                self.genericView.emojiImageView.image = nil
-                guard let imageUrl = imageUrl else { return }
-                self.genericView.emojiImageView.stopLoading()
-                self.genericView.emojiImageView.downloadImage(from: imageUrl)
-                //   self.emojiList.isEnabled = true
-            }
-        }
+            })
+                .subscribe(genericView.emojiImageView.rx.image)
+                .disposed(by: disposeBag)
+//        viewModel?.emojiImage.bind { imageUrl in
+//            DispatchQueue.main.async {
+//                self.genericView.emojiImageView.image = nil
+//                guard let imageUrl = imageUrl else { return }
+//                self.genericView.emojiImageView.stopLoading()
+//                self.genericView.emojiImageView.downloadImage(from: imageUrl)
+//                //   self.emojiList.isEnabled = true
+//            }
+//        }
         // setUpButton()
         didTapRandomEmojiButton()
 

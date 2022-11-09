@@ -44,7 +44,7 @@ extension AvatarViewController: UICollectionViewDataSource {
 
         let cell: CollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
         let url = avatarList[indexPath.row].avatarUrl
-        cell.setUpCell(url: url)
+       // cell.setUpCell(url: url)
 
         return cell
     }

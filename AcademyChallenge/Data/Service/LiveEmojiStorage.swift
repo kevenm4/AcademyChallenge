@@ -45,6 +45,7 @@ class LiveEmojiStorage: EmojiService {
                     resultHandler(.failure(failure))
                 }
             }
+
         }
 
     }
