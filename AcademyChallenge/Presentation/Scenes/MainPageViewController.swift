@@ -8,7 +8,14 @@
 import UIKit
 //
 import RxSwift
+
+public protocol MainPageViewControlerDelegate: AnyObject {
+    func navigateToEmojiList()
+    func navigateToAvatar()
+    func navigateToRepos()
+}
 class MainPageViewControler: BaseGenericViewController<MainView> {
+    public weak var delegate: MainPageViewControlerDelegate?
 
     private var emojiListCoordinator: EmojiListCoordinator?
     private var avatarListCoordinator: AvatarListCoordinator?
@@ -27,6 +34,7 @@ class MainPageViewControler: BaseGenericViewController<MainView> {
 //
 //        view = mainView
 //    }
+
     override func viewDidLoad() {
 
         super.viewDidLoad()
@@ -87,33 +95,38 @@ class MainPageViewControler: BaseGenericViewController<MainView> {
 //
 //    }
      func didTapEmojiList() {
-        guard let emojiService = viewModel?.application?.emojiSource else {return}
+//        guard let emojiService = viewModel?.application?.emojiSource else {return}
+//
+//        let emojiListCoordinator = EmojiListCoordinator(presenter: navigationController!, emojiService: emojiService)
+//
+//        emojiListCoordinator.start()
+//
+//        self.emojiListCoordinator = emojiListCoordinator
 
-        let emojiListCoordinator = EmojiListCoordinator(presenter: navigationController!, emojiService: emojiService)
-
-        emojiListCoordinator.start()
-
-        self.emojiListCoordinator = emojiListCoordinator
+         self.delegate?.navigateToEmojiList()
     }
      func didTapAvatarList() {
-        guard let avatarService = viewModel?.application?.avatarService else {return}
-        let avatarListCoordinator = AvatarListCoordinator(presenter: navigationController!,
-                                                          avatarService: avatarService )
-
-        avatarListCoordinator.start()
-
-        self.avatarListCoordinator = avatarListCoordinator
+//        guard let avatarService = viewModel?.application?.avatarService else {return}
+//        let avatarListCoordinator = AvatarListCoordinator(presenter: navigationController!,
+//                                                          avatarService: avatarService )
+//
+//        avatarListCoordinator.start()
+//
+//        self.avatarListCoordinator = avatarListCoordinator
+         self.delegate?.navigateToAvatar()
 
     }
 
      func didTapRepoiList() {
-        guard let reposService = viewModel?.application?.reposSource else {return}
 
-        let repoListCoordinator = RepoListCoordinator(presenter: navigationController!, reposService: reposService)
-
-        repoListCoordinator.start()
-
-        self.repoListCoordinator = repoListCoordinator
+         self.delegate?.navigateToRepos()
+//        guard let reposService = viewModel?.application?.reposSource else {return}
+//
+//        let repoListCoordinator = RepoListCoordinator(navigationController: navigationController!)
+//
+//        repoListCoordinator.start()
+//
+//        self.repoListCoordinator = repoListCoordinator
 
         // emojiList.isEnabled = false
     }

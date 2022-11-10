@@ -9,32 +9,32 @@ import UIKit
 //
 import RxSwift
 
-class EmojiListViewController: BaseGenericViewController<EmojiView> {
+public protocol EmojiListViewControlerDelegate: AnyObject {
+    func navigateToFirstPage()
+}
 
+class EmojiListViewController: BaseGenericViewController<EmojiView> {
+    public weak var delegate: EmojiListViewControlerDelegate?
     var emoji: [Emoji]?
     var viewModel: EmojiListViewModel?
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
         genericView.collectionView.dataSource = self
     }
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
         viewModel?.arrEmojis.bind(listener: { [weak self] newArr in
-
             self?.emoji = newArr
-
             DispatchQueue.main.async { [weak self] in
                 self?.genericView.collectionView.reloadData()
             }
-
         })
-
         viewModel?.getEmojis()
     }
+//    override func viewDidDisappear(_ animated: Bool) {
+//        super.viewDidDisappear(animated)
+//        self.delegate?.navigateToFirstPage()
+//    }
 }
 
 extension EmojiListViewController: UICollectionViewDataSource {
@@ -42,30 +42,23 @@ extension EmojiListViewController: UICollectionViewDataSource {
         let countEmojis = emoji?.count ?? 0
         return countEmojis
     }
-
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: CollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
-        guard let url = emoji?[indexPath.row].imageUrl else {return UICollectionViewCell()}
-
+        guard let url = emoji?[indexPath.row].imageUrl else {return UICollectionViewCell()}        
         viewModel?.imageAtUrl(url: url)
             .asOptional()
             .subscribe(cell.imageView.rx.image)
             .disposed(by: cell.reusableDisposeBag)
-
-       // cell.setUpCell(url: url)
-
+        // cell.setUpCell(url: url)
         return cell
     }
-
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
         let emojis = self.emoji?[indexPath.row]
         viewModel?.deleteEM(emojis: emojis!)
         self.emoji?.remove(at: indexPath.row)
         collectionView.reloadData()
     }
-
 }
 
 extension Observable {
@@ -81,18 +74,13 @@ class MockedDataSource: NSObject, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return emojiMock.emojis.count
     }
-
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as?
-
                 CollectionViewCell else {
-
             return UICollectionViewCell()
         }
-       // cell.setUpCell(url: emojiMock.emojis[indexPath.row].imageUrl)
+        // cell.setUpCell(url: emojiMock.emojis[indexPath.row].imageUrl)
         return cell
     }
-
 }

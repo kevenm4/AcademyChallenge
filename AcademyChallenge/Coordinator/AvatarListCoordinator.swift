@@ -9,26 +9,33 @@ import Foundation
 import UIKit
 
 class AvatarListCoordinator: Coordinator {
-
-	private let presenter: UINavigationController
-	private var avatarViewController: AvatarViewController?
-    private let avatarService: LiveAvatarStorage
+    var chillCoordinators: [Coordinator] = []
+    private let presenter: UINavigationController
+    weak var delegate: BackToFirstViewControllerDelegate?
+var avatarViewController: AvatarViewController?
+ var avatarService: LiveAvatarStorage
     init(presenter: UINavigationController, avatarService: LiveAvatarStorage ) {
 
-		self.presenter = presenter
-        self.avatarService = avatarService
+         self.presenter = presenter
+         self.avatarService = avatarService
 
-	}
-
+     }
 	func start() {
-
-		let viewModel = AvatarListViewModel()
+        let viewModel = AvatarListViewModel()
         viewModel.avatarService = avatarService
-		let avatarViewController = AvatarViewController()
-		avatarViewController.viewModel = viewModel
-		presenter.pushViewController(avatarViewController, animated: true)
-		self.avatarViewController = avatarViewController
+        let avatarViewController: AvatarViewController = AvatarViewController()
+        avatarViewController.delegate = self
+        avatarViewController.viewModel = viewModel
+        self.presenter.pushViewController(avatarViewController,
+                                                     animated: true)
+        self.presenter.viewControllers = [avatarViewController]
 
 	}
 
+}
+
+extension AvatarListCoordinator: AvatarViewControlerDelegate {
+    func navigateToFirstPage() {
+        self.delegate?.navigateBackToFirstPage()
+    }
 }

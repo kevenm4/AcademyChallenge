@@ -11,7 +11,7 @@ import UIKit
 import RxSwift
 public class MainPagelViewModel {
     var application: Application?
- //   let emojiImage: Box<URL?> = Box(nil)
+    //   let emojiImage: Box<URL?> = Box(nil)
     let searchQuery: Box<String?> = Box(nil)
     var arrEmojis: Box<[Emoji]?> = Box([])
     let backgroundScheduler = SerialDispatchQueueScheduler(internalSerialQueueName:
@@ -34,14 +34,16 @@ public class MainPagelViewModel {
             .flatMap({ [weak self] url -> Observable<UIImage?> in
                 guard let self = self else { return Observable.never() }
 
-                var observable = self.ongoingRequests[url?.absoluteString ?? ""]
+                let observable = self.ongoingRequests[url?.absoluteString ?? ""]
 
                 // Verifica se o url já foi guardado no ongoingRequests
                 if observable == nil {
-                    self.ongoingRequests[url?.absoluteString ?? ""] = self.dataOfUrl(url).share(replay: 1, scope: .forever)
+                    self.ongoingRequests[url?.absoluteString ?? ""] = self.dataOfUrl(url).share(replay: 1,
+                                                                                                scope: .forever)
                 }
 
-                guard let observable = self.ongoingRequests[url?.absoluteString ?? ""] else { return Observable.never() }
+                guard let observable = self.ongoingRequests[url?.absoluteString ?? ""] else
+                { return Observable.never() }
 
                 return observable
             })
@@ -89,21 +91,21 @@ public class MainPagelViewModel {
                 self.rxEmojiImageUrl.onNext(avatarUrl)
             case .failure(let failure):
                 print("Failure to Get Avatar: \(failure)")
-               // self.emojiImage.value = nil
+                // self.emojiImage.value = nil
             }
         })
     }
 
-//    func getEmojis() {
-//
-//        application?.emojiSource.fetchEmojis({ [weak self] (result: Result<[Emoji], Error>) in
-//            switch result {
-//            case .success(let success):
-//                self?.arrEmojis.value = success
-//                self?.arrEmojis.value?.sort()
-//            case .failure(let failure):
-//                print("Failure: \(failure)")
-//            }
-//        })
-//    }
+    //    func getEmojis() {
+    //
+    //        application?.emojiSource.fetchEmojis({ [weak self] (result: Result<[Emoji], Error>) in
+    //            switch result {
+    //            case .success(let success):
+    //                self?.arrEmojis.value = success
+    //                self?.arrEmojis.value?.sort()
+    //            case .failure(let failure):
+    //                print("Failure: \(failure)")
+    //            }
+    //        })
+    //    }
 }

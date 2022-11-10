@@ -9,21 +9,30 @@ import Foundation
 import UIKit
 
 class RepoListCoordinator: Coordinator {
-
-	private let presenter: UINavigationController
-	private var repoListViewControler: RepoListViewController?
-    private let reposService: ReposService
-	init(presenter: UINavigationController, reposService: ReposService) {
-        self.reposService = reposService
-		self.presenter = presenter
-	}
+    var chillCoordinators: [Coordinator] = []
+    private let presenter: UINavigationController
+    weak var delegate: BackToFirstViewControllerDelegate?
+	 var repoListViewControler: RepoListViewController?
+     var reposService: ReposService?
+    init(presenter: UINavigationController, reposService: ReposService) {
+            self.reposService = reposService
+            self.presenter = presenter
+        }
 	func start() {
-		let viewModel = ReposListViewModel()
+        let viewModel = ReposListViewModel()
         viewModel.reposService = reposService
-		let repoListViewController = RepoListViewController()
-		repoListViewController.viewModel = viewModel
-		presenter.pushViewController(repoListViewController, animated: true)
-		self.repoListViewControler = repoListViewController
+        let repoListViewController: RepoListViewController = RepoListViewController()
+        repoListViewController.delegate = self
+        repoListViewController.viewModel = viewModel
+        self.presenter.pushViewController(repoListViewController,
+                                                     animated: true)
+        self.presenter.viewControllers = [repoListViewController]
 	}
 
+}
+
+extension RepoListCoordinator: ReposViewControlerDelegate {
+    func navigateToFirstPage() {
+        self.delegate?.navigateBackToFirstPage()
+    }
 }

@@ -33,6 +33,11 @@ class CollectionViewCell: UICollectionViewCell {
 	func setUpCell(viewModel: EmojiListViewModel) {
 	}
 
+    func setUpCells(url: URL) {
+
+            self.imageView.downloadImage(from: url)
+        }
+
 	func setupConstraints() {
 		imageView.translatesAutoresizingMaskIntoConstraints = false
 

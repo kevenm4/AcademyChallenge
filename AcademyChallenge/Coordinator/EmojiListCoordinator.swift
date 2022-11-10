@@ -7,26 +7,50 @@
 
 import UIKit
 
-class EmojiListCoordinator: Coordinator {
+protocol BackToFirstViewControllerDelegate: AnyObject {
 
-	private let presenter: UINavigationController
-	private var emojiListViewController: EmojiListViewController?
+    func navigateBackToFirstPage()
+
+}
+
+class EmojiListCoordinator: Coordinator {
+    var chillCoordinators: [Coordinator] = []
+    unowned let presenter: UINavigationController
     private let emojiService: EmojiService
+    weak var delegate: BackToFirstViewControllerDelegate?
 
     init(presenter: UINavigationController, emojiService: EmojiService) {
-        self.emojiService = emojiService
-		self.presenter = presenter
-	}
-	func start() {
+           self.emojiService = emojiService
+           self.presenter = presenter
+       }
 
-		let viewModel = EmojiListViewModel()
+    func start() {
+        let viewModel = EmojiListViewModel()
         viewModel.emojiService = emojiService
-		let emojiListViewController = EmojiListViewController()
-		emojiListViewController.viewModel = viewModel
+        let emojiListViewController: EmojiListViewController = EmojiListViewController()
+        emojiListViewController.delegate = self
+        emojiListViewController.viewModel = viewModel
+        self.presenter.pushViewController(emojiListViewController,
+                                                     animated: true)
+        self.presenter.viewControllers = [emojiListViewController]
+    }
 
-		presenter.pushViewController(emojiListViewController, animated: true)
+    //    func start() {
+    //
+    //        let viewModel = EmojiListViewModel()
+    //        viewModel.emojiService = emojiService
+    //        let emojiListViewController = EmojiListViewController()
+    //        emojiListViewController.viewModel = viewModel
+    //
+    //        presenter.pushViewController(emojiListViewController, animated: true)
+    //
+    //        self.emojiListViewController = emojiListViewController
+    //    }
 
-		self.emojiListViewController = emojiListViewController
-	}
+}
 
+extension EmojiListCoordinator: EmojiListViewControlerDelegate {
+    func navigateToFirstPage() {
+        self.delegate?.navigateBackToFirstPage()
+    }
 }
