@@ -28,10 +28,10 @@ class AvatarViewController: BaseGenericViewController<AvatarView> {
         })
         viewModel?.getAvatar()
     }
-//    override func viewDidDisappear(_ animated: Bool) {
-//        super.viewDidDisappear(animated)
-//        self.delegate?.navigateToFirstPage()
-//    }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.delegate?.navigateToFirstPage()
+    }
 }
 
 extension AvatarViewController: UICollectionViewDataSource {

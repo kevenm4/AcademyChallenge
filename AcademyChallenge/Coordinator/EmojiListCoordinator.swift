@@ -32,7 +32,7 @@ class EmojiListCoordinator: Coordinator {
         emojiListViewController.viewModel = viewModel
         self.presenter.pushViewController(emojiListViewController,
                                                      animated: true)
-        self.presenter.viewControllers = [emojiListViewController]
+     //   self.presenter.viewControllers = [emojiListViewController]
     }
 
     //    func start() {

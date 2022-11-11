@@ -7,7 +7,7 @@
 
 import Foundation
 import CoreData
-import UIKit
+import RxSwift
 class LiveEmojiStorage: EmojiService {
 
     private var emojiNetwork: Network = .init()
@@ -47,6 +47,18 @@ class LiveEmojiStorage: EmojiService {
             }
 
         }
+
+    }
+
+    func rxGetEmojisList() -> Single<[Emoji]> {
+        // SUBSCRIBE DESTROI OS OBSERVABLES
+        // SUBSCRIBE APENAS DEVE HAVER NO FIM
+        // DO() SÓ ESTAMOS A ACRESCENTAR UM EVENTO (SIDE EFFECT) AO OBSERVABLE
+        // DO() NÃO TERMINA O FLUXO DO OBSERVABLE
+        return emojiNetwork.rxExecuteNetworkCall(EmojiAPI.getEmojis)
+            .map { (emojisResult: EmojiResponse) in
+                    return emojisResult.emojis
+                }
 
     }
 

@@ -17,7 +17,12 @@ class EmojiListViewModel {
     let backgroundScheduler = ConcurrentDispatchQueueScheduler(qos: .background)
     let disposeBag = DisposeBag()
     var ongoingRequests: [String: Observable<UIImage>] = [:]
-
+    private var _rxEmojiList: PublishSubject<[Emoji]?> = PublishSubject()
+    var rxEmojiList: Observable<[Emoji]?> { _rxEmojiList.asObservable() }
+    init() {
+        _rxEmojiList
+            .disposed(by: disposeBag)
+    }
     func imageAtUrl(url: URL) -> Observable<UIImage> {
         Observable<UIImage>
             .deferred { [weak self] in
@@ -47,18 +52,18 @@ class EmojiListViewModel {
             .observe(on: MainScheduler.instance)
     }
 
-    func getEmojis() {
+    func getEmojisList() {
         emojiService?.fetchEmojis({ [weak self] (result: Result<[Emoji], Error>) in
             switch result {
-            case .success(let success):
-                self?.arrEmojis.value = success
-                self?.arrEmojis.value?.sort()
+            case .success(var success):
+                success.sort()
+//                self?.emojisList.value = success
+                self?._rxEmojiList.onNext(success)
             case .failure(let failure):
-                print("Failure: \(failure)")
+                print("[Emoji View Model] Failure: \(failure)")
             }
+
         })
     }
-    func deleteEM(emojis: Emoji) {
-        self.emojiService?.deleteEmoji(emojiToDelete: emojis)
-    }
 }
+

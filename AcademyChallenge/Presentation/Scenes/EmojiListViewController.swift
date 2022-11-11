@@ -23,13 +23,11 @@ class EmojiListViewController: BaseGenericViewController<EmojiView> {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        viewModel?.arrEmojis.bind(listener: { [weak self] newArr in
-            self?.emoji = newArr
-            DispatchQueue.main.async { [weak self] in
-                self?.genericView.collectionView.reloadData()
-            }
-        })
-        viewModel?.getEmojis()
+        viewModel?.rxEmojiList
+            .subscribe(rx.emoji)
+            .disposed(by: disposeBag)
+
+        viewModel?.getEmojisList()
     }
 //    override func viewDidDisappear(_ animated: Bool) {
 //        super.viewDidDisappear(animated)
@@ -52,12 +50,6 @@ extension EmojiListViewController: UICollectionViewDataSource {
             .disposed(by: cell.reusableDisposeBag)
         // cell.setUpCell(url: url)
         return cell
-    }
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let emojis = self.emoji?[indexPath.row]
-        viewModel?.deleteEM(emojis: emojis!)
-        self.emoji?.remove(at: indexPath.row)
-        collectionView.reloadData()
     }
 }
 

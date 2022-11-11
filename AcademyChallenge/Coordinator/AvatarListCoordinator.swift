@@ -28,7 +28,7 @@ var avatarViewController: AvatarViewController?
         avatarViewController.viewModel = viewModel
         self.presenter.pushViewController(avatarViewController,
                                                      animated: true)
-        self.presenter.viewControllers = [avatarViewController]
+      //  self.presenter.viewControllers = [avatarViewController]
 
 	}
 

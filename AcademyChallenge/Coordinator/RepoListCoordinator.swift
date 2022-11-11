@@ -26,7 +26,7 @@ class RepoListCoordinator: Coordinator {
         repoListViewController.viewModel = viewModel
         self.presenter.pushViewController(repoListViewController,
                                                      animated: true)
-        self.presenter.viewControllers = [repoListViewController]
+       // self.presenter.viewControllers = [repoListViewController]
 	}
 
 }

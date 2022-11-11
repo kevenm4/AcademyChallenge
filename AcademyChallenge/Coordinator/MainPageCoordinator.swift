@@ -45,7 +45,8 @@ class MainPageCoordinator: Coordinator {
         let mainPageViewControler: MainPageViewControler = MainPageViewControler()
         mainPageViewControler.delegate = self
         mainPageViewControler.viewModel = viewModel
-        self.presenter.viewControllers = [mainPageViewControler]
+        presenter.pushViewController(mainPageViewControler, animated: true)
+      //  self.presenter.viewControllers = [mainPageViewControler]
     }
 }
 
@@ -80,7 +81,7 @@ extension MainPageCoordinator: MainPageViewControlerDelegate {
 
 extension MainPageCoordinator: BackToFirstViewControllerDelegate {
     func navigateBackToFirstPage() {
-        presenter.popToRootViewController(animated: true)
+    //    presenter.popToRootViewController(animated: true)
         chillCoordinators.removeLast()
     }
 }

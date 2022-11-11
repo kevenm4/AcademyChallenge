@@ -62,6 +62,9 @@ class LiveAvatarStorage {
         }
 
     }
+
+
+    
     func deleteAvatar(avatarToDelete: Avatar) {
 
         avatarPersistence.delete(avatarObject: avatarToDelete)
