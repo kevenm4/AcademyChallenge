@@ -24,43 +24,32 @@ class LiveEmojiStorage: EmojiService {
         }
     }
 
-    func fetchEmojis (_ resultHandler: @escaping (Result<[Emoji], Error>) -> Void) {
+    func fetchEmojis() -> Single<[Emoji]> {
 
-        var fetchedEmojis: [Emoji] = []
-        fetchedEmojis = emojiPersistence.fetch()
-
-        if !fetchedEmojis.isEmpty {
-            resultHandler(.success(fetchedEmojis))
-
-        } else {
-            // METHOD IN EMOJI API
-            emojiNetwork.executeNetworkCall(EmojiAPI.getEmojis) { (result: Result<EmojiResponse, Error>) in
-                switch result {
-                case .success(let success):
-                    self.persistEmjis(emojis: success.emojis)
-                    resultHandler(.success(success.emojis))
-                case .failure(let failure):
-                    print("Failure: \(failure)")
-
-                    resultHandler(.failure(failure))
+        return emojiPersistence.fetch()
+            .flatMap { fetchEmojisList in
+                if fetchEmojisList.isEmpty {
+                    return self.emojiNetwork.rxExecuteNetworkCall(EmojiAPI.getEmojis)
+                        .map { (emojisResult: EmojiResponse) in
+                                return emojisResult.emojis
+                            }
                 }
+                return Single<[Emoji]>.just(fetchEmojisList)
             }
 
-        }
-
     }
 
-    func rxGetEmojisList() -> Single<[Emoji]> {
-        // SUBSCRIBE DESTROI OS OBSERVABLES
-        // SUBSCRIBE APENAS DEVE HAVER NO FIM
-        // DO() SÓ ESTAMOS A ACRESCENTAR UM EVENTO (SIDE EFFECT) AO OBSERVABLE
-        // DO() NÃO TERMINA O FLUXO DO OBSERVABLE
-        return emojiNetwork.rxExecuteNetworkCall(EmojiAPI.getEmojis)
-            .map { (emojisResult: EmojiResponse) in
-                    return emojisResult.emojis
-                }
-
-    }
+//    func rxGetEmojisList() -> Single<[Emoji]> {
+//        // SUBSCRIBE DESTROI OS OBSERVABLES
+//        // SUBSCRIBE APENAS DEVE HAVER NO FIM
+//        // DO() SÓ ESTAMOS A ACRESCENTAR UM EVENTO (SIDE EFFECT) AO OBSERVABLE
+//        // DO() NÃO TERMINA O FLUXO DO OBSERVABLE
+//        return emojiNetwork.rxExecuteNetworkCall(EmojiAPI.getEmojis)
+//            .map { (emojisResult: EmojiResponse) in
+//                    return emojisResult.emojis
+//                }
+//
+//    }
 
     func deleteEmoji(emojiToDelete: Emoji) {
 

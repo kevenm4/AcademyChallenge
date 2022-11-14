@@ -11,8 +11,8 @@ import UIKit
 import RxSwift
 
 class EmojiListViewModel {
-    	var emojiService: EmojiService?
-    	var arrEmojis: Box<[Emoji]?> = Box([])
+    var emojiService: EmojiService?
+    var arrEmojis: Box<[Emoji]?> = Box([])
 
     let backgroundScheduler = ConcurrentDispatchQueueScheduler(qos: .background)
     let disposeBag = DisposeBag()
@@ -52,18 +52,18 @@ class EmojiListViewModel {
             .observe(on: MainScheduler.instance)
     }
 
-    func getEmojisList() {
-        emojiService?.fetchEmojis({ [weak self] (result: Result<[Emoji], Error>) in
-            switch result {
-            case .success(var success):
-                success.sort()
-//                self?.emojisList.value = success
-                self?._rxEmojiList.onNext(success)
-            case .failure(let failure):
-                print("[Emoji View Model] Failure: \(failure)")
+    func getEmojisList() -> Single<[Emoji]> {
+        guard let emojiService = emojiService else {
+            return Single<[Emoji]>.never()
+        }
+
+        return emojiService.fetchEmojis()
+            .map { emojis in
+                var emojisList = emojis
+                emojisList.sort()
+                return emojisList
             }
 
-        })
     }
-}
 
+}

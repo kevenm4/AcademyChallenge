@@ -23,16 +23,27 @@ class EmojiListViewController: BaseGenericViewController<EmojiView> {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        viewModel?.rxEmojiList
-            .subscribe(rx.emoji)
-            .disposed(by: disposeBag)
-
         viewModel?.getEmojisList()
+            .observe(on: MainScheduler.instance)
+            .subscribe(onSuccess: { emojis in
+
+                self.emoji = emojis
+                self.genericView.collectionView.reloadData()
+            },
+                       onFailure: { error in
+
+                print("[GetEmojisList-ViewModel] \(error)")
+            },
+                       onDisposed: {
+                print("GOOOOOOO")
+
+            })
+            .disposed(by: disposeBag)
     }
-//    override func viewDidDisappear(_ animated: Bool) {
-//        super.viewDidDisappear(animated)
-//        self.delegate?.navigateToFirstPage()
-//    }
+    //    override func viewDidDisappear(_ animated: Bool) {
+    //        super.viewDidDisappear(animated)
+    //        self.delegate?.navigateToFirstPage()
+    //    }
 }
 
 extension EmojiListViewController: UICollectionViewDataSource {
@@ -43,7 +54,7 @@ extension EmojiListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: CollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
-        guard let url = emoji?[indexPath.row].imageUrl else {return UICollectionViewCell()}        
+        guard let url = emoji?[indexPath.row].imageUrl else {return UICollectionViewCell()}
         viewModel?.imageAtUrl(url: url)
             .asOptional()
             .subscribe(cell.imageView.rx.image)

@@ -7,6 +7,8 @@
 
 import CoreData
 import UIKit
+//
+import RxSwift
 
 class EmojiCoreData {
 
@@ -44,22 +46,56 @@ class EmojiCoreData {
         }
     }
 
-    func fetch() -> [Emoji] {
-        var array: [NSManagedObject] = []
-        var result: [Emoji] = []
-        let managedContext = persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "EmojiEntity")
-        do {
+//    func fetch() -> [Emoji] {
+//        var array: [NSManagedObject] = []
+//        var result: [Emoji] = []
+//        let managedContext = persistentContainer.viewContext
+//        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "EmojiEntity")
+//        do {
+//
+//            array = try managedContext.fetch(fetchRequest)
+//            result = array.compactMap({ item in
+//                item.toEmoji()
+//            })
+//        } catch let error as NSError {
+//            print("Could not fetch. \(error), \(error.userInfo)")
+//        }
+//
+//        return result
+//    }
 
-            array = try managedContext.fetch(fetchRequest)
-            result = array.compactMap({ item in
+    func fetch() -> Single<[Emoji]> {
+        return Single<[Emoji]>.create(subscribe: { [weak self] single in
+
+            let disposeble = Disposables.create { }
+            guard let self = self
+            else { single(.failure(PersisteError.fetchError))
+
+                return disposeble
+            }
+
+            let managedContext = self.persistentContainer.viewContext
+
+            // FETCH ALL THE DATA FROM THE ENTITY PERSON
+            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "EmojiEntity")
+
+            guard
+                let resultFetch = try? managedContext.fetch(fetchRequest)
+            else {
+                single(.failure(PersisteError.fetchError))
+                return disposeble
+            }
+
+            let result = resultFetch.compactMap({ item -> Emoji? in
                 item.toEmoji()
             })
-        } catch let error as NSError {
-            print("Could not fetch. \(error), \(error.userInfo)")
-        }
 
-        return result
+            single(.success(result))
+
+            return disposeble
+
+        })
+
     }
 
     func delete(emojiObject: Emoji) {
@@ -82,6 +118,10 @@ class EmojiCoreData {
             print("[DELETE EMOJI] Error to delete emoji: \(error)")
         }
 
+    }
+
+    enum PersisteError: Error {
+        case fetchError
     }
 
 }

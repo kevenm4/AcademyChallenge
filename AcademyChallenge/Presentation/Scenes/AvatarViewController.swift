@@ -22,11 +22,19 @@ class AvatarViewController: BaseGenericViewController<AvatarView> {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        viewModel?.arrAvatar.bind(listener: { [weak self] newArrAvatar in
-            self?.avatarList = newArrAvatar!
-            self?.genericView.collectionView.reloadData()
-        })
         viewModel?.getAvatar()
+            .subscribe(onSuccess: { avatar in
+                self.avatarList = avatar
+                self.genericView.collectionView.reloadData()
+            }, onFailure: { error in
+
+                print("[GetEmojisList-ViewModel] \(error)")
+            },
+                       onDisposed: {
+                print("GOOOOOOO")
+
+            })
+            .disposed(by: disposeBag)
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)

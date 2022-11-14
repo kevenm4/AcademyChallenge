@@ -69,17 +69,22 @@ public class MainPagelViewModel {
     }
     func getRandom() {
 
-        application?.emojiSource.fetchEmojis({ [weak self] (result: Result<[Emoji], Error>) in
-            switch result {
-            case .success(let success):
-                guard let randomUrl = success.randomElement()?.imageUrl else { return }
-                self?.rxEmojiImageUrl.onNext(randomUrl)
-            case .failure(let failure):
-                print("Failure: \(failure)")
+        application?.emojiSource.fetchEmojis()
+            .subscribe(onSuccess: { event in
 
-            }
+                let randomEmoji = event.randomElement()?.imageUrl
 
-        })
+                self.rxEmojiImageUrl.onNext(randomEmoji)
+
+            },
+                       onFailure: { error in
+                print("[GetEmojisList-ViewModel] \(error)")},
+
+                       onDisposed: {
+                print("GOOOOOOO")
+            })
+
+            .disposed(by: disposeBag)
     }
 
     private func saveAndSearchContent() {
@@ -95,17 +100,4 @@ public class MainPagelViewModel {
             }
         })
     }
-
-    //    func getEmojis() {
-    //
-    //        application?.emojiSource.fetchEmojis({ [weak self] (result: Result<[Emoji], Error>) in
-    //            switch result {
-    //            case .success(let success):
-    //                self?.arrEmojis.value = success
-    //                self?.arrEmojis.value?.sort()
-    //            case .failure(let failure):
-    //                print("Failure: \(failure)")
-    //            }
-    //        })
-    //    }
 }

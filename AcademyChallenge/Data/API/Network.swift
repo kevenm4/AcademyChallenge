@@ -70,6 +70,4 @@ import RxSwift
              }
      }
 
-
-
  }
