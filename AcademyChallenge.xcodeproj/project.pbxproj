@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C316F0C29253FE8004AE0ED /* ReposView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C316F0B29253FE8004AE0ED /* ReposView.swift */; };
 		4C42919D29151E3900108BF7 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 4C42919C29151E3900108BF7 /* RxCocoa */; };
 		4C42919F29151E3900108BF7 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 4C42919E29151E3900108BF7 /* RxRelay */; };
 		4C4291A129151E3900108BF7 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4C4291A029151E3900108BF7 /* RxSwift */; };
@@ -72,6 +73,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4C316F0B29253FE8004AE0ED /* ReposView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReposView.swift; sourceTree = "<group>"; };
 		4C4291A3291520BB00108BF7 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		4C4291A629155F1F00108BF7 /* BaseGenericViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseGenericViewController.swift; sourceTree = "<group>"; };
 		4C4291A829155F3400108BF7 /* BaseGenericView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseGenericView.swift; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 				4C4291A3291520BB00108BF7 /* MainView.swift */,
 				4C4291AA2915744100108BF7 /* EmojiView.swift */,
 				4C5A825929190E290049FAA0 /* AvatarView.swift */,
+				4C316F0B29253FE8004AE0ED /* ReposView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -461,6 +464,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C316F0C29253FE8004AE0ED /* ReposView.swift in Sources */,
 				4CD8348F28F42C5200A61AE2 /* ColorSet.swift in Sources */,
 				4CDB74C6290AD0DD00DCF27A /* ReposListViewModel.swift in Sources */,
 				4CABE5CC28E725AC00EC7DDA /* Network.swift in Sources */,

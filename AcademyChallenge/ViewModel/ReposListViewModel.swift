@@ -11,22 +11,27 @@ import RxSwift
 
 class ReposListViewModel {
     var reposService: ReposService?
-    var arrRepos: Box<[Repos]?> = Box([])
+    var arrRepos: [Repos] = []
     var end: Box<Bool?> = Box(false)
     private var page: Int = 0
+let size =  Constants.AppleRepos.perPage
+    private var appleRepos: PublishSubject<[Repos]> = PublishSubject()
+    var appleReposReturn: Observable<[Repos]> { appleRepos.asObservable() }
+    let disposeBag = DisposeBag()
 
-    func fetchDataForTableView()-> Observable<[Repos]> {
+    func fetchDataForTableView() {
         guard let reposService = reposService else {
-
-            return Observable<[Repos]>.never()
-
+            return
         }
 
         self.page += 1
-        return reposService.fetchRepos(page: self.page, size: Constants.AppleRepos.AppleReposPagination.perPage)
-    }
 
-    func scrollTable() {
-
+         reposService.fetchRepos(page: page, size: size)
+            .flatMap { result -> Observable<[Repos]> in
+                self.arrRepos.append(contentsOf: result)
+                return Observable<[Repos]>.just(self.arrRepos)
+            }
+            .subscribe(appleRepos)
+            .disposed(by: disposeBag)
     }
 }

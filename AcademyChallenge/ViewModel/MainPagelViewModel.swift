@@ -47,8 +47,11 @@ public class MainPagelViewModel {
                                                                                                 scope: .forever)
                 }
 
-                guard let observable = self.ongoingRequests[url?.absoluteString ?? ""] else
-                { return Observable.never() }
+                guard let observable = self.ongoingRequests[url?.absoluteString ?? ""]
+                else {
+                    return Observable.never()
+
+                }
 
                 return observable
             })

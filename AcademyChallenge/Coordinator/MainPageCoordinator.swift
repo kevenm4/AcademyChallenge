@@ -63,7 +63,8 @@ extension MainPageCoordinator: MainPageViewControlerDelegate {
 
     func navigateToAvatar() {
 
-        let avatarListCoordinator = AvatarListCoordinator(presenter: presenter, avatarService: application.avatarService)
+        let avatarListCoordinator = AvatarListCoordinator(presenter: presenter,
+                                                          avatarService: application.avatarService)
         avatarListCoordinator.delegate = self
         chillCoordinators.append(avatarListCoordinator)
         avatarListCoordinator.start()

@@ -53,7 +53,7 @@ import RxSwift
                          single(.failure(error))
                          return
                      }
-                     print("hello")
+                  //   print("hello")
                      guard let data = data,
                            let result = try? decoder.decode(ResultType.self, from: data)
                      else {

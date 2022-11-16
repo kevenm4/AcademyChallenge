@@ -59,7 +59,7 @@ extension AvatarViewController: UICollectionViewDataSource {
                                       message: "Are you sure you want delete ?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .default))
         alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: {(_: UIAlertAction!) in
-            let avatar = self.avatarList[indexPath.row]
+            _ = self.avatarList[indexPath.row]
            // self.viewModel?.deleteAV(avatar: avatar)
             self.avatarList.remove(at: indexPath.row)
             collectionView.reloadData()
