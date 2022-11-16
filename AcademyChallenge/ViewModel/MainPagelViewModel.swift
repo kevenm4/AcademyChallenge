@@ -10,10 +10,10 @@ import UIKit
 //
 import RxSwift
 public class MainPagelViewModel {
-    var application: Application?
+    var application: Application
     //   let emojiImage: Box<URL?> = Box(nil)
-    let searchQuery: Box<String?> = Box(nil)
-    var arrEmojis: Box<[Emoji]?> = Box([])
+//    let searchQuery: Box<String?> = Box(nil)
+//    var arrEmojis: Box<[Emoji]?> = Box([])
     let backgroundScheduler = SerialDispatchQueueScheduler(internalSerialQueueName:
                                                             "MainPageViewModel.backgroundScheduler")
 
@@ -21,14 +21,19 @@ public class MainPagelViewModel {
     private var _rxEmojiImage: BehaviorSubject<UIImage?> = BehaviorSubject(value: nil)
     var rxEmojiImage: Observable<UIImage?> { _rxEmojiImage.asObservable() }
 
+    private var searchAvatarName: PublishSubject<String> = PublishSubject()
+       private var _searchAvatar: PublishSubject<UIImage?> = PublishSubject()
+       var searchAvatar: Observable<UIImage?> { _searchAvatar.asObservable() }
+
     let disposeBag = DisposeBag()
     var ongoingRequests: [String: Observable<UIImage?>] = [:]
 
-    init() {
+    init(application: Application) {
+        self.application = application
 
-        searchQuery.bind { [weak self] _ in
-            self?.saveAndSearchContent()
-        }
+//        searchQuery.bind { [weak self] _ in
+//            self?.saveAndSearchContent()
+//        }
         rxEmojiImageUrl
             .debug("rxEmojiImageUrl")
             .flatMap({ [weak self] url -> Observable<UIImage?> in
@@ -51,8 +56,21 @@ public class MainPagelViewModel {
             .subscribe(_rxEmojiImage)
             .disposed(by: disposeBag)
 
+        searchAvatarName
+                   .debug("rxSearchAvatarName")
+                   .flatMap({ searchText in
+                       return self.application.avatarService.getAvatar(searchText: searchText)
+                   })
+                   .flatMap({ avatar -> Observable<UIImage?> in
+                       return self.dataOfUrl(avatar.avatarUrl)
+                   })
+                   .debug("rxSearchAvatar")
+                   .subscribe(_searchAvatar)
+                   .disposed(by: disposeBag)
+
         print("end init")
     }
+
     func dataOfUrl(_ url: URL?) -> Observable<UIImage?> {
         Observable<URL?>.never().startWith(url)
             .observe(on: backgroundScheduler)
@@ -67,9 +85,10 @@ public class MainPagelViewModel {
             .observe(on: MainScheduler.instance)
             .debug("dataOfUrl")
     }
+
     func getRandom() {
 
-        application?.emojiSource.fetchEmojis()
+        application.emojiSource.fetchEmojis()
             .subscribe(onSuccess: { event in
 
                 let randomEmoji = event.randomElement()?.imageUrl
@@ -87,17 +106,8 @@ public class MainPagelViewModel {
             .disposed(by: disposeBag)
     }
 
-    private func saveAndSearchContent() {
-        guard let searchQuery = searchQuery.value else { return }
-        application?.avatarService.getAvatar(searchText: searchQuery, { (result: Result<Avatar, Error>) in
-            switch result {
-            case .success(let success):
-                let avatarUrl = success.avatarUrl
-                self.rxEmojiImageUrl.onNext(avatarUrl)
-            case .failure(let failure):
-                print("Failure to Get Avatar: \(failure)")
-                // self.emojiImage.value = nil
-            }
-        })
-    }
+    func getAvatar(searchText: String) {
+          self.searchAvatarName.onNext(searchText)
+
+      }
 }

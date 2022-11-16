@@ -6,9 +6,9 @@
 //
 
 import Foundation
-
+import RxSwift
 protocol ReposService {
 
-	func fetchRepos(page: Int, size: Int, _ resultHandler: @escaping (Result<[Repos], Error>) -> Void)
+	func fetchRepos(page: Int, size: Int) -> Observable<[Repos]>
 
 }

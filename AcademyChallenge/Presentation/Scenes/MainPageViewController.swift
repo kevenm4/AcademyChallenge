@@ -30,10 +30,6 @@ class MainPageViewControler: BaseGenericViewController<MainView> {
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-//    override func loadView() {
-//
-//        view = mainView
-//    }
 
     override func viewDidLoad() {
 
@@ -47,16 +43,11 @@ class MainPageViewControler: BaseGenericViewController<MainView> {
             })
                 .subscribe(genericView.emojiImageView.rx.image)
                 .disposed(by: disposeBag)
-//        viewModel?.emojiImage.bind { imageUrl in
-//            DispatchQueue.main.async {
-//                self.genericView.emojiImageView.image = nil
-//                guard let imageUrl = imageUrl else { return }
-//                self.genericView.emojiImageView.stopLoading()
-//                self.genericView.emojiImageView.downloadImage(from: imageUrl)
-//                //   self.emojiList.isEnabled = true
-//            }
-//        }
-        // setUpButton()
+
+                viewModel?.searchAvatar
+                .subscribe(genericView.emojiImageView.rx.image)
+                .disposed(by: disposeBag)
+
         didTapRandomEmojiButton()
 
         genericView.rxRandomEmojiTap
@@ -86,33 +77,12 @@ class MainPageViewControler: BaseGenericViewController<MainView> {
             .disposed(by: disposeBag)
 
     }
-//    private func setUpButton() {
-//        mainView.emojiList.addTarget(self, action: #selector(didTapEmojiList), for: .touchUpInside)
-//        mainView.searchButton.addTarget(self, action: #selector(saveSearchContent), for: .touchUpInside)
-//        mainView.avatarList.addTarget(self, action: #selector(didTapAvatarList), for: .touchUpInside)
-//        mainView.repoList.addTarget(self, action: #selector(didTapRepoiList), for: .touchUpInside)
-//        mainView.randomButton.addTarget(self, action: #selector(didTapRandomEmojiButton), for: .touchUpInside)
-//
-//    }
-     func didTapEmojiList() {
-//        guard let emojiService = viewModel?.application?.emojiSource else {return}
-//
-//        let emojiListCoordinator = EmojiListCoordinator(presenter: navigationController!, emojiService: emojiService)
-//
-//        emojiListCoordinator.start()
-//
-//        self.emojiListCoordinator = emojiListCoordinator
 
+     func didTapEmojiList() {
          self.delegate?.navigateToEmojiList()
     }
      func didTapAvatarList() {
-//        guard let avatarService = viewModel?.application?.avatarService else {return}
-//        let avatarListCoordinator = AvatarListCoordinator(presenter: navigationController!,
-//                                                          avatarService: avatarService )
-//
-//        avatarListCoordinator.start()
-//
-//        self.avatarListCoordinator = avatarListCoordinator
+
          self.delegate?.navigateToAvatar()
 
     }
@@ -120,15 +90,6 @@ class MainPageViewControler: BaseGenericViewController<MainView> {
      func didTapRepoiList() {
 
          self.delegate?.navigateToRepos()
-//        guard let reposService = viewModel?.application?.reposSource else {return}
-//
-//        let repoListCoordinator = RepoListCoordinator(navigationController: navigationController!)
-//
-//        repoListCoordinator.start()
-//
-//        self.repoListCoordinator = repoListCoordinator
-
-        // emojiList.isEnabled = false
     }
       func didTapRandomEmojiButton() {
 
@@ -136,6 +97,8 @@ class MainPageViewControler: BaseGenericViewController<MainView> {
     }
 
      func saveSearchContent() {
-                viewModel?.searchQuery.value = genericView.searchInput.text
+
+         guard let searchBarText = genericView.searchInput.text else { return }
+         viewModel?.getAvatar(searchText: searchBarText)
     }
 }

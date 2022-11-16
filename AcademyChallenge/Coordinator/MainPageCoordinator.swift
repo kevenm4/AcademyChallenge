@@ -40,7 +40,7 @@ class MainPageCoordinator: Coordinator {
        }
 
     func start() {
-        let viewModel = MainPagelViewModel()
+        let viewModel = MainPagelViewModel(application: application)
         viewModel.application = application
         let mainPageViewControler: MainPageViewControler = MainPageViewControler()
         mainPageViewControler.delegate = self

@@ -31,6 +31,7 @@ class LiveEmojiStorage: EmojiService {
                 if fetchEmojisList.isEmpty {
                     return self.emojiNetwork.rxExecuteNetworkCall(EmojiAPI.getEmojis)
                         .map { (emojisResult: EmojiResponse) in
+                            self.persistEmjis(emojis: emojisResult.emojis)
                                 return emojisResult.emojis
                             }
                 }

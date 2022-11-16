@@ -19,7 +19,7 @@ class AvatarListViewModel {
         return avatarService.fetchAvatar()
 
     }
-    func deleteAV(avatar: Avatar) {
-        self.avatarService?.deleteAvatar(avatarToDelete: avatar)
-    }
+//    func deleteAV(avatar: Avatar) {
+//        self.avatarService?.deleteAvatar(avatarToDelete: avatar)
+//    }
 }
