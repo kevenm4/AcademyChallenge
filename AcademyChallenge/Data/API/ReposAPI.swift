@@ -40,7 +40,7 @@ extension ReposAPI: APIProtocol {
 			
 		case .getRepos(let perPage, let page):
 			
-			var urlComponents = URLComponents(string:"https://api.github.com/users/apple/repos")
+			var urlComponents = URLComponents(string:"\(Constants.baseURL)/users/apple/repos")
 			
 			urlComponents?.queryItems = [
 			URLQueryItem(name: "per_page", value: String(perPage)),

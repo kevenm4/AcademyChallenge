@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RepoListViewController: UIViewController{
+class RepoListViewController: UIViewController {
 	
 	
 	var reposService:ReposService?
@@ -17,10 +17,11 @@ class RepoListViewController: UIViewController{
 	
 	let tableView = UITableView()
 	
+	let loadSpinner : UIActivityIndicatorView = .init(style: .large)
+	
 	var page: Int = 0
 	
-	var perPage: Int = 10
-	var appleReposListRowHeigth: Int = 90
+	var appleReposListRowHeigth: Int = 64
 	
 	var tofinished : Bool = true
 	
@@ -49,29 +50,39 @@ class RepoListViewController: UIViewController{
 
 
 	
-	override func viewDidAppear(_ animated: Bool) {
-		
-		super.viewDidAppear(animated)
-		
-	
-		if tableView.contentSize.height < tableView.frame.size.height {
-			
-			fetchDataForTableView()
-		}
-	}
+//	override func viewDidAppear(_ animated: Bool) {
+//
+//		super.viewDidAppear(animated)
+//
+//
+//		if tableView.contentSize.height < tableView.frame.size.height {
+//
+//			fetchDataForTableView()
+//		}
+//	}
 	
 	
 	
 	func fetchDataForTableView(){
+		
+		loadSpinner.startAnimating()
+		
 		self.page += 1
-		reposService?.fetchRepos(page: page, size: perPage, { [weak self] (result: Result<[Repos],Error>) in
+		reposService?.fetchRepos(page: page, size: Constants.AppleRepos.AppleReposPagination.perPage, { [weak self] (result: Result<[Repos],Error>) in
 			
 			switch result{
 			case .success(let success):
 				self?.repoList.append(contentsOf: success)
 				DispatchQueue.main.async { [weak self] in
 					self?.tableView.reloadData()
+					
+					if (self?.tableView.contentSize.height)! < (self?.tableView.frame.size.height)! {
+							
+						self?.fetchDataForTableView()
+						}
+						self?.loadSpinner.stopAnimating()
 				}
+			
 				
 			case .failure(let failure):
 				print("Failure: \(failure)")
@@ -91,7 +102,8 @@ class RepoListViewController: UIViewController{
 		tableView.automaticallyAdjustsScrollIndicatorInsets = false
 		tableView.contentInsetAdjustmentBehavior = .never
 		tableView.rowHeight = UITableView.automaticDimension
-		tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+		tableView.tableFooterView = loadSpinner
+		tableView.register(TableViewCell.self, forCellReuseIdentifier: TableViewCell.reuseCellIdentifier)
 		tableView.delegate = self
 		tableView.dataSource = self
 		
@@ -133,13 +145,15 @@ extension RepoListViewController: UITableViewDataSource, UITableViewDelegate {
 	
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
 		
-		cell.textLabel?.text = repoList[indexPath.row].fullName
-		cell.backgroundColor = .clear
-		cell.textLabel?.textColor = UIColor.appColor(.secondary)
+		 let cell:TableViewCell = tableView.dequeueReusableCell( for: indexPath) 
 		
 		
+		let styleText = repoList[indexPath.row].fullName
+		
+		cell.setUpCells(textField: styleText)
+	
+
 		return cell
 	}
 	
@@ -167,7 +181,7 @@ extension RepoListViewController: UITableViewDataSource, UITableViewDelegate {
 			
 			tofinished = false
 			self.page += 1
-			self.reposService?.fetchRepos(page: self.page, size: perPage, { ( result: Result<[Repos], Error>) in
+			self.reposService?.fetchRepos(page: self.page, size: Constants.AppleRepos.AppleReposPagination.perPage, { ( result: Result<[Repos], Error>) in
 				switch result {
 				case .success(let success):
 					self.repoList.append(contentsOf: success)
@@ -176,7 +190,7 @@ extension RepoListViewController: UITableViewDataSource, UITableViewDelegate {
 						self?.tableView.reloadData()
 					}
 					
-					if success.count < self.perPage {
+					if success.count < Constants.AppleRepos.AppleReposPagination.perPage {
 						self.isEnd = true
 					}
 					

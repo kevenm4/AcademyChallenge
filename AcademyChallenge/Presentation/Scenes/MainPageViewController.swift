@@ -10,8 +10,11 @@ import UIKit
 class MainPageViewControler: UIViewController {
 	
 	private var emojiListCoordinator: EmojiListCoordinator?
+	
 	private var avatarListCoordinator: AvatarListCoordinator?
+	
 	private var repoListCoordinator: RepoListCoordinator?
+	
 	private var stackView: UIStackView
 	private var secondStackView : UIStackView
 	private var randomButton: UIButton
@@ -20,13 +23,12 @@ class MainPageViewControler: UIViewController {
 	private var avatarList: UIButton
 	private var searchButton: UIButton
 	private var searchInput: UISearchBar
-	private var emojiImage : UIImageView
+	private var emojiImageView : UIImageView
 	private var containerView : UIView
-	var emojiService: EmojiService?
-	var avatarService: LiveAvatarStorage?
+	private var viewModel: MainPageViewModel
 	
-	init() {
-		
+	init(viewModel: MainPageViewModel) {
+		self.viewModel = viewModel
 		randomButton = .init(type: .system)
 		emojiList = .init(type: .system)
 		searchButton = .init(type: .system)
@@ -34,7 +36,7 @@ class MainPageViewControler: UIViewController {
 		avatarList = .init(type: .system)
 		searchInput = .init()
 		containerView = .init(frame : .zero)
-		emojiImage = .init(frame: .zero)
+		emojiImageView = .init(frame: .zero)
 		secondStackView = .init(arrangedSubviews: [searchInput,searchButton])
 		stackView = .init(arrangedSubviews: [randomButton,emojiList,secondStackView,avatarList,repoList])
 		
@@ -43,9 +45,7 @@ class MainPageViewControler: UIViewController {
 	
 	
 	required init(coder: NSCoder) {
-		
 		fatalError("init(coder:) has not been implemented")
-		
 	}
 	
 	
@@ -53,7 +53,15 @@ class MainPageViewControler: UIViewController {
 		
 		super.viewDidLoad()
 		
-		//getEmojis()
+		viewModel.emojiImage.bind { imageUrl in
+
+			self.emojiImageView.image = nil
+			guard let imageUrl = imageUrl else { return }
+			self.emojiImageView.stopLoading()
+			self.emojiImageView.downloadImageFromURL(from: imageUrl)
+		}
+		
+		
 		view.backgroundColor = UIColor.appColor(.primary)
 		view.tintColor = UIColor.appColor(.secondary)
 		setUpView()
@@ -61,6 +69,8 @@ class MainPageViewControler: UIViewController {
 		setUpConstraints()
 		setUpButton()
 		didTapRandomEmojiButton()
+
+		
 		
 	}
 	
@@ -74,6 +84,7 @@ class MainPageViewControler: UIViewController {
 	// 1- setUp the view
 	
 	private func setUpView(){
+		
 		stackView.axis = .vertical
 		secondStackView.axis = .horizontal
 		secondStackView.spacing = CGFloat(5)
@@ -83,7 +94,7 @@ class MainPageViewControler: UIViewController {
 		searchButton.setTitle("SEARCH", for: .normal)
 		avatarList.setTitle("AVATAR LIST", for: .normal)
 		repoList.setTitle("APPLE REPOS", for: .normal)
-		emojiImage.showLoading()
+		emojiImageView.showLoading()
 		
 		
 	}
@@ -119,7 +130,7 @@ class MainPageViewControler: UIViewController {
 	
 	private func addtoSuperView(){
 		view.addSubview(stackView)
-		containerView.addSubview(emojiImage)
+		containerView.addSubview(emojiImageView)
 		view.addSubview(containerView)
 		
 	}
@@ -129,7 +140,7 @@ class MainPageViewControler: UIViewController {
 	private func setUpConstraints(){
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		containerView.translatesAutoresizingMaskIntoConstraints = false
-		emojiImage.translatesAutoresizingMaskIntoConstraints = false
+		emojiImageView.translatesAutoresizingMaskIntoConstraints = false
 		NSLayoutConstraint.activate([
 			stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 			stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 80),
@@ -141,12 +152,12 @@ class MainPageViewControler: UIViewController {
 			containerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0.1 * view.frame.height),
 			containerView.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -0.1 * view.frame.height),
 			
-			emojiImage.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 0.25 * containerView.frame.width),
-			emojiImage.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -0.25 * containerView.frame.width),
-			emojiImage.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 0.25 * containerView.frame.height),
-			emojiImage.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -0.25 * containerView.frame.height)
+			emojiImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 0.25 * containerView.frame.width),
+			emojiImageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -0.25 * containerView.frame.width),
+			emojiImageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 0.25 * containerView.frame.height),
+			emojiImageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -0.25 * containerView.frame.height)
 		])
-		emojiImage.contentMode = .scaleAspectFit
+		emojiImageView.contentMode = .scaleAspectFit
 	}
 	
 	// 5- Button func to call event
@@ -186,48 +197,14 @@ class MainPageViewControler: UIViewController {
 	
 	@objc  func didTapRandomEmojiButton() {
 		
-		emojiService?.fetchEmojis({ [weak self] (result: Result<[Emoji],Error>) in
-			switch result{
-			case .success(let success):
-				
-				guard let randomUrl = success.randomElement()?.imageUrl else { return }
-				self?.emojiImage.stopLoading()
-				
-				self?.emojiImage.downloadImageFromURL(from: randomUrl)
-				
-			case .failure(let failure):
-				print("Failure: \(failure)")
-				self?.emojiImage.image = UIImage(named: "noEmoji")
-			}
-			
-		})
-		
-		
+		viewModel.getRandom()
 	}
-	
 	
 	@objc func saveSearchContent() {
-		guard let searchBarText = searchInput.text else { return }
-		avatarService?.getAvatar(searchText: searchBarText, { (result: Result<Avatar, Error>) in
-			switch result {
-			case .success(let success):
-				
-				let avatarUrl = success.avatarUrl
-				
-				self.emojiImage.downloadImageFromURL(from: avatarUrl)
-				
-			case .failure(let failure):
-				print("Failure to Get Avatar: \(failure)")
-			}
-		})
-	 }
-	
-}
-
-
-extension Array {
-	func item(at: Int) -> Element? {
 		
-		count > at ? self[at] : nil
+		viewModel.searchQuery.value = searchInput.text
 	}
 }
+
+
+

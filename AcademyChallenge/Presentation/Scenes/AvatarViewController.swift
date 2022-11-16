@@ -64,7 +64,7 @@ class AvatarViewController: UIViewController {
 		
 		collectionView.backgroundColor = UIColor.appColor(.primary)
 		
-		collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+		collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: CollectionViewCell.reuseCellIdentifier)
 		
 		collectionView.delegate = self
 		collectionView.dataSource = self
@@ -93,10 +93,8 @@ extension AvatarViewController: UICollectionViewDataSource {
 	}
 
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-		guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CollectionViewCell else {
-
-			return UICollectionViewCell()
-		}
+		
+		 let cell: CollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
 
 		let url = avatarList[indexPath.row].avatarUrl
 		cell.setUpCell(url: url)

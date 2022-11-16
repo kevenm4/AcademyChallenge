@@ -36,6 +36,13 @@
 		4CD834F728FD9F7B00A61AE2 /* Repos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD834F628FD9F7B00A61AE2 /* Repos.swift */; };
 		4CD834F928FDA33900A61AE2 /* LiveReposStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD834F828FDA33900A61AE2 /* LiveReposStorage.swift */; };
 		4CD834FF28FDAAA400A61AE2 /* ReposAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD834FE28FDAAA400A61AE2 /* ReposAPI.swift */; };
+		4CDB74AF2907CF6900DCF27A /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDB74AE2907CF6900DCF27A /* TableViewCell.swift */; };
+		4CDB74B1290833AF00DCF27A /* ProjectConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDB74B0290833AF00DCF27A /* ProjectConstant.swift */; };
+		4CDB74B3290834D500DCF27A /* UICollectionViewCell+ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDB74B2290834D500DCF27A /* UICollectionViewCell+ReusableView.swift */; };
+		4CDB74B5290835D600DCF27A /* UITableViewCell+ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDB74B4290835D600DCF27A /* UITableViewCell+ReusableView.swift */; };
+		4CDB74B7290835F700DCF27A /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDB74B6290835F700DCF27A /* ReusableView.swift */; };
+		4CDB74BC2909362300DCF27A /* MainPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDB74BB2909362300DCF27A /* MainPageViewModel.swift */; };
+		4CDB74BE29093C1600DCF27A /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDB74BD29093C1600DCF27A /* Box.swift */; };
 		4CE31FD728EAD20F00C26B41 /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE31FD628EAD20F00C26B41 /* Avatar.swift */; };
 		4CE31FDB28EB3D7700C26B41 /* LiveAvatarStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE31FDA28EB3D7700C26B41 /* LiveAvatarStorage.swift */; };
 		4CE31FE128EC7D2A00C26B41 /* UIImageView+Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE31FE028EC7D2A00C26B41 /* UIImageView+Download.swift */; };
@@ -80,6 +87,13 @@
 		4CD834F628FD9F7B00A61AE2 /* Repos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repos.swift; sourceTree = "<group>"; };
 		4CD834F828FDA33900A61AE2 /* LiveReposStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveReposStorage.swift; sourceTree = "<group>"; };
 		4CD834FE28FDAAA400A61AE2 /* ReposAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReposAPI.swift; sourceTree = "<group>"; };
+		4CDB74AE2907CF6900DCF27A /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		4CDB74B0290833AF00DCF27A /* ProjectConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectConstant.swift; sourceTree = "<group>"; };
+		4CDB74B2290834D500DCF27A /* UICollectionViewCell+ReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+ReusableView.swift"; sourceTree = "<group>"; };
+		4CDB74B4290835D600DCF27A /* UITableViewCell+ReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+ReusableView.swift"; sourceTree = "<group>"; };
+		4CDB74B6290835F700DCF27A /* ReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableView.swift; sourceTree = "<group>"; };
+		4CDB74BB2909362300DCF27A /* MainPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageViewModel.swift; sourceTree = "<group>"; };
+		4CDB74BD29093C1600DCF27A /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
 		4CE31FD628EAD20F00C26B41 /* Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
 		4CE31FDA28EB3D7700C26B41 /* LiveAvatarStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveAvatarStorage.swift; sourceTree = "<group>"; };
 		4CE31FE028EC7D2A00C26B41 /* UIImageView+Download.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Download.swift"; sourceTree = "<group>"; };
@@ -117,6 +131,14 @@
 				4CD834EE28F7132800A61AE2 /* AvatarCoreData.swift */,
 			);
 			path = DataBase;
+			sourceTree = "<group>";
+		};
+		4CDB74BA290935CD00DCF27A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				4CDB74BB2909362300DCF27A /* MainPageViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		4CE31FE428EC918200C26B41 /* Presentation */ = {
@@ -157,6 +179,7 @@
 				4CCED29528E1ADC600BC8729 /* EmojiListViewController.swift */,
 				4CCED29D28E1BC0900BC8729 /* RepoListViewController.swift */,
 				4CE38D7328DDB5CA0000B72B /* MainPageViewController.swift */,
+				4CDB74B6290835F700DCF27A /* ReusableView.swift */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -165,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				4CD2290828E482A600F11863 /* CollectionViewCell.swift */,
+				4CDB74AE2907CF6900DCF27A /* TableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -217,6 +241,10 @@
 				4CE31FE028EC7D2A00C26B41 /* UIImageView+Download.swift */,
 				4CD834E628F6F88600A61AE2 /* ImageSpinner.swift */,
 				4CD834F228F99D6B00A61AE2 /* NSMOBJ+ToAvatar.swift */,
+				4CDB74B0290833AF00DCF27A /* ProjectConstant.swift */,
+				4CDB74B2290834D500DCF27A /* UICollectionViewCell+ReusableView.swift */,
+				4CDB74B4290835D600DCF27A /* UITableViewCell+ReusableView.swift */,
+				4CDB74BD29093C1600DCF27A /* Box.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -253,6 +281,7 @@
 		4CE38D6E28DDB5CA0000B72B /* AcademyChallenge */ = {
 			isa = PBXGroup;
 			children = (
+				4CDB74BA290935CD00DCF27A /* ViewModel */,
 				4CE31FE628EC91A800C26B41 /* Data */,
 				4CE31FE528EC919700C26B41 /* Domain */,
 				4CE31FE428EC918200C26B41 /* Presentation */,
@@ -367,11 +396,15 @@
 				4CE31FE328EC825200C26B41 /* MockEmojis.swift in Sources */,
 				4CD834F328F99D6B00A61AE2 /* NSMOBJ+ToAvatar.swift in Sources */,
 				4CCED29E28E1BC0900BC8729 /* RepoListViewController.swift in Sources */,
+				4CDB74BE29093C1600DCF27A /* Box.swift in Sources */,
 				4CD834F928FDA33900A61AE2 /* LiveReposStorage.swift in Sources */,
 				4CE31FDB28EB3D7700C26B41 /* LiveAvatarStorage.swift in Sources */,
+				4CDB74B7290835F700DCF27A /* ReusableView.swift in Sources */,
+				4CDB74B1290833AF00DCF27A /* ProjectConstant.swift in Sources */,
 				4CD6203428F016B300225483 /* EmojiListCoordinator.swift in Sources */,
 				4CCED29A28E1B1FD00BC8729 /* MainPageCoordinator.swift in Sources */,
 				4CD2290928E482A600F11863 /* CollectionViewCell.swift in Sources */,
+				4CDB74B5290835D600DCF27A /* UITableViewCell+ReusableView.swift in Sources */,
 				4CD6203828F016F300225483 /* AvatarListCoordinator.swift in Sources */,
 				4CE31FEF28EC93AE00C26B41 /* EmojiResponse.swift in Sources */,
 				4CD834E728F6F88600A61AE2 /* ImageSpinner.swift in Sources */,
@@ -379,6 +412,7 @@
 				4CC7565E290038D7009FDF88 /* APIProtocol.swift in Sources */,
 				4CE8D7D828EEE240002A77C1 /* EmojiService.swift in Sources */,
 				4CC7565828FE9759009FDF88 /* ReposService.swift in Sources */,
+				4CDB74AF2907CF6900DCF27A /* TableViewCell.swift in Sources */,
 				4CE38D7428DDB5CA0000B72B /* MainPageViewController.swift in Sources */,
 				4C5366ED28E5A4B400EE97A3 /* LiveEmojiStorage.swift in Sources */,
 				4CD834DD28F4726800A61AE2 /* GeneralEntity.xcdatamodeld in Sources */,
@@ -392,6 +426,8 @@
 				4CD834EF28F7132800A61AE2 /* AvatarCoreData.swift in Sources */,
 				4CE38D7228DDB5CA0000B72B /* SceneDelegate.swift in Sources */,
 				4CCED29628E1ADC600BC8729 /* EmojiListViewController.swift in Sources */,
+				4CDB74BC2909362300DCF27A /* MainPageViewModel.swift in Sources */,
+				4CDB74B3290834D500DCF27A /* UICollectionViewCell+ReusableView.swift in Sources */,
 				4CD6203A28F0246800225483 /* ApplicationCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
