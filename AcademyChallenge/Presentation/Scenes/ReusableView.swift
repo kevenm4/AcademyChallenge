@@ -7,15 +7,14 @@
 
 import Foundation
 
-
 protocol ReusableView {
-	
+
 	static var reuseCellIdentifier: String {get}
-	
+
 }
 
-extension ReusableView{
-	
+extension ReusableView {
+
 	static var reuseCellIdentifier: String {
 		// the "describring: self" here will make the reuseIdentifier the class name
 		return String(describing: self)

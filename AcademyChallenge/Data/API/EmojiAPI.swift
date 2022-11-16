@@ -7,13 +7,10 @@
 
 import Foundation
 
-
-
 enum EmojiAPI {
 	case getEmojis
 	case postEmoji
 }
-
 
 extension EmojiAPI: APIProtocol {
 

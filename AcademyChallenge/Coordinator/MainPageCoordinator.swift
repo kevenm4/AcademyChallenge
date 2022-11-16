@@ -12,16 +12,19 @@ class MainPageCoordinator: Coordinator {
 	private let presenter: UINavigationController
 	private var mainPageViewController: MainPageViewControler?
 	private var emojis: [Emoji]?
-	
-	init( presenter:UINavigationController){
+    private let application: Application
+
+    init(presenter: UINavigationController, application: Application) {
 		self.presenter = presenter
+        self.application = application
 	}
-	
+
 	func start() {
-		let viewModel = MainPageViewModel(emojiService: emojiSource, avatarService: avatarService)
-		let mainViewController = MainPageViewControler(viewModel: viewModel)
+		let viewModel = MainPagelViewModel()
+        viewModel.application = application
+		let mainViewController = MainPageViewControler()
+		mainViewController.viewModel = viewModel
 		presenter.pushViewController(mainViewController, animated: true)
 		self.mainPageViewController = mainViewController
 	}
 }
-

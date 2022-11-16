@@ -8,25 +8,22 @@
 import Foundation
 import UIKit
 
-
 class RepoListCoordinator: Coordinator {
-	
-	
-	
-	private let presenter : UINavigationController
-	
+
+	private let presenter: UINavigationController
 	private var repoListViewControler: RepoListViewController?
-	
-	init(presenter: UINavigationController){
-		
+    private let reposService: ReposService
+	init(presenter: UINavigationController, reposService: ReposService) {
+        self.reposService = reposService
 		self.presenter = presenter
 	}
 	func start() {
-		
+		let viewModel = ReposListViewModel()
+        viewModel.reposService = reposService
 		let repoListViewController = RepoListViewController()
+		repoListViewController.viewModel = viewModel
 		presenter.pushViewController(repoListViewController, animated: true)
-		repoListViewController.reposService = reposSource
 		self.repoListViewControler = repoListViewController
 	}
-	
+
 }

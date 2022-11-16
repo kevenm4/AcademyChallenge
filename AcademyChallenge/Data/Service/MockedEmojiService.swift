@@ -7,17 +7,15 @@
 
 import UIKit
 
-
 class MockedEmojiService: EmojiService {
-	
+
 	private var mockedemojis: MockEmojis = .init()
-	
-	
+
 	func fetchEmojis(_ resultHandler: @escaping (Result<[Emoji], Error>) -> Void) {
 		resultHandler(.success(mockedemojis.emojis))
 	}
-	
+
 	func deleteEmoji(emojiToDelete: Emoji) {
-		mockedemojis.emojis
+		// mockedemojis.emojis
 	}
 }

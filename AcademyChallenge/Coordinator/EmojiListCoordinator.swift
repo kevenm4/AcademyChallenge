@@ -7,31 +7,26 @@
 
 import UIKit
 
-import UIKit
-
-
 class EmojiListCoordinator: Coordinator {
-	
-	
-	
-	private let presenter : UINavigationController
-	
+
+	private let presenter: UINavigationController
 	private var emojiListViewController: EmojiListViewController?
-	
-	init(presenter: UINavigationController){
-		
+    private let emojiService: EmojiService
+
+    init(presenter: UINavigationController, emojiService: EmojiService) {
+        self.emojiService = emojiService
 		self.presenter = presenter
 	}
 	func start() {
-		
+
+		let viewModel = EmojiListViewModel()
+        viewModel.emojiService = emojiService
 		let emojiListViewController = EmojiListViewController()
-		
-		emojiListViewController.emojiService = emojiSource
-		
+		emojiListViewController.viewModel = viewModel
+
 		presenter.pushViewController(emojiListViewController, animated: true)
-		
+
 		self.emojiListViewController = emojiListViewController
 	}
-	
-}
 
+}
