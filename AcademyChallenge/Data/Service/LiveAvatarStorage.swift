@@ -12,7 +12,7 @@ import CoreData
 import RxSwift
 
 class LiveAvatarStorage {
-    private	var avatarNetwork: Network = .init()
+    private var avatarNetwork: Network = .init()
     private let avatarPersistence: AvatarCoreData
     init(persistentContainer: NSPersistentContainer) {
         avatarPersistence = AvatarCoreData(persistentContainer: persistentContainer)
@@ -20,9 +20,7 @@ class LiveAvatarStorage {
     func fetchAvatar() -> Single<[Avatar]> {
         return avatarPersistence.fetch()
     }
-    
     func getAvatar(searchText: String) -> Observable<Avatar> {
-        
         return avatarPersistence.checkIfItemExist(searchText: searchText)
             .flatMap({ avatar -> Observable<Avatar> in
                 guard
