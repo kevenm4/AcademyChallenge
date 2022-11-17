@@ -25,7 +25,7 @@ class Application {
         })
         emojiSource = LiveEmojiStorage(persistentContainer: persistentContainer)
         avatarService = LiveAvatarStorage(persistentContainer: persistentContainer)
-        reposSource = MockReposService()
+        reposSource = LiveReposStorage()
     }
 
 	static func initialize() {

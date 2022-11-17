@@ -17,15 +17,15 @@ class MockReposService: ReposService {
 		mocks = mockedrepos.appleRepos
 
 	}
-    func fetchRepos(page: Int, size: Int) -> Observable<[Repos]> {
-        return Observable<[Repos]>.create { observer in
+    func fetchRepos(page: Int, size: Int) -> Single<[Repos]> {
+        return Single<[Repos]>.create { single in
             var repos: [Repos] = []
             let endIndex = size * page
             let startIndex = endIndex - size
             if endIndex <= self.mocks.count {
                 repos = [Repos](self.mocks[startIndex...endIndex-1])
             }
-            observer.onNext(repos)
+            single(.success(repos))
             return Disposables.create()
         }
     }

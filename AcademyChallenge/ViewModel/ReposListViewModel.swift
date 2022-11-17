@@ -27,11 +27,16 @@ let size =  Constants.AppleRepos.perPage
         self.page += 1
 
          reposService.fetchRepos(page: page, size: size)
-            .flatMap { result -> Observable<[Repos]> in
+            .subscribe(onSuccess: { [weak self] result in
+
+                guard let self = self else { return }
+
                 self.arrRepos.append(contentsOf: result)
-                return Observable<[Repos]>.just(self.arrRepos)
-            }
-            .subscribe(appleRepos)
+                if result.count < Constants.AppleRepos.perPage {
+                    self.end.value = true
+                }
+                self.appleRepos.onNext(self.arrRepos)
+            })
             .disposed(by: disposeBag)
-    }
+}
 }

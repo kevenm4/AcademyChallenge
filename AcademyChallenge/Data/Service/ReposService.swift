@@ -9,6 +9,6 @@ import Foundation
 import RxSwift
 protocol ReposService {
 
-	func fetchRepos(page: Int, size: Int) -> Observable<[Repos]>
+	func fetchRepos(page: Int, size: Int) -> Single<[Repos]>
 
 }

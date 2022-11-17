@@ -17,19 +17,9 @@ class LiveReposStorage: ReposService {
 
 	// private let persistence: ReposCoreData = .init()
 
-	func fetchRepos(page: Int, size: Int)-> Observable<[Repos]> {
+	func fetchRepos(page: Int, size: Int) -> Single<[Repos]> {
 
         return reposNetwork.rxExecuteNetworkCall(ReposAPI.getRepos(perPage: size, page: page))
-            .asObservable()
+
         }
-//				reposNetwork.executeNetworkCall(ReposAPI.getRepos(perPage: size, page: page))
- //   { (result: Result<[Repos], Error>) in
-//					switch result {
-//					case .success(let success):
-//						resultHandler(.success(success))
-//					case .failure(let failure):
-//						print("Failure: \(failure)")
-//						resultHandler(.failure(failure))
-//					}
-//				}
 		}
