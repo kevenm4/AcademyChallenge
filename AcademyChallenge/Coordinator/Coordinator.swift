@@ -10,6 +10,5 @@ import UIKit
 
 protocol Coordinator: AnyObject {
     var chillCoordinators: [Coordinator] { get set }
-	func start()
-
+    func start()
 }

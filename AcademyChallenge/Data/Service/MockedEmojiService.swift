@@ -12,11 +12,11 @@ class MockedEmojiService: EmojiService {
     func fetchEmojis() -> Single<[Emoji]> {
         return Single.create { single in
             single(.success(self.mockedemojis.emojis))
-           return Disposables.create { }
+            return Disposables.create { }
         }
     }
-
-	func deleteEmoji(emojiToDelete: Emoji) {
-		// mockedemojis.emojis
-	}
+    
+    func deleteEmoji(emojiToDelete: Emoji) {
+        // mockedemojis.emojis
+    }
 }

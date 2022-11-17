@@ -8,16 +8,16 @@
 import Foundation
 
 enum Method: String {
-	case get = "GET"
-	case post = "POST"
+    case get = "GET"
+    case post = "POST"
 }
 
 protocol APIProtocol {
-	var url: URL { get }
-	var method: Method { get }
-	var headers: [String: String] { get }
+    var url: URL { get }
+    var method: Method { get }
+    var headers: [String: String] { get }
 }
 
 enum APIError: Error {
-	case unknownError
+    case unknownError
 }

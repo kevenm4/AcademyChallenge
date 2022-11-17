@@ -8,9 +8,9 @@
 import UIKit
 
 protocol BackToFirstViewControllerDelegate: AnyObject {
-
+    
     func navigateBackToFirstPage()
-
+    
 }
 
 class EmojiListCoordinator: Coordinator {
@@ -18,12 +18,12 @@ class EmojiListCoordinator: Coordinator {
     unowned let presenter: UINavigationController
     private let emojiService: EmojiService
     weak var delegate: BackToFirstViewControllerDelegate?
-
+    
     init(presenter: UINavigationController, emojiService: EmojiService) {
-           self.emojiService = emojiService
-           self.presenter = presenter
-       }
-
+        self.emojiService = emojiService
+        self.presenter = presenter
+    }
+    
     func start() {
         let viewModel = EmojiListViewModel()
         viewModel.emojiService = emojiService
@@ -31,10 +31,10 @@ class EmojiListCoordinator: Coordinator {
         emojiListViewController.delegate = self
         emojiListViewController.viewModel = viewModel
         self.presenter.pushViewController(emojiListViewController,
-                                                     animated: true)
-     //   self.presenter.viewControllers = [emojiListViewController]
+                                          animated: true)
+        //   self.presenter.viewControllers = [emojiListViewController]
     }
-
+    
     //    func start() {
     //
     //        let viewModel = EmojiListViewModel()
@@ -46,7 +46,7 @@ class EmojiListCoordinator: Coordinator {
     //
     //        self.emojiListViewController = emojiListViewController
     //    }
-
+    
 }
 
 extension EmojiListCoordinator: EmojiListViewControlerDelegate {

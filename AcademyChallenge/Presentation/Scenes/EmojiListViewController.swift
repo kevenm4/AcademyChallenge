@@ -26,17 +26,17 @@ class EmojiListViewController: BaseGenericViewController<EmojiView> {
         viewModel?.getEmojisList()
             .observe(on: MainScheduler.instance)
             .subscribe(onSuccess: { emojis in
-
+                
                 self.emoji = emojis
                 self.genericView.collectionView.reloadData()
             },
                        onFailure: { error in
-
+                
                 print("[GetEmojisList-ViewModel] \(error)")
             },
                        onDisposed: {
                 print("GOOOOOOO")
-
+                
             })
             .disposed(by: disposeBag)
     }

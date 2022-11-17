@@ -12,14 +12,13 @@ import CoreData
 //
 import RxSwift
 class LiveReposStorage: ReposService {
-
-	private	var reposNetwork: Network = .init()
-
-	// private let persistence: ReposCoreData = .init()
-
-	func fetchRepos(page: Int, size: Int) -> Single<[Repos]> {
-
+    
+    private	var reposNetwork: Network = .init()
+    // private let persistence: ReposCoreData = .init()
+    
+    func fetchRepos(page: Int, size: Int) -> Single<[Repos]> {
+        
         return reposNetwork.rxExecuteNetworkCall(ReposAPI.getRepos(perPage: size, page: page))
-
-        }
-		}
+        
+    }
+}

@@ -9,10 +9,8 @@ import Foundation
 import UIKit
 
 class ReposView: BaseGenericView {
-
     let tableView = UITableView()
     let loadSpinner: UIActivityIndicatorView = .init(style: .large)
-
     required init() {
         super.init()
         backgroundColor = .appColor(.primary)
@@ -26,7 +24,6 @@ class ReposView: BaseGenericView {
         addToSuper()
         constrainis()
     }
-
     private func setUPtable() {
         tableView.frame = bounds
         tableView.backgroundColor = .clear
@@ -35,12 +32,12 @@ class ReposView: BaseGenericView {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.tableFooterView = loadSpinner
         tableView.register(TableViewCell.self, forCellReuseIdentifier: TableViewCell.reuseCellIdentifier)
-//        tableView.delegate = self
-//        tableView.dataSource = self
+        //        tableView.delegate = self
+        //        tableView.dataSource = self
     }
-
+    
     private func addToSuper() {
-      addSubview(tableView)
+        addSubview(tableView)
     }
     private func constrainis() {
         tableView.translatesAutoresizingMaskIntoConstraints = false

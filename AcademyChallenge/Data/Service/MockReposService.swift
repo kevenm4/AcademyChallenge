@@ -8,15 +8,14 @@
 import Foundation
 import RxSwift
 class MockReposService: ReposService {
-
-	private var mockedrepos: MockRepos  = .init()
-	private let mocks: [Repos]
-
-	init() {
-
-		mocks = mockedrepos.appleRepos
-
-	}
+    private var mockedrepos: MockRepos  = .init()
+    private let mocks: [Repos]
+    
+    init() {
+        
+        mocks = mockedrepos.appleRepos
+        
+    }
     func fetchRepos(page: Int, size: Int) -> Single<[Repos]> {
         return Single<[Repos]>.create { single in
             var repos: [Repos] = []
@@ -29,17 +28,17 @@ class MockReposService: ReposService {
             return Disposables.create()
         }
     }
-
-//	func fetchRepos(page: Int, size: Int, _ resultHandler: @escaping (Result<[Repos], Error>) -> Void) {
-//		var repos: [Repos] = []
-//		let endIndex = size * page
-//		let startIndex = endIndex - size
-//
-//		if endIndex <= mocks.count {
-//			repos = [Repos](mocks[startIndex...endIndex-1])
-//		}
-//
-//	resultHandler(.success(repos))
-//		}
-//
+    
+    //	func fetchRepos(page: Int, size: Int, _ resultHandler: @escaping (Result<[Repos], Error>) -> Void) {
+    //		var repos: [Repos] = []
+    //		let endIndex = size * page
+    //		let startIndex = endIndex - size
+    //
+    //		if endIndex <= mocks.count {
+    //			repos = [Repos](mocks[startIndex...endIndex-1])
+    //		}
+    //
+    //	resultHandler(.success(repos))
+    //		}
+    //
 }

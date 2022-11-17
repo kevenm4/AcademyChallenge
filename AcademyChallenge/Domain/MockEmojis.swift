@@ -15,5 +15,5 @@ class MockEmojis {
         Emoji(name: "gear",
               imageUrl:
                 URL(string: "https://github.githubassets.com/images/icons/emoji/unicode/2699.png?v8")!)]
-
+    
 }

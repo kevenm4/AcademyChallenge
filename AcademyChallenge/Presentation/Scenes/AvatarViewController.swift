@@ -27,12 +27,12 @@ class AvatarViewController: BaseGenericViewController<AvatarView> {
                 self.avatarList = avatar
                 self.genericView.collectionView.reloadData()
             }, onFailure: { error in
-
+                
                 print("[GetEmojisList-ViewModel] \(error)")
             },
                        onDisposed: {
                 print("GOOOOOOO")
-
+                
             })
             .disposed(by: disposeBag)
     }
@@ -60,7 +60,7 @@ extension AvatarViewController: UICollectionViewDataSource {
         alert.addAction(UIAlertAction(title: "Cancel", style: .default))
         alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: {(_: UIAlertAction!) in
             _ = self.avatarList[indexPath.row]
-           // self.viewModel?.deleteAV(avatar: avatar)
+            // self.viewModel?.deleteAV(avatar: avatar)
             self.avatarList.remove(at: indexPath.row)
             collectionView.reloadData()
         }))
@@ -69,11 +69,11 @@ extension AvatarViewController: UICollectionViewDataSource {
 }
 
 extension AvatarViewController: UICollectionViewDelegateFlowLayout {
-
+    
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
-
+        
         return UIEdgeInsets(top: 1.0, left: 8.0, bottom: 1.0, right: 8.0)
     }
     func collectionView (_ collectionView: UICollectionView,

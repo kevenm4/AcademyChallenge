@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 protocol ReposService {
-
-	func fetchRepos(page: Int, size: Int) -> Single<[Repos]>
-
+    
+    func fetchRepos(page: Int, size: Int) -> Single<[Repos]>
+    
 }

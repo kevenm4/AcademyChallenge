@@ -15,44 +15,44 @@ class RepoListViewController: BaseGenericViewController<ReposView> {
     public weak var delegate: ReposViewControlerDelegate?
     var viewModel: ReposListViewModel?
     var repoList: [Repos] = []
-//    let tableView = UITableView()
-//    let loadSpinner: UIActivityIndicatorView = .init(style: .large)
+    //    let tableView = UITableView()
+    //    let loadSpinner: UIActivityIndicatorView = .init(style: .large)
     var page: Int = 0
     var appleReposListRowHeigth: Int = 64
     var tofinished: Bool = true
     var isEnd: Bool = false
     override func viewDidLoad() {
         super.viewDidLoad()
-            genericView.tableView.delegate = self
-            genericView.tableView.dataSource = self
+        genericView.tableView.delegate = self
+        genericView.tableView.dataSource = self
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-//        viewModel?.arrRepos.bind(listener: { [weak self] newArr in
-//            guard let newArr = newArr else {return}
-//            self?.repoList = newArr
-//            DispatchQueue.main.async {
-//                self?.tableView.reloadData()
-//            }
-//        })
-
+        
+        //        viewModel?.arrRepos.bind(listener: { [weak self] newArr in
+        //            guard let newArr = newArr else {return}
+        //            self?.repoList = newArr
+        //            DispatchQueue.main.async {
+        //                self?.tableView.reloadData()
+        //            }
+        //        })
+        
         viewModel?.appleReposReturn
-                .observe(on: MainScheduler.instance)
-                .subscribe(onNext: { appleRepos in
-                    self.repoList = appleRepos
-                    self.genericView.tableView.reloadData()
-                    self.tofinished = true
-                    if self.genericView.tableView.contentSize.height < self.genericView.tableView.frame.size.height {
-                        self.fetchDataTableView()
-                    }
-                    self.genericView.loadSpinner.stopAnimating()
-                }, onError: { error in
-                    print("Get Apple Repos: \(error)")
-                })
-                .disposed(by: disposeBag)
-
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { appleRepos in
+                self.repoList = appleRepos
+                self.genericView.tableView.reloadData()
+                self.tofinished = true
+                if self.genericView.tableView.contentSize.height < self.genericView.tableView.frame.size.height {
+                    self.fetchDataTableView()
+                }
+                self.genericView.loadSpinner.stopAnimating()
+            }, onError: { error in
+                print("Get Apple Repos: \(error)")
+            })
+            .disposed(by: disposeBag)
+        
         viewModel?.end.bind(listener: { [weak self] ended in
             guard let ended = ended else {return}
             self?.isEnd = ended
@@ -60,10 +60,10 @@ class RepoListViewController: BaseGenericViewController<ReposView> {
         viewModel?.fetchDataForTableView()
     }
     func fetchDataTableView() {
-          genericView.loadSpinner.startAnimating()
-          viewModel?.fetchDataForTableView()
-      }
+        genericView.loadSpinner.startAnimating()
+        viewModel?.fetchDataForTableView()
     }
+}
 //    override func viewDidDisappear(_ animated: Bool) {
 //        super.viewDidDisappear(animated)
 //        self.delegate?.navigateToFirstPage()
@@ -117,7 +117,7 @@ extension RepoListViewController: UITableViewDelegate {
         let heightCell = view.frame.height * 0.10
         if  offset > 0 && (offset + heightVisibleScroll + (heightCell)) > heightTable && tofinished && !isEnd {
             tofinished = false
-         fetchDataTableView()
+            fetchDataTableView()
             DispatchQueue.main.async {
                 self.genericView.tableView.reloadData()
             }

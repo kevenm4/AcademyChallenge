@@ -13,7 +13,6 @@ import RxSwift
 class EmojiListViewModel {
     var emojiService: EmojiService?
     var arrEmojis: Box<[Emoji]?> = Box([])
-
     let backgroundScheduler = ConcurrentDispatchQueueScheduler(qos: .background)
     let disposeBag = DisposeBag()
     var ongoingRequests: [String: Observable<UIImage>] = [:]
@@ -28,19 +27,16 @@ class EmojiListViewModel {
             .deferred { [weak self] in
                 guard let self = self else { return Observable.never() }
                 let observable = self.ongoingRequests[url.absoluteString]
-
+                
                 // Verifica se o url já foi guardado no ongoingRequests
                 if observable == nil {
                     self.ongoingRequests[url.absoluteString] = self.dataOfUrl(url)
                 }
-
                 guard let observable = self.ongoingRequests[url.absoluteString] else { return Observable.never() }
-
                 return observable
             }
             .subscribe(on: MainScheduler.instance)
     }
-
     func dataOfUrl(_ url: URL?) -> Observable<UIImage> {
         Observable<URL?>.never().startWith(url)
             .observe(on: backgroundScheduler)
@@ -51,19 +47,15 @@ class EmojiListViewModel {
             .share(replay: 1, scope: .forever)
             .observe(on: MainScheduler.instance)
     }
-
     func getEmojisList() -> Single<[Emoji]> {
         guard let emojiService = emojiService else {
             return Single<[Emoji]>.never()
         }
-
         return emojiService.fetchEmojis()
             .map { emojis in
                 var emojisList = emojis
                 emojisList.sort()
                 return emojisList
             }
-
     }
-
 }
