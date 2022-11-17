@@ -8,15 +8,8 @@
 import UIKit
 //
 import RxSwift
-
-public protocol MainPageViewControlerDelegate: AnyObject {
-    func navigateToEmojiList()
-    func navigateToAvatar()
-    func navigateToRepos()
-}
 class MainPageViewControler: BaseGenericViewController<MainView> {
-    public weak var delegate: MainPageViewControlerDelegate?
-    
+    weak var delegate: MainPageViewControlerDelegate?
     private var emojiListCoordinator: EmojiListCoordinator?
     private var avatarListCoordinator: AvatarListCoordinator?
     private var repoListCoordinator: RepoListCoordinator?
@@ -26,11 +19,9 @@ class MainPageViewControler: BaseGenericViewController<MainView> {
     init() {
         super.init(nibName: nil, bundle: nil)
     }
-    
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -39,12 +30,10 @@ class MainPageViewControler: BaseGenericViewController<MainView> {
             .do(onNext: { [weak self] image in
                 guard image != nil else { return }
                 self?.genericView.emojiImageView.stopLoading()
-                
             })
             .subscribe(genericView.emojiImageView.rx.image)
-                .disposed(by: disposeBag)
-                
-                viewModel?.searchAvatar
+            .disposed(by: disposeBag)
+        viewModel?.searchAvatar
                 .subscribe(genericView.emojiImageView.rx.image)
                 .disposed(by: disposeBag)
                 didTapRandomEmojiButton()
@@ -81,16 +70,12 @@ class MainPageViewControler: BaseGenericViewController<MainView> {
         self.delegate?.navigateToAvatar()
     }
     func didTapRepoiList() {
-        
         self.delegate?.navigateToRepos()
     }
     func didTapRandomEmojiButton() {
-        
         viewModel?.getRandom()
     }
-    
     func saveSearchContent() {
-        
         guard let searchBarText = genericView.searchInput.text else { return }
         viewModel?.getAvatar(searchText: searchBarText)
     }

@@ -28,11 +28,10 @@ class RepoListCoordinator: Coordinator {
                                           animated: true)
         // self.presenter.viewControllers = [repoListViewController]
     }
-    
 }
 
-extension RepoListCoordinator: ReposViewControlerDelegate {
-    func navigateToFirstPage() {
+extension RepoListCoordinator: BackToFirstViewControllerDelegate {
+    func navigateBackToFirstPage() {
         self.delegate?.navigateBackToFirstPage()
     }
 }

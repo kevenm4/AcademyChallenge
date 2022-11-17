@@ -7,12 +7,8 @@
 
 import UIKit
 import RxSwift
-
-public protocol ReposViewControlerDelegate: AnyObject {
-    func navigateToFirstPage()
-}
 class RepoListViewController: BaseGenericViewController<ReposView> {
-    public weak var delegate: ReposViewControlerDelegate?
+    weak var delegate: BackToFirstViewControllerDelegate?
     var viewModel: ReposListViewModel?
     var repoList: [Repos] = []
     //    let tableView = UITableView()
@@ -26,10 +22,8 @@ class RepoListViewController: BaseGenericViewController<ReposView> {
         genericView.tableView.delegate = self
         genericView.tableView.dataSource = self
     }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         //        viewModel?.arrRepos.bind(listener: { [weak self] newArr in
         //            guard let newArr = newArr else {return}
         //            self?.repoList = newArr
@@ -37,7 +31,6 @@ class RepoListViewController: BaseGenericViewController<ReposView> {
         //                self?.tableView.reloadData()
         //            }
         //        })
-        
         viewModel?.appleReposReturn
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { appleRepos in
@@ -52,7 +45,6 @@ class RepoListViewController: BaseGenericViewController<ReposView> {
                 print("Get Apple Repos: \(error)")
             })
             .disposed(by: disposeBag)
-        
         viewModel?.end.bind(listener: { [weak self] ended in
             guard let ended = ended else {return}
             self?.isEnd = ended
@@ -63,6 +55,12 @@ class RepoListViewController: BaseGenericViewController<ReposView> {
         genericView.loadSpinner.startAnimating()
         viewModel?.fetchDataForTableView()
     }
+    
+    deinit {
+        self.delegate?.navigateBackToFirstPage()
+        
+    }
+    
 }
 //    override func viewDidDisappear(_ animated: Bool) {
 //        super.viewDidDisappear(animated)

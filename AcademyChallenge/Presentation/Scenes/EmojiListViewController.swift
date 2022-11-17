@@ -8,13 +8,8 @@
 import UIKit
 //
 import RxSwift
-
-public protocol EmojiListViewControlerDelegate: AnyObject {
-    func navigateToFirstPage()
-}
-
 class EmojiListViewController: BaseGenericViewController<EmojiView> {
-    public weak var delegate: EmojiListViewControlerDelegate?
+    weak var delegate: BackToFirstViewControllerDelegate?
     var emoji: [Emoji]?
     var viewModel: EmojiListViewModel?
     override func viewDidLoad() {
@@ -25,20 +20,21 @@ class EmojiListViewController: BaseGenericViewController<EmojiView> {
         super.viewDidAppear(animated)
         viewModel?.getEmojisList()
             .observe(on: MainScheduler.instance)
-            .subscribe(onSuccess: { emojis in
-                
+            .subscribe(onSuccess: {[weak self] emojis in
+                guard let self = self else { return }
                 self.emoji = emojis
                 self.genericView.collectionView.reloadData()
             },
                        onFailure: { error in
-                
                 print("[GetEmojisList-ViewModel] \(error)")
             },
                        onDisposed: {
                 print("GOOOOOOO")
-                
             })
             .disposed(by: disposeBag)
+    }
+    deinit {
+        self.delegate?.navigateBackToFirstPage()
     }
     //    override func viewDidDisappear(_ animated: Bool) {
     //        super.viewDidDisappear(animated)

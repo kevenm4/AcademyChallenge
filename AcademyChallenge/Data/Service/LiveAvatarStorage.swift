@@ -16,13 +16,10 @@ class LiveAvatarStorage {
     private	var avatarNetwork: Network = .init()
     
     private let avatarPersistence: AvatarCoreData
-    
     init(persistentContainer: NSPersistentContainer) {
         avatarPersistence = AvatarCoreData(persistentContainer: persistentContainer)
     }
-    
     func fetchAvatar() -> Single<[Avatar]> {
-        
         return avatarPersistence.fetch()
     }
     
@@ -41,10 +38,8 @@ class LiveAvatarStorage {
                 return Observable.just(avatar)
             })
     }
-    
     //    func deleteAvatar(avatarToDelete: Avatar) {
     //
     //        avatarPersistence.delete(avatarObject: avatarToDelete)
     //    }
-    
 }

@@ -6,13 +6,8 @@
 //
 
 import UIKit
-
-public protocol AvatarViewControlerDelegate: AnyObject {
-    func navigateToFirstPage()
-}
-
 class AvatarViewController: BaseGenericViewController<AvatarView> {
-    public weak var delegate: AvatarViewControlerDelegate?
+    weak var delegate: BackToFirstViewControllerDelegate?
     var avatarList: [Avatar] = []
     var viewModel: AvatarListViewModel?
     override func viewDidLoad() {
@@ -36,10 +31,13 @@ class AvatarViewController: BaseGenericViewController<AvatarView> {
             })
             .disposed(by: disposeBag)
     }
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        self.delegate?.navigateToFirstPage()
+    deinit {
+        self.delegate?.navigateBackToFirstPage()
     }
+    //    override func viewDidDisappear(_ animated: Bool) {
+    //        super.viewDidDisappear(animated)
+    //        self.delegate?.navigateToFirstPage()
+    //    }
 }
 
 extension AvatarViewController: UICollectionViewDataSource {
@@ -69,11 +67,9 @@ extension AvatarViewController: UICollectionViewDataSource {
 }
 
 extension AvatarViewController: UICollectionViewDelegateFlowLayout {
-    
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
-        
         return UIEdgeInsets(top: 1.0, left: 8.0, bottom: 1.0, right: 8.0)
     }
     func collectionView (_ collectionView: UICollectionView,
