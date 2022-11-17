@@ -10,12 +10,10 @@ import Foundation
 import RxSwift
 
 class Network {
-    
     static func initialize() {
         URLSession.shared.configuration.urlCache?.diskCapacity = 100 * 1024 * 1024
         print("disk cache capacity: \(String(describing: URLSession.shared.configuration.urlCache?.diskCapacity))")
     }
-    
     func executeNetworkCall<ResultType: Decodable>
     (_ call: APIProtocol, _ resultHandler: @escaping (Result<ResultType, Error>) -> Void) {
         let decoder = JSONDecoder()
@@ -24,7 +22,6 @@ class Network {
         call.headers.forEach { (key: String, value: String) in
             request.setValue(value, forHTTPHeaderField: key)
         }
-        
         let task = URLSession.shared.dataTask(with: request) { data, _, error in
             if let data = data {
                 if let result = try? decoder.decode(ResultType.self, from: data) {
@@ -36,7 +33,6 @@ class Network {
                 resultHandler(Result<ResultType, Error>.failure(error))
             }
         }
-        
         task.resume()
     }
     func rxExecuteNetworkCall<ResultType: Decodable>(_ call: APIProtocol) -> Single<ResultType> {
@@ -46,7 +42,6 @@ class Network {
         call.headers.forEach { (key: String, value: String) in
             request.setValue(value, forHTTPHeaderField: key)
         }
-        
         return Single<ResultType>.create { single in
             let task = URLSession.shared.dataTask(with: request) { data, _, error in
                 if let error = error {
@@ -60,12 +55,9 @@ class Network {
                     single(.failure(APIError.unknownError))
                     return
                 }
-                
                 single(.success(result))
             }
-            
             task.resume()
-            
             return Disposables.create { task.cancel() }
         }
     }

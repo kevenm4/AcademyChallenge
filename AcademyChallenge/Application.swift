@@ -14,7 +14,6 @@ class Application {
     let avatarService: LiveAvatarStorage
     let reposSource: ReposService
     let persistentContainer: NSPersistentContainer
-    
     init() {
         persistentContainer = .init(name: "GeneralEntity")
         persistentContainer.loadPersistentStores(completionHandler: { (_, error) in
@@ -24,17 +23,14 @@ class Application {
         })
         emojiSource = LiveEmojiStorage(persistentContainer: persistentContainer)
         avatarService = LiveAvatarStorage(persistentContainer: persistentContainer)
-        reposSource = LiveReposStorage()
+        reposSource = MockReposService()
     }
-    
     static func initialize() {
         let sessionConfiguration = URLSessionConfiguration.default
         sessionConfiguration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
         urlSession = URLSession(configuration: sessionConfiguration)
     }
-    
     // MARK: - Core Data stack
-    
     //    // MARK: - Core Data Saving support
     //        func saveContext () {
     //          let context = persistentContainer.viewContext

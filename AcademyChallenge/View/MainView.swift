@@ -22,14 +22,12 @@ class MainView: BaseGenericView {
     var searchInput: UISearchBar
     var emojiImageView: UIImageView
     var containerView: UIView
-    
     var rxRandomEmojiTap: Observable<Void> {randomButton.rx.tap.asObservable() }
     var rxEmojiListTap: Observable<Void> { emojiList.rx.tap.asObservable() }
     var rxAvatarListTap: Observable<Void> { avatarList.rx.tap.asObservable() }
     var rxAppleReposTap: Observable<Void> { repoList.rx.tap.asObservable() }
     var rxSearchTap: Observable<Void> { searchButton.rx.tap.asObservable() }
     required init() {
-        
         randomButton = .init(type: .system)
         emojiList = .init(type: .system)
         searchButton = .init(type: .system)
@@ -45,10 +43,8 @@ class MainView: BaseGenericView {
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-        
     }
     private func createSubView() {
-        
         setUpView()
         addtoSuperView()
         setUpConstraints()
@@ -68,7 +64,6 @@ class MainView: BaseGenericView {
         repoList.setTitle("APPLE REPOS", for: .normal)
         emojiImageView.showLoading()
     }
-    
     private func setUpButton() {
         randomButton.setTitleColor(.white, for: .normal)
         randomButton.configuration = .filled()
@@ -85,7 +80,6 @@ class MainView: BaseGenericView {
         addSubview(stackView)
         containerView.addSubview(emojiImageView)
         addSubview(containerView)
-        
     }
     private func setUpConstraints() {
         stackView.translatesAutoresizingMaskIntoConstraints = false

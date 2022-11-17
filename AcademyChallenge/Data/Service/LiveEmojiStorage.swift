@@ -9,7 +9,6 @@ import Foundation
 import CoreData
 import RxSwift
 class LiveEmojiStorage: EmojiService {
-    
     private var emojiNetwork: Network = .init()
     
     private let emojiPersistence: EmojiCoreData
@@ -37,9 +36,7 @@ class LiveEmojiStorage: EmojiService {
                 }
                 return Single<[Emoji]>.just(fetchEmojisList)
             }
-        
     }
-    
     //    func rxGetEmojisList() -> Single<[Emoji]> {
     //        // SUBSCRIBE DESTROI OS OBSERVABLES
     //        // SUBSCRIBE APENAS DEVE HAVER NO FIM
@@ -51,9 +48,7 @@ class LiveEmojiStorage: EmojiService {
     //                }
     //
     //    }
-    
     func deleteEmoji(emojiToDelete: Emoji) {
         emojiPersistence.delete(emojiObject: emojiToDelete)
     }
-    
 }

@@ -35,7 +35,6 @@ class ReposView: BaseGenericView {
         //        tableView.delegate = self
         //        tableView.dataSource = self
     }
-    
     private func addToSuper() {
         addSubview(tableView)
     }

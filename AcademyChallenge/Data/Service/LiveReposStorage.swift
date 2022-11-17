@@ -19,6 +19,5 @@ class LiveReposStorage: ReposService {
     func fetchRepos(page: Int, size: Int) -> Single<[Repos]> {
         
         return reposNetwork.rxExecuteNetworkCall(ReposAPI.getRepos(perPage: size, page: page))
-        
     }
 }

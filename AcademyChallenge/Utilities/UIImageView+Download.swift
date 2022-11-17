@@ -26,7 +26,6 @@ func downloadTask(url: URL, placeholder: UIImage = UIImage()) -> Observable<UIIm
 }
 
 extension UIImageView {
-    
     func downloadImage(from url: URL) -> Disposable {
         return downloadTask(url: url)
             .observe(on: MainScheduler.instance)
@@ -45,7 +44,6 @@ extension UIImageView {
                     }
                 }
             } else if let error = error {
-                
                 print("UIImage Download ERROR: \(error)")
             }
         }

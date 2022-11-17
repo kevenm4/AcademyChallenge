@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 //
 import RxSwift
-public class MainPagelViewModel {
+class MainPagelViewModel {
     var application: Application
     //   let emojiImage: Box<URL?> = Box(nil)
     //    let searchQuery: Box<String?> = Box(nil)
@@ -26,7 +26,6 @@ public class MainPagelViewModel {
     var ongoingRequests: [String: Observable<UIImage?>] = [:]
     init(application: Application) {
         self.application = application
-        
         //        searchQuery.bind { [weak self] _ in
         //            self?.saveAndSearchContent()
         //        }
@@ -35,7 +34,6 @@ public class MainPagelViewModel {
             .flatMap({ [weak self] url -> Observable<UIImage?> in
                 guard let self = self else { return Observable.never() }
                 let observable = self.ongoingRequests[url?.absoluteString ?? ""]
-                
                 // Verifica se o url já foi guardado no ongoingRequests
                 if observable == nil {
                     self.ongoingRequests[url?.absoluteString ?? ""] = self.dataOfUrl(url).share(replay: 1,

@@ -12,9 +12,7 @@ import CoreData
 import RxSwift
 
 class LiveAvatarStorage {
-    
     private	var avatarNetwork: Network = .init()
-    
     private let avatarPersistence: AvatarCoreData
     init(persistentContainer: NSPersistentContainer) {
         avatarPersistence = AvatarCoreData(persistentContainer: persistentContainer)

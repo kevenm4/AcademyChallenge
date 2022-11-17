@@ -29,32 +29,25 @@ class CollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     func setUpCell(viewModel: EmojiListViewModel) {
     }
     
     func setUpCells(url: URL) {
-        
         self.imageView.downloadImageFromURL(from: url)
     }
-    
     func setupConstraints() {
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             imageView.topAnchor.constraint(equalTo: self.topAnchor),
             imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
-            
         ])
     }
-    
     override func prepareForReuse() {
         super.prepareForReuse()
         dataTask?.cancel()
         imageView.image = nil
         reusableDisposeBag = DisposeBag()
-        
     }
 }

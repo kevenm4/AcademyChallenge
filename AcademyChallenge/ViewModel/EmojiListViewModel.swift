@@ -27,7 +27,6 @@ class EmojiListViewModel {
             .deferred { [weak self] in
                 guard let self = self else { return Observable.never() }
                 let observable = self.ongoingRequests[url.absoluteString]
-                
                 // Verifica se o url já foi guardado no ongoingRequests
                 if observable == nil {
                     self.ongoingRequests[url.absoluteString] = self.dataOfUrl(url)

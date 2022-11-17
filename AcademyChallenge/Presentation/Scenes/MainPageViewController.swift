@@ -34,7 +34,7 @@ class MainPageViewControler: BaseGenericViewController<MainView> {
             .subscribe(genericView.emojiImageView.rx.image)
             .disposed(by: disposeBag)
         viewModel?.searchAvatar
-                .subscribe(genericView.emojiImageView.rx.image)
+            .subscribe(genericView.emojiImageView.rx.image)
                 .disposed(by: disposeBag)
                 didTapRandomEmojiButton()
                 genericView.rxRandomEmojiTap

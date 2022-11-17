@@ -8,26 +8,6 @@
 import Foundation
 import UIKit
 
-// class MainPageCoordinator: Coordinator {
-//	private let presenter: UINavigationController
-//	private var mainPageViewController: MainPageViewControler?
-//	private var emojis: [Emoji]?
-//    private let application: Application
-//
-//    init(presenter: UINavigationController, application: Application) {
-//		self.presenter = presenter
-//        self.application = application
-//	}
-//
-//	func start() {
-//		let viewModel = MainPagelViewModel()
-//        viewModel.application = application
-//		let mainViewController = MainPageViewControler()
-//		mainViewController.viewModel = viewModel
-//		presenter.pushViewController(mainViewController, animated: true)
-//		self.mainPageViewController = mainViewController
-//	}
-// }
 
 class MainPageCoordinator: Coordinator {
     var chillCoordinators: [Coordinator] = []

@@ -18,7 +18,6 @@ class TableViewCell: UITableViewCell {
     }
     
     func setUpCells(textField: String) {
-        
         let splittedString = textField.split(separator: "/")
         
         self.textLabel?.text = String(splittedString[splittedString.count-1])

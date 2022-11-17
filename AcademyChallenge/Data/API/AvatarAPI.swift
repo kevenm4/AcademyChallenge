@@ -22,14 +22,11 @@ extension AvatarAPI: APIProtocol {
     var headers: [String: String] {
         ["Content-Type": "application/json"]
     }
-    
     var url: URL {
-        
         switch self {
         case .getAvatar(let name):
             
             return URL(string: "\(Constants.baseURL)/users/\(name)")!
         }
     }
-    
 }

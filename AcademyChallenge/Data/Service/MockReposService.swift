@@ -12,9 +12,7 @@ class MockReposService: ReposService {
     private let mocks: [Repos]
     
     init() {
-        
         mocks = mockedrepos.appleRepos
-        
     }
     func fetchRepos(page: Int, size: Int) -> Single<[Repos]> {
         return Single<[Repos]>.create { single in
@@ -28,7 +26,6 @@ class MockReposService: ReposService {
             return Disposables.create()
         }
     }
-    
     //	func fetchRepos(page: Int, size: Int, _ resultHandler: @escaping (Result<[Repos], Error>) -> Void) {
     //		var repos: [Repos] = []
     //		let endIndex = size * page

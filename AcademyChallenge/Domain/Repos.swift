@@ -18,7 +18,6 @@ struct Repos: Decodable {
         case fullName = "full_name"
         case id
         case unique = "private"
-        
     }
     
 }

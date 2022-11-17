@@ -8,7 +8,6 @@
 import Foundation
 
 class MockRepos {
-    
     var appleRepos: [Repos] = [
         Repos(id: 1, fullName: "Repos 1", unique: true),
         Repos(id: 2, fullName: "Repos 2", unique: true),
