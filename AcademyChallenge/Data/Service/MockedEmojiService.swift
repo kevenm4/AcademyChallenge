@@ -6,16 +6,17 @@
 //
 
 import UIKit
-
+import RxSwift
 class MockedEmojiService: EmojiService {
-
-	private var mockedemojis: MockEmojis = .init()
-
-	func fetchEmojis(_ resultHandler: @escaping (Result<[Emoji], Error>) -> Void) {
-		resultHandler(.success(mockedemojis.emojis))
-	}
-
-	func deleteEmoji(emojiToDelete: Emoji) {
-		// mockedemojis.emojis
-	}
+    private var mockedemojis: MockEmojis = .init()
+    func fetchEmojis() -> Single<[Emoji]> {
+        return Single.create { single in
+            single(.success(self.mockedemojis.emojis))
+            return Disposables.create { }
+        }
+    }
+    
+    func deleteEmoji(emojiToDelete: Emoji) {
+        // mockedemojis.emojis
+    }
 }

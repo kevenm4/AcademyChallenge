@@ -26,29 +26,27 @@ func downloadTask(url: URL, placeholder: UIImage = UIImage()) -> Observable<UIIm
 }
 
 extension UIImageView {
-
     func downloadImage(from url: URL) -> Disposable {
         return downloadTask(url: url)
             .observe(on: MainScheduler.instance)
             .do(onNext: { [weak self] image in
                 self?.image = image
-               // self?.contentMode = mode
+                // self?.contentMode = mode
             })
             .subscribe()
     }
-
-//	func downloadImageFromURL(from url: URL) {
-//			let task = URLSession.shared.dataTask(with: url) { data, _, error in
-//				if let data = data {
-//					if let image = UIImage(data: data) {
-//						DispatchQueue.main.async { [weak self] in
-//							self?.image = image
-//						}
-//					}
-//				} else if let error = error {
-//					print("UIImage Download ERROR: \(error)")
-//				}
-//			}
-//			task.resume()
-//		}
-	}
+    func downloadImageFromURL(from url: URL) {
+        let task = URLSession.shared.dataTask(with: url) { data, _, error in
+            if let data = data {
+                if let image = UIImage(data: data) {
+                    DispatchQueue.main.async { [weak self] in
+                        self?.image = image
+                    }
+                }
+            } else if let error = error {
+                print("UIImage Download ERROR: \(error)")
+            }
+        }
+        task.resume()
+    }
+}

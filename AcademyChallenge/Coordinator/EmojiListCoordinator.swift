@@ -6,27 +6,28 @@
 //
 
 import UIKit
-
 class EmojiListCoordinator: Coordinator {
-
-	private let presenter: UINavigationController
-	private var emojiListViewController: EmojiListViewController?
+    var chillCoordinators: [Coordinator] = []
+    let presenter: UINavigationController
     private let emojiService: EmojiService
-
+    weak var delegate: BackToFirstViewControllerDelegate?
     init(presenter: UINavigationController, emojiService: EmojiService) {
         self.emojiService = emojiService
-		self.presenter = presenter
-	}
-	func start() {
-
-		let viewModel = EmojiListViewModel()
+        self.presenter = presenter
+    }
+    func start() {
+        let viewModel = EmojiListViewModel()
         viewModel.emojiService = emojiService
-		let emojiListViewController = EmojiListViewController()
-		emojiListViewController.viewModel = viewModel
+        let emojiListViewController: EmojiListViewController = EmojiListViewController()
+        emojiListViewController.delegate = self
+        emojiListViewController.viewModel = viewModel
+        self.presenter.pushViewController(emojiListViewController,
+                                          animated: true)
+    }
+}
 
-		presenter.pushViewController(emojiListViewController, animated: true)
-
-		self.emojiListViewController = emojiListViewController
-	}
-
+extension EmojiListCoordinator: BackToFirstViewControllerDelegate {
+    func navigateBackToFirstPage() {
+        self.delegate?.navigateBackToFirstPage()
+    }
 }

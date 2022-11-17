@@ -6,11 +6,12 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol EmojiService: AnyObject {
-
-	func fetchEmojis(_ resultHandler: @escaping (Result<[Emoji], Error>) -> Void)
-
-	func deleteEmoji(emojiToDelete: Emoji)
-
+    
+    func fetchEmojis() -> Single<[Emoji]>
+    
+    func deleteEmoji(emojiToDelete: Emoji)
+    
 }

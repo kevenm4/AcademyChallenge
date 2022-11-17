@@ -8,14 +8,14 @@
 import UIKit
 
 enum AssetsColor: String {
-
-	case primary
-	case secondary
+    
+    case primary
+    case secondary
 }
 
 extension UIColor {
-
-	static func appColor(_ name: AssetsColor) -> UIColor? {
-			return UIColor(named: name.rawValue)
-	   }
+    
+    static func appColor(_ name: AssetsColor) -> UIColor? {
+        return UIColor(named: name.rawValue)
+    }
 }

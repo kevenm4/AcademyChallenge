@@ -8,63 +8,34 @@
 import Foundation
 import UIKit
 import CoreData
+// 
+import RxSwift
 
 class LiveAvatarStorage {
-
-    private	var avatarNetwork: Network = .init()
-
+    private var avatarNetwork: Network = .init()
     private let avatarPersistence: AvatarCoreData
-
     init(persistentContainer: NSPersistentContainer) {
         avatarPersistence = AvatarCoreData(persistentContainer: persistentContainer)
     }
-
-    func fetchAvatar(_ resultHandler: @escaping ([Avatar]) -> Void) {
-
-        avatarPersistence.fetch { (result: [Avatar]) in
-            if result.count != 0 {
-                resultHandler(result)
-            }
-        }
+    func fetchAvatar() -> Single<[Avatar]> {
+        return avatarPersistence.fetch()
     }
-
-    func getAvatar(searchText: String, _ resultHandler: @escaping (Result<Avatar, Error>) -> Void) {
-
-        avatarPersistence.checkIfItemExist(searchText: searchText) { ( result: Result<[NSManagedObject], Error>) in
-
-            switch result {
-            case .success(let success):
-                if success.count != 0 {
-
-                    guard let avatarFound = success.first else { return }
-                    guard let avatar = avatarFound.toAvatar() else { return }
-                    resultHandler(.success(avatar))
-                } else {
-
-                    // GET THE AVATAR FROM API
-                    self.avatarNetwork.executeNetworkCall(AvatarAPI.getAvatar(searchText))
-                    { (result: Result<Avatar, Error>) in
-
-                        switch result {
-
-                        case .success(let success):
-                            self.avatarPersistence.persist(currentAvatar: success)
-                            resultHandler(.success(success))
-                        case .failure(let failure):
-                            print("Failure: \(failure)")
-                            resultHandler(.failure(failure))
+    func getAvatar(searchText: String) -> Observable<Avatar> {
+        return avatarPersistence.checkIfItemExist(searchText: searchText)
+            .flatMap({ avatar -> Observable<Avatar> in
+                guard
+                    let avatar = avatar else {
+                    return self.avatarNetwork.rxExecuteNetworkCall(AvatarAPI.getAvatar(searchText))
+                        .do { (result: Avatar) in
+                            self.avatarPersistence.persist(currentAvatar: result)
                         }
-                    }
+                        .asObservable()
                 }
-            case .failure(let failure):
-                print("Failure to verify if avatar exists in Core data: \(failure)")
-            }
-        }
-
+                return Observable.just(avatar)
+            })
     }
-    func deleteAvatar(avatarToDelete: Avatar) {
-
-        avatarPersistence.delete(avatarObject: avatarToDelete)
-    }
-
+    //    func deleteAvatar(avatarToDelete: Avatar) {
+    //
+    //        avatarPersistence.delete(avatarObject: avatarToDelete)
+    //    }
 }

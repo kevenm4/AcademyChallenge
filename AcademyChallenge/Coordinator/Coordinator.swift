@@ -6,9 +6,9 @@
 //
 
 import Foundation
+import UIKit
 
-protocol Coordinator {
-
-	func start()
-
+protocol Coordinator: AnyObject {
+    var chillCoordinators: [Coordinator] { get set }
+    func start()
 }

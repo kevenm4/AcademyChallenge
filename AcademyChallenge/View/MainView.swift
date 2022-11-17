@@ -11,7 +11,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 class MainView: BaseGenericView {
-
+    
     var stackView: UIStackView
     var secondStackView: UIStackView
     var randomButton: UIButton
@@ -22,14 +22,12 @@ class MainView: BaseGenericView {
     var searchInput: UISearchBar
     var emojiImageView: UIImageView
     var containerView: UIView
-
     var rxRandomEmojiTap: Observable<Void> {randomButton.rx.tap.asObservable() }
     var rxEmojiListTap: Observable<Void> { emojiList.rx.tap.asObservable() }
     var rxAvatarListTap: Observable<Void> { avatarList.rx.tap.asObservable() }
     var rxAppleReposTap: Observable<Void> { repoList.rx.tap.asObservable() }
     var rxSearchTap: Observable<Void> { searchButton.rx.tap.asObservable() }
     required init() {
-
         randomButton = .init(type: .system)
         emojiList = .init(type: .system)
         searchButton = .init(type: .system)
@@ -43,14 +41,10 @@ class MainView: BaseGenericView {
         super.init()
         createSubView()
     }
-
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-
     }
-
     private func createSubView() {
-
         setUpView()
         addtoSuperView()
         setUpConstraints()
@@ -70,9 +64,7 @@ class MainView: BaseGenericView {
         repoList.setTitle("APPLE REPOS", for: .normal)
         emojiImageView.showLoading()
     }
-
     private func setUpButton() {
-
         randomButton.setTitleColor(.white, for: .normal)
         randomButton.configuration = .filled()
         emojiList.setTitleColor(.white, for: .normal)
@@ -83,16 +75,12 @@ class MainView: BaseGenericView {
         avatarList.configuration = .filled()
         repoList.setTitleColor(.white, for: .normal)
         repoList.configuration = .filled()
-
     }
-
     private func addtoSuperView() {
         addSubview(stackView)
         containerView.addSubview(emojiImageView)
         addSubview(containerView)
-
     }
-
     private func setUpConstraints() {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         containerView.translatesAutoresizingMaskIntoConstraints = false
@@ -102,12 +90,10 @@ class MainView: BaseGenericView {
             stackView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 80),
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-
             containerView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8),
             containerView.centerXAnchor.constraint(equalTo: centerXAnchor),
             containerView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
             containerView.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -20),
-
             emojiImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor,
                                                     constant: 0.25),
             emojiImageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor,

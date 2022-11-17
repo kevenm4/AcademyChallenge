@@ -6,7 +6,8 @@
 
 import CoreData
 import UIKit
-
+//
+import RxSwift
 class AvatarCoreData {
 
     var avatarPersistence: [NSManagedObject] = []
@@ -43,66 +44,102 @@ class AvatarCoreData {
         }
     }
 
-    func fetch(_ resulthandler: @escaping ([Avatar]) -> Void) {
+    func fetch() -> Single<[Avatar]> {
 
-        var array: [NSManagedObject]
-        var result: [Avatar] = []
+        return Single<[Avatar]>.create { single in
 
-        let managedContext =
-        persistentContainer.viewContext
-        let fetchRequest =
-        NSFetchRequest<NSManagedObject>(entityName: "AvatarEntity")
-        do {
-            array = try managedContext.fetch(fetchRequest)
-            result = array.compactMap({ item in
-                item.toAvatar()
-            })
-            resulthandler(result)
+            let disposeble = Disposables.create { }
 
-        } catch let error as NSError {
+            let managedContext = self.persistentContainer.viewContext
 
-            print("Could not fetch. \(error), \(error.userInfo)")
-        }
+            // FETCH ALL THE DATA FROM THE ENTITY PERSON
+            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AvatarEntity")
 
-    }
-
-    func checkIfItemExist(searchText: String, _ resultHandler: @escaping (Result<[NSManagedObject], Error>) -> Void) {
-
-        let managedContext = self.persistentContainer.viewContext
-
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AvatarEntity")
-
-        fetchRequest.predicate = NSPredicate(format: "login ==[cd] %@", searchText)
-
-        do {
-            let result = try managedContext.fetch(fetchRequest)
-            resultHandler(.success(result))
-        } catch {
-            print(error)
-            resultHandler(.failure(error))
-        }
-
-    }
-
-    func delete(avatarObject: Avatar) {
-
-        let managedContext = self.persistentContainer.viewContext
-
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AvatarEntity")
-
-        fetchRequest.predicate = NSPredicate(format: "login = %@", avatarObject.login)
-
-        do {
-            let avatarToDelete = try managedContext.fetch(fetchRequest)
-            if avatarToDelete.count == 1 {
-                guard let avatar = avatarToDelete.first else { return }
-                managedContext.delete(avatar)
-                try managedContext.save()
+            guard
+                let resultFetch = try? managedContext.fetch(fetchRequest)
+            else {
+                single(.failure(PersisteError.fetchError))
+                return disposeble
             }
 
-        } catch let error as NSError {
-            print("[DELETE AVATAR] Error to delete avatar: \(error)")
+            let result = resultFetch.compactMap({ item -> Avatar? in
+                item.toAvatar()
+            })
+
+            single(.success(result))
+
+            return disposeble
+
         }
 
     }
+
+    func checkIfItemExist(searchText: String) -> Observable<Avatar?> {
+
+        return  Observable<Avatar?>.create { observer in
+
+            let managedContext = self.persistentContainer.viewContext
+            let disposeble: Disposable = Disposables.create()
+            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AvatarEntity")
+
+            fetchRequest.predicate = NSPredicate(format: "login ==[cd] %@", searchText)
+            guard let result: [NSManagedObject] = try?  managedContext.fetch(fetchRequest)
+            else {
+                return disposeble
+
+            }
+            observer.onNext(result.first?.toAvatar())
+
+            return disposeble
+        }
+
+        //        let managedContext = self.persistentContainer.viewContext
+        //
+        //        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AvatarEntity")
+        //
+        //        fetchRequest.predicate = NSPredicate(format: "login ==[cd] %@", searchText)
+        //
+        //        do {
+        //            let result = try managedContext.fetch(fetchRequest)
+        //            resultHandler(.success(result))
+        //        } catch {
+        //            print(error)
+        //            resultHandler(.failure(error))
+        //        }
+
+    }
+
+//    func delete(avatarObject: Avatar)-> Observable<Avatar> {
+
+//        return Observable<Avatar>.create { observer in
+//            let managedContext = self.persistentContainer.viewContext
+//            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AvatarEntity")
+//            fetchRequest.predicate = NSPredicate(format: "login = %@", avatarObject.login)
+//
+//        }
+
+//        let managedContext = self.persistentContainer.viewContext
+//
+//        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AvatarEntity")
+//
+//        fetchRequest.predicate = NSPredicate(format: "login = %@", avatarObject.login)
+//
+//        do {
+//            let avatarToDelete = try managedContext.fetch(fetchRequest)
+//            if avatarToDelete.count == 1 {
+//                guard let avatar = avatarToDelete.first else { return }
+//                managedContext.delete(avatar)
+//                try managedContext.save()
+//            }
+//
+//        } catch let error as NSError {
+//            print("[DELETE AVATAR] Error to delete avatar: \(error)")
+//        }
+
+//    }
+
+    enum PersisteError: Error {
+        case fetchError
+    }
+
 }

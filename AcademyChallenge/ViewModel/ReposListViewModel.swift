@@ -6,45 +6,32 @@
 //
 
 import Foundation
+//
+import RxSwift
 
 class ReposListViewModel {
     var reposService: ReposService?
-    var arrRepos: Box<[Repos]?> = Box([])
+    var arrRepos: [Repos] = []
     var end: Box<Bool?> = Box(false)
     private var page: Int = 0
+    let size =  Constants.AppleRepos.perPage
+    private var appleRepos: PublishSubject<[Repos]> = PublishSubject()
+    var appleReposReturn: Observable<[Repos]> { appleRepos.asObservable() }
+    let disposeBag = DisposeBag()
     func fetchDataForTableView() {
+        guard let reposService = reposService else {
+            return
+        }
         self.page += 1
-        reposService?.fetchRepos(page: page, size: Constants.AppleRepos.AppleReposPagination.perPage,
-                                 { [weak self] (result: Result<[Repos], Error>) in
-
-            switch result {
-            case .success(let success):
-                self?.arrRepos.value?.append(contentsOf: success)
-//                DispatchQueue.main.async { [weak self] in
-//                    // self?.tableView.reloadData()
-//                }
-            case .failure(let failure):
-                print("Failure: \(failure)")
-            }
-        })
-    }
-
-    func scrollTable() {
-        self.page += 1
-        self.reposService?.fetchRepos(page: self.page,
-                                      size: Constants.AppleRepos.AppleReposPagination.perPage,
-                                      { ( result: Result<[Repos], Error>) in
-            switch result {
-            case .success(let success):
-                self.arrRepos.value?.append(contentsOf: success)
-                if success.count < Constants.AppleRepos.AppleReposPagination.perPage {
+        reposService.fetchRepos(page: page, size: size)
+            .subscribe(onSuccess: { [weak self] result in
+                guard let self = self else { return }
+                self.arrRepos.append(contentsOf: result)
+                if result.count < Constants.AppleRepos.perPage {
                     self.end.value = true
                 }
-
-            case .failure(let failure):
-                print("[PREFETCH] Error : \(failure)")
-            }
-        })
-
+                self.appleRepos.onNext(self.arrRepos)
+            })
+            .disposed(by: disposeBag)
     }
 }

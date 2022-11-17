@@ -6,16 +6,18 @@
 //
 
 import Foundation
-
+//
+import RxSwift
 class AvatarListViewModel {
-    	var avatarService: LiveAvatarStorage?
-    	var arrAvatar: Box<[Avatar]?> = Box([])
-    func getAvatar() {
-        avatarService?.fetchAvatar({ (result: [Avatar]) in
-            self.arrAvatar.value = result
-        })
+    var avatarService: LiveAvatarStorage?
+    var arrAvatar: Box<[Avatar]?> = Box([])
+    func getAvatar() -> Single<[Avatar]> {
+        guard let avatarService = avatarService else {
+            return Single<[Avatar]>.never()
+        }
+        return avatarService.fetchAvatar()
     }
-    func deleteAV(avatar: Avatar) {
-        self.avatarService?.deleteAvatar(avatarToDelete: avatar)
-    }
+    //    func deleteAV(avatar: Avatar) {
+    //        self.avatarService?.deleteAvatar(avatarToDelete: avatar)
+    //    }
 }
