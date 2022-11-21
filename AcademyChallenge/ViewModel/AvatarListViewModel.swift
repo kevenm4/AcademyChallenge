@@ -17,7 +17,16 @@ class AvatarListViewModel {
         }
         return avatarService.fetchAvatar()
     }
-    //    func deleteAV(avatar: Avatar) {
-    //        self.avatarService?.deleteAvatar(avatarToDelete: avatar)
-    //    }
+        func deleteAV(avatar: Avatar) -> Completable {
+            guard let avatarService = avatarService else {
+                return Completable.error(ErrorSend.serviceError)
+            }
+
+            return avatarService.deleteAvatar(avatarToDelete: avatar)
+        }
+
+    enum ErrorSend: Error {
+
+    case serviceError
+    }
 }

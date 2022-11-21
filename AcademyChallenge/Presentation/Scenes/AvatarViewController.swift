@@ -22,12 +22,10 @@ class AvatarViewController: BaseGenericViewController<AvatarView> {
                 self.avatarList = avatar
                 self.genericView.collectionView.reloadData()
             }, onFailure: { error in
-                
                 print("[GetEmojisList-ViewModel] \(error)")
             },
                        onDisposed: {
                 print("GOOOOOOO")
-                
             })
             .disposed(by: disposeBag)
     }
@@ -57,10 +55,21 @@ extension AvatarViewController: UICollectionViewDataSource {
                                       message: "Are you sure you want delete ?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .default))
         alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: {(_: UIAlertAction!) in
-            _ = self.avatarList[indexPath.row]
-            // self.viewModel?.deleteAV(avatar: avatar)
+            let avatar = self.avatarList[indexPath.row]
+            self.viewModel?.deleteAV(avatar: avatar )
+                .subscribe {  completable in
+                    switch completable {
+                    case.completed:
+                        print("Avatar deleted")
+                        collectionView.reloadData()
+
+                    case.error(let error):
+                        print("Completed with an error: \(error.localizedDescription)")
+                    }
+                }
+                .disposed(by: self.disposeBag)
             self.avatarList.remove(at: indexPath.row)
-            collectionView.reloadData()
+            // collectionView.reloadData()
         }))
         self.present(alert, animated: true, completion: nil)
     }

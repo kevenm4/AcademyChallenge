@@ -106,17 +106,32 @@ class AvatarCoreData {
         //            print(error)
         //            resultHandler(.failure(error))
         //        }
-
     }
+    func delete(avatarObject: Avatar) -> Completable {
+        return Completable.create { completable in
+            let managedContext = self.persistentContainer.viewContext
+            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AvatarEntity")
+            fetchRequest.predicate = NSPredicate(format: "login = %@", avatarObject.login)
 
-//    func delete(avatarObject: Avatar)-> Observable<Avatar> {
-
-//        return Observable<Avatar>.create { observer in
-//            let managedContext = self.persistentContainer.viewContext
-//            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AvatarEntity")
-//            fetchRequest.predicate = NSPredicate(format: "login = %@", avatarObject.login)
-//
-//        }
+            do {
+                let avatarToDelete = try? managedContext.fetch(fetchRequest)
+                if avatarToDelete?.count == 1 {
+                    guard let avatar = avatarToDelete?.first else { return Disposables.create {}}
+                    managedContext.delete(avatar)
+                    try? managedContext.save()
+                }
+            } catch {
+                completable(.error(PersisteError.fetchError))
+                return Disposables.create {}
+            }
+            completable(.completed)
+            return Disposables.create {}
+        }
+    }
+    enum PersisteError: Error {
+        case fetchError
+    }
+}
 
 //        let managedContext = self.persistentContainer.viewContext
 //
@@ -135,11 +150,3 @@ class AvatarCoreData {
 //        } catch let error as NSError {
 //            print("[DELETE AVATAR] Error to delete avatar: \(error)")
 //        }
-
-//    }
-
-    enum PersisteError: Error {
-        case fetchError
-    }
-
-}

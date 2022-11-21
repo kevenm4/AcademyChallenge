@@ -19,7 +19,6 @@ extension ReposAPI: APIProtocol {
             return .get
         }
     }
-    
     var headers: [String: String] {
         ["Content-Type": "application/json"]
     }

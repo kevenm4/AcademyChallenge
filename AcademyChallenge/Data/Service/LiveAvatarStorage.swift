@@ -34,8 +34,8 @@ class LiveAvatarStorage {
                 return Observable.just(avatar)
             })
     }
-    //    func deleteAvatar(avatarToDelete: Avatar) {
-    //
-    //        avatarPersistence.delete(avatarObject: avatarToDelete)
-    //    }
+        func deleteAvatar(avatarToDelete: Avatar) -> Completable {
+
+          return avatarPersistence.delete(avatarObject: avatarToDelete)
+        }
 }
