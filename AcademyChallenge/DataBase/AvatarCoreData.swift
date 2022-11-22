@@ -58,7 +58,7 @@ class AvatarCoreData {
             guard
                 let resultFetch = try? managedContext.fetch(fetchRequest)
             else {
-                single(.failure(ConstantsError.fetchError))
+                single(.failure(CoreDataError.fetchError))
                 return disposeble
             }
 
@@ -121,7 +121,7 @@ class AvatarCoreData {
                     try? managedContext.save()
                 }
             } catch {
-                completable(.error(ConstantsError.fetchError))
+                completable(.error(CoreDataError.fetchError))
                 return Disposables.create {}
             }
             completable(.completed)

@@ -62,7 +62,7 @@ extension AvatarViewController: UICollectionViewDataSource {
                     case.completed:
                         print("Avatar deleted")
                         collectionView.reloadData()
-                        
+
                     case.error(let error):
                         print("Completed with an error: \(error.localizedDescription)")
                     }

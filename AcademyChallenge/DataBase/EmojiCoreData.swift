@@ -69,7 +69,7 @@ class EmojiCoreData {
 
             let disposeble = Disposables.create { }
             guard let self = self
-            else { single(.failure(PersisteError.fetchError))
+            else { single(.failure(CoreDataError.fetchError))
 
                 return disposeble
             }
@@ -82,7 +82,7 @@ class EmojiCoreData {
             guard
                 let resultFetch = try? managedContext.fetch(fetchRequest)
             else {
-                single(.failure(PersisteError.fetchError))
+                single(.failure(CoreDataError.fetchError))
                 return disposeble
             }
 
@@ -119,9 +119,4 @@ class EmojiCoreData {
         }
 
     }
-
-    enum PersisteError: Error {
-        case fetchError
-    }
-
 }

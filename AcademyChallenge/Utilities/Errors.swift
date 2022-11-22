@@ -7,7 +7,12 @@
 
 import Foundation
 
-enum ConstantsError: Error {
-case serviceError
-case fetchError
+
+enum CoreDataError: Error {
+    case fetchError
+}
+
+enum DeleteError: Error {
+    case parse
+    case unauthorized
 }
