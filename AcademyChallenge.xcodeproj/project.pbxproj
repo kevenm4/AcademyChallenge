@@ -71,7 +71,7 @@
 		4CE8D7D828EEE240002A77C1 /* EmojiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8D7D728EEE240002A77C1 /* EmojiService.swift */; };
 		4CE8D7DA28EEE3DB002A77C1 /* MockedEmojiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8D7D928EEE3DB002A77C1 /* MockedEmojiService.swift */; };
 		4CEACF3129127BAD00996441 /* NSMOBJ+ToEmoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEACF3029127BAD00996441 /* NSMOBJ+ToEmoji.swift */; };
-		4CFFB970292CF11A0050219B /* EmojiService+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFFB96F292CF11A0050219B /* EmojiService+Rx.swift */; };
+		4CFFB972292D33AC0050219B /* ConstantsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFFB971292D33AC0050219B /* ConstantsError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -137,7 +137,7 @@
 		4CE8D7D728EEE240002A77C1 /* EmojiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiService.swift; sourceTree = "<group>"; };
 		4CE8D7D928EEE3DB002A77C1 /* MockedEmojiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedEmojiService.swift; sourceTree = "<group>"; };
 		4CEACF3029127BAD00996441 /* NSMOBJ+ToEmoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMOBJ+ToEmoji.swift"; sourceTree = "<group>"; };
-		4CFFB96F292CF11A0050219B /* EmojiService+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmojiService+Rx.swift"; sourceTree = "<group>"; };
+		4CFFB971292D33AC0050219B /* ConstantsError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantsError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -304,7 +304,7 @@
 				4CEACF3029127BAD00996441 /* NSMOBJ+ToEmoji.swift */,
 				4C316F0D29268315004AE0ED /* BackToFirstViewControllerDelegate.swift */,
 				4C316F0F29268496004AE0ED /* MainPageViewControlerDelegate.swift */,
-				4CFFB96F292CF11A0050219B /* EmojiService+Rx.swift */,
+				4CFFB971292D33AC0050219B /* ConstantsError.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -476,6 +476,7 @@
 				4CABE5CC28E725AC00EC7DDA /* Network.swift in Sources */,
 				4CABE5CA28E703EE00EC7DDA /* Application.swift in Sources */,
 				4CC7565C29002E39009FDF88 /* MockReposService.swift in Sources */,
+				4CFFB972292D33AC0050219B /* ConstantsError.swift in Sources */,
 				4C4291A729155F1F00108BF7 /* BaseGenericViewController.swift in Sources */,
 				4CE31FF128EC941C00C26B41 /* EmojiAPI.swift in Sources */,
 				4CD834FF28FDAAA400A61AE2 /* ReposAPI.swift in Sources */,
@@ -502,7 +503,6 @@
 				4CD834E728F6F88600A61AE2 /* ImageSpinner.swift in Sources */,
 				4C4291A4291520BB00108BF7 /* MainView.swift in Sources */,
 				4CE8D7DA28EEE3DB002A77C1 /* MockedEmojiService.swift in Sources */,
-				4CFFB970292CF11A0050219B /* EmojiService+Rx.swift in Sources */,
 				4CC7565E290038D7009FDF88 /* APIProtocol.swift in Sources */,
 				4CE8D7D828EEE240002A77C1 /* EmojiService.swift in Sources */,
 				4CC7565828FE9759009FDF88 /* ReposService.swift in Sources */,

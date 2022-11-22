@@ -58,7 +58,7 @@ class AvatarCoreData {
             guard
                 let resultFetch = try? managedContext.fetch(fetchRequest)
             else {
-                single(.failure(PersisteError.fetchError))
+                single(.failure(ConstantsError.fetchError))
                 return disposeble
             }
 
@@ -107,11 +107,11 @@ class AvatarCoreData {
         //            resultHandler(.failure(error))
         //        }
     }
-    func delete(avatarObject: Avatar) -> Completable {
+    func delete(avatar: Avatar) -> Completable {
         return Completable.create { completable in
             let managedContext = self.persistentContainer.viewContext
             let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AvatarEntity")
-            fetchRequest.predicate = NSPredicate(format: "login = %@", avatarObject.login)
+            fetchRequest.predicate = NSPredicate(format: "login = %@", avatar.login)
 
             do {
                 let avatarToDelete = try? managedContext.fetch(fetchRequest)
@@ -121,15 +121,12 @@ class AvatarCoreData {
                     try? managedContext.save()
                 }
             } catch {
-                completable(.error(PersisteError.fetchError))
+                completable(.error(ConstantsError.fetchError))
                 return Disposables.create {}
             }
             completable(.completed)
             return Disposables.create {}
         }
-    }
-    enum PersisteError: Error {
-        case fetchError
     }
 }
 

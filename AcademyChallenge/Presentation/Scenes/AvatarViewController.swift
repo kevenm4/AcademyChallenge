@@ -56,13 +56,13 @@ extension AvatarViewController: UICollectionViewDataSource {
         alert.addAction(UIAlertAction(title: "Cancel", style: .default))
         alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: {(_: UIAlertAction!) in
             let avatar = self.avatarList[indexPath.row]
-            self.viewModel?.deleteAV(avatar: avatar )
+            self.viewModel?.delete(avatar: avatar )
                 .subscribe {  completable in
                     switch completable {
                     case.completed:
                         print("Avatar deleted")
                         collectionView.reloadData()
-
+                        
                     case.error(let error):
                         print("Completed with an error: \(error.localizedDescription)")
                     }

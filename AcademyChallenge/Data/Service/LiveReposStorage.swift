@@ -15,6 +15,6 @@ class LiveReposStorage: ReposService {
     private	var reposNetwork: Network = .init()
     // private let persistence: ReposCoreData = .init()
     func fetchRepos(page: Int, size: Int) -> Single<[Repos]> {        
-        return reposNetwork.rx.rxExecuteNetworkCall(ReposAPI.getRepos(perPage: size, page: page))
+        return reposNetwork.rx.executeNetworkCall(ReposAPI.getRepos(perPage: size, page: page))
     }
 }

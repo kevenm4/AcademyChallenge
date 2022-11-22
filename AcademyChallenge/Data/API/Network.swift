@@ -21,7 +21,7 @@ class Network: ReactiveCompatible {
 
 extension Reactive where Base: Network {
 
-    func rxExecuteNetworkCall<ResultType: Decodable>(_ call: APIProtocol) -> Single<ResultType> {
+    func executeNetworkCall<ResultType: Decodable>(_ call: APIProtocol) -> Single<ResultType> {
         let decoder = JSONDecoder()
         var request = URLRequest(url: call.url)
         request.httpMethod = call.method.rawValue
