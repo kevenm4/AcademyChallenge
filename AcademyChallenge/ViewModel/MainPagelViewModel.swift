@@ -11,9 +11,6 @@ import UIKit
 import RxSwift
 class MainPagelViewModel {
     var application: Application
-    //   let emojiImage: Box<URL?> = Box(nil)
-    //    let searchQuery: Box<String?> = Box(nil)
-    //    var arrEmojis: Box<[Emoji]?> = Box([])
     let backgroundScheduler = SerialDispatchQueueScheduler(internalSerialQueueName:
                                                             "MainPageViewModel.backgroundScheduler")
     private var rxEmojiImageUrl: BehaviorSubject<URL?> = BehaviorSubject(value: nil)
@@ -26,9 +23,6 @@ class MainPagelViewModel {
     var ongoingRequests: [String: Observable<UIImage?>] = [:]
     init(application: Application) {
         self.application = application
-        //        searchQuery.bind { [weak self] _ in
-        //            self?.saveAndSearchContent()
-        //        }
         rxEmojiImageUrl
             .debug("rxEmojiImageUrl")
             .flatMap({ [weak self] url -> Observable<UIImage?> in

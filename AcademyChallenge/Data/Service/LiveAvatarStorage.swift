@@ -25,7 +25,7 @@ class LiveAvatarStorage {
             .flatMap({ avatar -> Observable<Avatar> in
                 guard
                     let avatar = avatar else {
-                    return self.avatarNetwork.rxExecuteNetworkCall(AvatarAPI.getAvatar(searchText))
+                    return self.avatarNetwork.rx.rxExecuteNetworkCall(AvatarAPI.getAvatar(searchText))
                         .do { (result: Avatar) in
                             self.avatarPersistence.persist(currentAvatar: result)
                         }
