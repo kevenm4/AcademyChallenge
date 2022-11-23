@@ -32,6 +32,26 @@ class AvatarViewController: BaseGenericViewController<AvatarView> {
     deinit {
         self.delegate?.navigateBackToFirstPage()
     }
+
+    private func deleteAlert(indexPath: IndexPath) {
+        let alert = genericView.createDeleteAlert { [weak self] in
+            guard let self = self else { return }
+            let avatar = self.avatarList[indexPath.row]
+            self.viewModel?.delete(avatar: avatar )
+                .subscribe {  completable in
+                    switch completable {
+                    case.completed:
+                        print("Avatar deleted")
+                        self.genericView.collectionView.reloadData()
+                    case.error(let error):
+                        print("Completed with an error: \(error.localizedDescription)")
+                    }
+                }
+                .disposed(by: self.disposeBag)
+            self.avatarList.remove(at: indexPath.row)
+        }
+        self.present(alert, animated: true, completion: nil)
+    }
 }
 
 extension AvatarViewController: UICollectionViewDataSource {
@@ -47,26 +67,9 @@ extension AvatarViewController: UICollectionViewDataSource {
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
-        let alert = genericView.createDeleteAlert { [weak self] in
-            guard let self = self else { return }
-            let avatar = self.avatarList[indexPath.row]
-            self.viewModel?.delete(avatar: avatar )
-                .subscribe {  completable in
-                    switch completable {
-                    case.completed:
-                        print("Avatar deleted")
-                        collectionView.reloadData()
-
-                    case.error(let error):
-                        print("Completed with an error: \(error.localizedDescription)")
-                    }
-                }
-                .disposed(by: self.disposeBag)
-            self.avatarList.remove(at: indexPath.row)
-        }
-        self.present(alert, animated: true, completion: nil)
+        deleteAlert(indexPath: indexPath)
     }
+
 }
 
 extension AvatarViewController: UICollectionViewDelegateFlowLayout {

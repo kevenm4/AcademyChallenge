@@ -66,4 +66,3 @@ class AvatarView: BaseGenericView {
         return alert
     }
 }
-
