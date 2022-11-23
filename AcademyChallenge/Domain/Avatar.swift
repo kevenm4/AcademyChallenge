@@ -8,7 +8,6 @@ import UIKit
 import Foundation
 
 struct Avatar: Decodable {
-    
     let login: String
     let id: Int
     let avatarUrl: URL

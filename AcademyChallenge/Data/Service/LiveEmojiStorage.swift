@@ -16,19 +16,16 @@ class LiveEmojiStorage: EmojiService {
     init(persistentContainer: NSPersistentContainer) {
         emojiPersistence = EmojiCoreData(persistentContainer: persistentContainer)
     }
-    
     func persistEmjis(emojis: [Emoji]) {
         emojis.forEach { emoji in
             emojiPersistence.persist(name: emoji.name, imageUrl: emoji.imageUrl.absoluteString)
         }
     }
-    
-    func fetchEmojis() -> Single<[Emoji]> {
-        
+    func fetchEmojis() -> Single<[Emoji]> {        
         return emojiPersistence.fetch()
             .flatMap { fetchEmojisList in
                 if fetchEmojisList.isEmpty {
-                    return self.emojiNetwork.rxExecuteNetworkCall(EmojiAPI.getEmojis)
+                    return self.emojiNetwork.rx.executeNetworkCall(EmojiAPI.getEmojis)
                         .map { (emojisResult: EmojiResponse) in
                             self.persistEmjis(emojis: emojisResult.emojis)
                             return emojisResult.emojis

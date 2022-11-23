@@ -51,25 +51,18 @@ class AvatarView: BaseGenericView {
         collectionView.backgroundColor = UIColor.appColor(.primary)
         collectionView.register(CollectionViewCell.self,
                                 forCellWithReuseIdentifier: CollectionViewCell.reuseCellIdentifier)
-        // collectionView.delegate = self
+
+    }
+
+    func createDeleteAlert(_ deleteFunction: @escaping () -> Void) -> UIAlertController {
+        let alert = UIAlertController(title: "Delete Avatar",
+                                      message: "Are you sure you want delete ?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default))
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: {(_: UIAlertAction!) in
+
+            deleteFunction()
+
+        }))
+        return alert
     }
 }
-
-// extension AvatarView: UICollectionViewDelegateFlowLayout {
-//
-//    func collectionView(_ collectionView: UICollectionView,
-//                        layout collectionViewLayout: UICollectionViewLayout,
-//                        insetForSectionAt section: Int) -> UIEdgeInsets {
-//
-//        return UIEdgeInsets(top: 1.0, left: 8.0, bottom: 1.0, right: 8.0)
-//    }
-//
-//    func collectionView (_ collectionView: UICollectionView,
-//                         layout collectionViewLayout: UICollectionViewLayout,
-//                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        guard  let layout = collectionViewLayout as? UICollectionViewFlowLayout else {return .zero}
-//        let widthPerItem = collectionView.frame.width / 3 - layout.minimumInteritemSpacing
-//        return CGSize(width: widthPerItem - 8, height: widthPerItem)
-//
-//    }
-// }

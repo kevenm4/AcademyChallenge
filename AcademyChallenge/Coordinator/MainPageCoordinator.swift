@@ -7,8 +7,6 @@
 
 import Foundation
 import UIKit
-
-
 class MainPageCoordinator: Coordinator {
     var chillCoordinators: [Coordinator] = []
     var application: Application

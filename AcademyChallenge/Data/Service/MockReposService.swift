@@ -10,7 +10,6 @@ import RxSwift
 class MockReposService: ReposService {
     private var mockedrepos: MockRepos  = .init()
     private let mocks: [Repos]
-    
     init() {
         mocks = mockedrepos.appleRepos
     }

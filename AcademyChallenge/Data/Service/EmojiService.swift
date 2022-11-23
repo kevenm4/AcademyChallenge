@@ -12,6 +12,5 @@ protocol EmojiService: AnyObject {
     
     func fetchEmojis() -> Single<[Emoji]>
     
-    func deleteEmoji(emojiToDelete: Emoji)
-    
+    func deleteEmoji(emojiToDelete: Emoji)    
 }

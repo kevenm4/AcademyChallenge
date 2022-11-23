@@ -25,7 +25,7 @@ class LiveAvatarStorage {
             .flatMap({ avatar -> Observable<Avatar> in
                 guard
                     let avatar = avatar else {
-                    return self.avatarNetwork.rxExecuteNetworkCall(AvatarAPI.getAvatar(searchText))
+                    return self.avatarNetwork.rx.executeNetworkCall(AvatarAPI.getAvatar(searchText))
                         .do { (result: Avatar) in
                             self.avatarPersistence.persist(currentAvatar: result)
                         }
@@ -34,8 +34,8 @@ class LiveAvatarStorage {
                 return Observable.just(avatar)
             })
     }
-    //    func deleteAvatar(avatarToDelete: Avatar) {
-    //
-    //        avatarPersistence.delete(avatarObject: avatarToDelete)
-    //    }
+        func deleteAvatar(avatarToDelete: Avatar) -> Completable {
+
+          return avatarPersistence.delete(avatar: avatarToDelete)
+        }
 }
