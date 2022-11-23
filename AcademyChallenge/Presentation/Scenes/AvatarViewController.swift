@@ -32,10 +32,6 @@ class AvatarViewController: BaseGenericViewController<AvatarView> {
     deinit {
         self.delegate?.navigateBackToFirstPage()
     }
-    //    override func viewDidDisappear(_ animated: Bool) {
-    //        super.viewDidDisappear(animated)
-    //        self.delegate?.navigateToFirstPage()
-    //    }
 }
 
 extension AvatarViewController: UICollectionViewDataSource {
@@ -51,10 +47,9 @@ extension AvatarViewController: UICollectionViewDataSource {
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let alert = UIAlertController(title: "Delete Avatar",
-                                      message: "Are you sure you want delete ?", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Cancel", style: .default))
-        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: {(_: UIAlertAction!) in
+
+        let alert = genericView.createDeleteAlert { [weak self] in
+            guard let self = self else { return }
             let avatar = self.avatarList[indexPath.row]
             self.viewModel?.delete(avatar: avatar )
                 .subscribe {  completable in
@@ -69,8 +64,7 @@ extension AvatarViewController: UICollectionViewDataSource {
                 }
                 .disposed(by: self.disposeBag)
             self.avatarList.remove(at: indexPath.row)
-            // collectionView.reloadData()
-        }))
+        }
         self.present(alert, animated: true, completion: nil)
     }
 }
